@@ -1,0 +1,95 @@
+
+;LSI C parser ver 3.5.10pv<D> Copyright (C) 1988-1999 by LSI JAPAN [Dec 16 1999]
+;LSI i8086 CG ver 3.5.11.1pv<D> Copyright (C) 1988-1991, 1995-2000 by LSI JAPAN [Mar 28 2000]
+
+
+DGROUP	GROUP	DATA,BSS
+
+DATA	DSEG
+
+BSS	DSEG
+
+
+
+SOUND_CODE	CSEG
+
+;
+;
+;void SOUND_INIT()
+
+SOUND_INIT_::
+;{
+;}
+	RETF
+
+
+
+
+;
+;void SDREQ()
+
+SDREQ_::
+;{
+;}
+	RETF
+
+
+
+
+;
+;void SOUND()
+
+SOUND_::
+;{
+;}
+	RETF
+
+
+
+
+;
+;void VOREQ()
+
+VOREQ_::
+;{
+;}
+	RETF
+
+
+
+
+;
+;void VOICE()
+
+VOICE_::
+;{
+;}
+	RETF
+
+
+
+
+;
+;void CHECK_VOICE()
+
+CHECK_VOICE_::
+;{
+;}
+	RETF
+
+
+
+
+;
+;void CHECK_SE()
+
+CHECK_SE_::
+;{
+;}
+	RETF
+
+
+
+;core used: 2072
+
+	END

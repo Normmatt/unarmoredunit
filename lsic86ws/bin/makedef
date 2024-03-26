@@ -1,0 +1,77 @@
+#Default rules for km-make
+
+.SUFFIXES: .exe .obj .sof .elf .a86 .p86 .asm .asz .ask .psm .psz .psk .src .mac .c .y
+
+YFLAGS =
+CFLAGS =
+AFLAGS =
+YACC = yacc
+CC = lcc86
+CC80 = lcc80
+CC160 = lcc160
+RM = del
+MV = ren
+
+.y.c:
+	$(YACC) $(YFLAGS) $<
+	$(MV) y.tab.c $@
+
+#For 8086 Compilers
+
+.y.obj:
+	$(YACC) $(YFLAGS) $<
+	$(MV) y.tab.c $*.c
+	$(CC) $(CFLAGS) -c -o $@ $*.c
+	$(RM) $*.c
+
+.asm.obj:
+	masm $</mx;
+
+.a86.obj:
+	r86 $(AFLAGS) -o $@ $<
+
+.c.obj .p86.obj:
+	$(CC) $(CFLAGS) -c $<
+
+.obj.exe .c.exe .a86.exe .p86.exe:
+	$(CC) $(CFLAGS) -o $@ $#
+
+#For 8080/Z80 Compilers
+
+.y.sof:
+	$(YACC) $(YFLAGS) $<
+	$(MV) y.tab.c $*.c
+	$(CC80) $(CFLAGS) -c -o $@ $*.c
+	$(RM) $*.c
+
+.c.sof:
+	$(CC80) $(CFLAGS) -c $<
+
+.mac.sof .src.sof:
+	$(CC80) -RI -RS $<
+
+.asm.sof:
+	r80 $(AFLAGS) $<
+
+.psm.sof .asz.sof .psz.sof:
+	$(CC80) -c $<
+
+.sof.com .c.com:
+	$(CC80) $(CFLAGS) -o $@ $#
+
+#For KC160 Compilers
+
+.y.elf:
+	$(YACC) $(YFLAGS) $<
+	$(MV) y.tab.c $*.c
+	$(CC160) $(CFLAGS) -c -o $@ $*.c
+	$(RM) $*.c
+.c.elf:
+	$(CC160) $(CFLAGS) -c $<
+
+.ask.elf .asz.elf:
+	r160 $(AFLAGS) $<
+
+.psk.elf .psz.elf:
+	$(CC160) -c $(CFLAGS) $<
+

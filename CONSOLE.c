@@ -1,0 +1,7 @@
+
+
+void console_init()
+{
+}
+
+ 

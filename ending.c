@@ -1,0 +1,7 @@
+
+
+void ending_init()
+{
+}
+
+ 

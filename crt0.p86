@@ -1,0 +1,281 @@
+;--------------------------------------------------------------------
+; Copyright (C) 1999,2000 Qute Corporation. All rights reserved.
+;--------------------------------------------------------------------
+; crt0.p86 - c ultra main program for FreyaOS
+;		based on $LSIC/src/lib/crom.p86
+;	$Id: crt0.p86,v 1.3 2000/08/14 15:55:17 satoo Exp $
+;
+;	** CAUTION **
+;		if you want to use <math.h> functions,
+;		you MUST override _matherr() function.
+;		refer to User's Manual.
+
+#ifndef MAXPATHLEN
+#define MAXPATHLEN	64
+#endif  /* !MAXPATHLEN */
+
+.186 ;80186 mode
+
+SRAM_SEG					equ	1000h
+
+;wonderswan specific
+
+SYSTEM_CTRL1				equ	0A0h ;System control 1
+RAM_BANK					equ	0C1h ;RAM bank (shadow of lower byte)
+ROM_BANK_0					equ	0C2h ;ROM bank #0 (shadow of lower byte)
+ROM_BANK_1					equ	0C3h ;ROM bank #1 (shadow of lower byte)
+
+SYSTEM_CTRL1_DEFAULT		equ	00Ch ;System control 1
+ROM_BANK_0_DEFAULT			equ	0F2h ;ROM bank #0
+ROM_BANK_1_DEFAULT			equ	0F3h ;ROM bank #1
+RAM_BANK_DEFAULT			equ	000h ;RAM bank
+
+;
+
+; segment declarations
+
+IRAM		SSEG	'STACK'					; stack
+
+DATA		DSEG	WORD					; data in RAM
+
+BSS			DSEG							; bss in RAM
+INITSIZE:
+BEGINBSS:
+ENDBSS		DSEG
+_STACK::
+
+SAVE_DATA	DSEG	'SAVE_DATA'				; save data in RAM
+SAVE_DATA_START_::
+	RS	200h								;default size, overridden by link option
+
+TEXT		CSEG							; code
+
+FAR_BSS		DSEG	'FAR_BSS' PARA		; far bss
+END_FAR_BSS	DSEG	'END_FAR_BSS' PARA	; end of far bss
+
+FAR_DATA	CSEG	'FAR_DATA' PARA			; far data is placed in ROM
+FAR_DATA2	CSEG	'FAR_DATA2' PARA		; far data is placed in ROM
+FAR_DATA3	CSEG	'FAR_DATA3' PARA		; far data is placed in ROM
+FAR_DATA4	CSEG	'FAR_DATA4' PARA		; far data is placed in ROM
+FAR_DATA5	CSEG	'FAR_DATA5' PARA		; far data is placed in ROM
+FAR_DATA6	CSEG	'FAR_DATA6' PARA		; far data is placed in ROM
+;FAR_DATA7	CSEG	'FAR_DATA7' PARA		; far data is placed in ROM
+;FAR_DATA8	CSEG	'FAR_DATA8' PARA		; far data is placed in ROM
+;FAR_DATA9	CSEG	'FAR_DATA9' PARA		; far data is placed in ROM
+RESET		DSEG	'EXTRA'	; 
+
+
+SGROUP	GROUP	IRAM
+DGROUP	GROUP	DATA,BSS,ENDBSS,XSTACK,SAVE_DATA
+CGROUP	GROUP	TEXT
+EGROUP	GROUP	RESET
+
+TEXT	CSEG
+ROMTOP::
+	MOV AL, ROM_BANK_0_DEFAULT
+	OUT ROM_BANK_0, AL
+	;MOV AL, ROM_BANK_1_DEFAULT
+	INC AX
+	OUT ROM_BANK_1, AL
+	MOV AL, RAM_BANK_DEFAULT
+	OUT RAM_BANK, AL
+
+;only CS is set
+	MOV	AX,SRAM_SEG
+	MOV	ES,AX
+;set stack on RAM
+	MOV	SS,AX
+	MOV	SP,_ENDSTACK
+
+;copy initialized data (max 64k!)
+	MOV	AX, _GHOST_DATA
+	MOV	DS,AX
+	XOR	SI,SI
+	MOV	DI,RAMTOP
+	MOV	CX,INITSIZE
+	CLD
+	REP MOVSW
+
+	PUSH	ES
+	POP	DS	; DS = DGROUP
+
+;clear BSS
+;	CLD
+	MOV	DI,BEGINBSS
+	MOV	CX,ENDBSS
+	SUB	CX,DI
+	XOR	AL,AL
+	REP STOSB
+
+;clear FAR_BSS
+; Freya doesn't support FAR_BSS
+	MOV	BX,FAR_BSS
+	XOR	AX,AX
+	_10:	MOV	AX,END_FAR_BSS
+		SUB	AX,BX
+		JA	_12
+		
+		;Start Hack
+		;JMP _20
+		DB 0xE9
+		DB 0x20
+		DB 0x00
+		;End Hack
+		_12:
+		MOV	CX,AX
+		
+		;Start Hack
+		SHL	CX,3
+		;DB 0xC1
+		;DB 0xE1
+		;DB 0x03
+		;End Hack
+		
+		CMP	AX,1000H
+		JA	_14
+		
+		;Start Hack
+		;JMP _15
+		DB 0xE9
+		DB 0x06
+		DB 0x00
+		;End Hack
+		
+		_14:
+			MOV	AX,1000H
+			MOV	CX,8000H
+		_15:
+		MOV	ES,BX
+		ADD	BX,AX
+		XOR	DI,DI
+		XOR	AX,AX
+		REP STOSW
+		
+		;Start Hack
+		;JMP _10
+		DB 0xE9
+		DB 0xD6
+		DB 0xFF
+		;End Hack
+	_20:
+
+;check if 8087 exists
+;V30MZ doesn't have 80x87
+;	FNINIT
+;	MOV	[_8087_].W,5A5AH
+;	FNSTSW	[_8087_]
+;	CMP	[_8087_].B,0
+;	JNE	_80
+;
+;	FNSTCW	[_8087_]
+;	MOV	AX,[_8087_]
+;	AND	AX,103FH
+;	CMP	AX,3FH
+;	JNE	_80
+;		FLDCW	[cw87_].W
+;		MOV	[_8087_].W,1	; with 80x87
+;		FWAIT
+;		JMP	_90
+;	_80:
+;		MOV	[_8087_].W,0	; without 8087
+;	_90:
+
+	MOV	[_8087_].W,00H
+	CLI
+	
+	MOV AL, SYSTEM_CTRL1_DEFAULT
+	OUT SYSTEM_CTRL1, AL 	; SYSTEM_CTRL1
+	
+	XOR AX, AX
+	MOV ES, AX
+	MOV DI, 100h
+	MOV CX, 1F80h
+	MOV AX, 0h
+	CLD
+	REP STOSW
+	
+	JMPF SWANmain_##
+
+; _DEF_FPE_ is called when floating point exception has occurred.
+; If you want to trap exceptions, add your code here.
+; On entry, AX has SIGFPE and BX has FPE_* (#define'd in <float.h>).
+
+; void _DEF_FPE(int signo, int sigkind);
+_DEF_FPE_::
+	RET
+
+;RESETVEC	CSEG	'RESETVEC'
+;	JMPF	ROMTOP
+
+;Might be a seperate asm file but putting here for now.
+sound_init_::
+	PUSH AX
+	PUSH DS
+	PUSH ES
+	CALLF SOUND_INIT_##
+	POP ES
+	POP DS
+	POP AX
+	RETF
+	
+bgmreq_::
+	CMP [SAVE_DATA_START_+4].B, 0
+	JNZ _50
+	;Start Hack
+		;JMP _51
+		DB 0xE9
+		DB 0x05
+		DB 0x00
+	;End Hack
+	_50:
+	JMPF SDREQ_##
+	_51:
+	RETF
+	
+sereq_::
+	CMP [SAVE_DATA_START_+5].B, 0
+	JNZ _60
+	;Start Hack
+		;JMP _61
+		DB 0xE9
+		DB 0x05
+		DB 0x00
+	;End Hack
+	_60:
+	JMPF SDREQ_##
+	_61:
+	RETF
+
+DATA		DSEG	WORD
+RAMTOP::
+
+_8087_::	DW	0		; without 80x87
+_st87::		DW	0
+_cw87::		DW	1332h
+__cw87::	DW	133Fh
+;#if	_P_FAR
+;_fpe_handler_::	dw	_DEF_FPE_, seg _DEF_FPE_
+;#else
+_fpe_handler_::	dw	_DEF_FPE_
+;#endif
+
+_fatalerror1: DB	'SystemHalt!!', 0, 0
+_fatalerror2: DB	' or StackOverFlow!!', 0
+_fatalerror3: DB	'Push A+B and START button', 0
+_fatalerror4: DB	' for RESET System', 0
+
+
+XSTACK		DSEG 'DATA' PARA
+		RS	2560	;default size, overridden by link option
+		
+_ENDSTACK::
+ENDSTK		DSEG  PARA PUBLIC
+
+_GHOST_DATA	DSEG	PARA				; data in ROM, copied to RAM in startup
+
+
+RESET		ESEG
+CPUTOP::
+	RS 10h
+
+	end

@@ -1,0 +1,6 @@
+
+
+void story_init()
+{
+}
+

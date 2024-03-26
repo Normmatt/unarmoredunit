@@ -1,0 +1,10 @@
+# _lcc86ww: configuration file of LSI C-86 for WonderWitch on Windows
+-DLSI_C_WW -DLSI_C -O
+-XC:\WS\lsic86ws\bin
+-IC:\WS\lsic86ws\include
+-IC:\WS\lsic86ws\include
+-LC:\WS\lsic86ws\lib
+-T$TEMP
+-k "-Fc -T 20000 -TDATA 10000"
+-acrt0jpn2.obj $LCC86 &
+-llibww -llibwwc -lruntime

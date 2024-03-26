@@ -1,0 +1,6 @@
+
+
+void menu_init()
+{
+}
+
