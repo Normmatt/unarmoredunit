@@ -1,32 +1,351 @@
+#include <machine.h>
+#include "types.h"
+#include "PAD.h"
 
-struct padState
-{
-	unsigned short unk0;
-	unsigned short unk2;
-	unsigned short unk4;
-	unsigned short unk6;
-	unsigned short unk8;
-	unsigned short unkA;
-	unsigned short unkC;
-	unsigned short unkE;
-	unsigned short unk10;
-	unsigned short unk12;
-	unsigned short unk14;
-	unsigned short unk16;
-	unsigned short unk18;
-	unsigned short unk1A;
-};
 struct padState pad;
+
+
+/*struct padState
+{
+	unsigned short unk0;	//0952
+	unsigned short unk2;	//0954
+	unsigned short unk4;	//0956
+	unsigned short unk6;	//0958
+	unsigned short unk8;	//095A
+	unsigned short unkA;	//095C
+	unsigned short unkC;	//095E
+	unsigned short unkE;	//0960
+	unsigned short unk10;	//0962
+	unsigned short unk12;	//0964
+	unsigned short unk14;	//0966
+	unsigned short unk16;	//0968
+	unsigned short unk18;	//096A
+	unsigned short unk1A;	//096C
+};*/
 
 void pad_init()
 {
+	pad.unkC = 0;
+	pad.unkA = 0;
+	pad.unk8 = 0;
+	pad.unk6 = 0;
+	pad.unk4 = 0;
+	pad.unk2 = 0;
+	pad.unk0 = 0;
+	pad.unk1A = 0;
+	pad.unk18 = 0;
+	pad.unk16 = 0;
+	pad.unk14 = 0;
+	pad.unk12 = 0;
+	pad.unk10 = 0;
+	pad.unkE = 0;
 }
 
 void pad_task()
-{
+{	ASM_DB(0x55);
+	ASM_DB(0x8b);
+	ASM_DB(0xec);
+	ASM_DB(0x83);
+	ASM_DB(0xec);
+	ASM_DB(0x16);
+	ASM_DB(0x51);
+	ASM_DB(0x56);
+	ASM_DB(0x57);
+	ASM_DB(0x8d);
+	ASM_DB(0x7e);
+	ASM_DB(0xea);
+	ASM_DB(0xbe);
+	ASM_DB(0xfa);
+	ASM_DB(0x00);
+	ASM_DB(0xb9);
+	ASM_DB(0x16);
+	ASM_DB(0x00);
+	ASM_DB(0x1e);
+	ASM_DB(0x07);
+	ASM_DB(0xfc);
+	ASM_DB(0xf3);
+	ASM_DB(0xa4);
+	ASM_DB(0xbe);
+	ASM_DB(0x52);
+	ASM_DB(0x09);
+	ASM_DB(0x9a);
+	ASM_DB(0x7c);
+	ASM_DB(0x00);
+	ASM_DB(0x8e);
+	ASM_DB(0x91);
+	ASM_DB(0x89);
+	ASM_DB(0x04);
+	ASM_DB(0xf7);
+	ASM_DB(0x06);
+	ASM_DB(0x52);
+	ASM_DB(0x09);
+	ASM_DB(0x04);
+	ASM_DB(0x00);
+	ASM_DB(0x74);
+	ASM_DB(0x24);
+	ASM_DB(0xf7);
+	ASM_DB(0x06);
+	ASM_DB(0x52);
+	ASM_DB(0x09);
+	ASM_DB(0x08);
+	ASM_DB(0x00);
+	ASM_DB(0x74);
+	ASM_DB(0x1c);
+	ASM_DB(0xf7);
+	ASM_DB(0x06);
+	ASM_DB(0x52);
+	ASM_DB(0x09);
+	ASM_DB(0x02);
+	ASM_DB(0x00);
+	ASM_DB(0x74);
+	ASM_DB(0x14);
+	ASM_DB(0x9a);
+	ASM_DB(0x05);
+	ASM_DB(0x00);
+	ASM_DB(0x4d);
+	ASM_DB(0x81);
+	ASM_DB(0x9a);
+	ASM_DB(0x00);
+	ASM_DB(0x00);
+	ASM_DB(0x35);
+	ASM_DB(0x81);
+	ASM_DB(0x9a);
+	ASM_DB(0x94);
+	ASM_DB(0x01);
+	ASM_DB(0x0a);
+	ASM_DB(0x80);
+	ASM_DB(0x9a);
+	ASM_DB(0x0f);
+	ASM_DB(0x00);
+	ASM_DB(0x0a);
+	ASM_DB(0x80);
+	ASM_DB(0xa1);
+	ASM_DB(0x52);
+	ASM_DB(0x09);
+	ASM_DB(0x3b);
+	ASM_DB(0x06);
+	ASM_DB(0x54);
+	ASM_DB(0x09);
+	ASM_DB(0x74);
+	ASM_DB(0x1e);
+	ASM_DB(0xa1);
+	ASM_DB(0x52);
+	ASM_DB(0x09);
+	ASM_DB(0xb1);
+	ASM_DB(0x08);
+	ASM_DB(0xd3);
+	ASM_DB(0xe8);
+	ASM_DB(0x25);
+	ASM_DB(0xff);
+	ASM_DB(0x00);
+	ASM_DB(0x88);
+	ASM_DB(0x46);
+	ASM_DB(0xee);
+	ASM_DB(0xa1);
+	ASM_DB(0x52);
+	ASM_DB(0x09);
+	ASM_DB(0x25);
+	ASM_DB(0xff);
+	ASM_DB(0x00);
+	ASM_DB(0x88);
+	ASM_DB(0x46);
+	ASM_DB(0xef);
+	ASM_DB(0x8d);
+	ASM_DB(0x46);
+	ASM_DB(0xea);
+	ASM_DB(0x9a);
+	ASM_DB(0xbf);
+	ASM_DB(0x03);
+	ASM_DB(0x0f);
+	ASM_DB(0x83);
+	ASM_DB(0x8d);
+	ASM_DB(0x46);
+	ASM_DB(0xea);
+	ASM_DB(0x9a);
+	ASM_DB(0x36);
+	ASM_DB(0x03);
+	ASM_DB(0x0f);
+	ASM_DB(0x83);
+	ASM_DB(0x85);
+	ASM_DB(0xc0);
+	ASM_DB(0x75);
+	ASM_DB(0x0d);
+	ASM_DB(0x8a);
+	ASM_DB(0x46);
+	ASM_DB(0xee);
+	ASM_DB(0x8a);
+	ASM_DB(0xe0);
+	ASM_DB(0x8a);
+	ASM_DB(0x5e);
+	ASM_DB(0xef);
+	ASM_DB(0x8a);
+	ASM_DB(0xc3);
+	ASM_DB(0xa3);
+	ASM_DB(0x62);
+	ASM_DB(0x09);
+	ASM_DB(0xa1);
+	ASM_DB(0x62);
+	ASM_DB(0x09);
+	ASM_DB(0xa3);
+	ASM_DB(0x60);
+	ASM_DB(0x09);
+	ASM_DB(0x33);
+	ASM_DB(0xc9);
+	ASM_DB(0xeb);
+	ASM_DB(0x56);
+	ASM_DB(0x8b);
+	ASM_DB(0x44);
+	ASM_DB(0x02);
+	ASM_DB(0xf7);
+	ASM_DB(0xd0);
+	ASM_DB(0x23);
+	ASM_DB(0x04);
+	ASM_DB(0x89);
+	ASM_DB(0x44);
+	ASM_DB(0x06);
+	ASM_DB(0x89);
+	ASM_DB(0x44);
+	ASM_DB(0x04);
+	ASM_DB(0x83);
+	ASM_DB(0x7c);
+	ASM_DB(0x04);
+	ASM_DB(0x00);
+	ASM_DB(0x74);
+	ASM_DB(0x13);
+	ASM_DB(0x8b);
+	ASM_DB(0xde);
+	ASM_DB(0x8b);
+	ASM_DB(0x04);
+	ASM_DB(0x89);
+	ASM_DB(0x47);
+	ASM_DB(0x08);
+	ASM_DB(0xc7);
+	ASM_DB(0x44);
+	ASM_DB(0x0a);
+	ASM_DB(0x00);
+	ASM_DB(0x00);
+	ASM_DB(0xc7);
+	ASM_DB(0x44);
+	ASM_DB(0x0c);
+	ASM_DB(0x03);
+	ASM_DB(0x00);
+	ASM_DB(0xeb);
+	ASM_DB(0x25);
+	ASM_DB(0xc7);
+	ASM_DB(0x44);
+	ASM_DB(0x08);
+	ASM_DB(0x00);
+	ASM_DB(0x00);
+	ASM_DB(0x83);
+	ASM_DB(0x7c);
+	ASM_DB(0x0a);
+	ASM_DB(0x09);
+	ASM_DB(0x76);
+	ASM_DB(0x17);
+	ASM_DB(0xff);
+	ASM_DB(0x44);
+	ASM_DB(0x0c);
+	ASM_DB(0x83);
+	ASM_DB(0x7c);
+	ASM_DB(0x0c);
+	ASM_DB(0x03);
+	ASM_DB(0x76);
+	ASM_DB(0x11);
+	ASM_DB(0xc7);
+	ASM_DB(0x44);
+	ASM_DB(0x0c);
+	ASM_DB(0x00);
+	ASM_DB(0x00);
+	ASM_DB(0x8b);
+	ASM_DB(0xde);
+	ASM_DB(0x8b);
+	ASM_DB(0x04);
+	ASM_DB(0x89);
+	ASM_DB(0x47);
+	ASM_DB(0x08);
+	ASM_DB(0xeb);
+	ASM_DB(0x03);
+	ASM_DB(0xff);
+	ASM_DB(0x44);
+	ASM_DB(0x0a);
+	ASM_DB(0x8b);
+	ASM_DB(0xde);
+	ASM_DB(0x8b);
+	ASM_DB(0x04);
+	ASM_DB(0x89);
+	ASM_DB(0x47);
+	ASM_DB(0x02);
+	ASM_DB(0x41);
+	ASM_DB(0x83);
+	ASM_DB(0xc6);
+	ASM_DB(0x0e);
+	ASM_DB(0x83);
+	ASM_DB(0xf9);
+	ASM_DB(0x02);
+	ASM_DB(0x7c);
+	ASM_DB(0xa5);
+	ASM_DB(0x5f);
+	ASM_DB(0x5e);
+	ASM_DB(0x59);
+	ASM_DB(0x8b);
+	ASM_DB(0xe5);
+	ASM_DB(0x5d);
 }
 
 void get_pad()
-{
+{	ASM_DB(0x51);
+	ASM_DB(0x52);
+	ASM_DB(0x56);
+	ASM_DB(0x8b);
+	ASM_DB(0xc8);
+	ASM_DB(0x8b);
+	ASM_DB(0xf3);
+	ASM_DB(0x9a);
+	ASM_DB(0x55);
+	ASM_DB(0x00);
+	ASM_DB(0x35);
+	ASM_DB(0x81);
+	ASM_DB(0x8b);
+	ASM_DB(0xc1);
+	ASM_DB(0xbb);
+	ASM_DB(0x0e);
+	ASM_DB(0x00);
+	ASM_DB(0xf7);
+	ASM_DB(0xe3);
+	ASM_DB(0x8b);
+	ASM_DB(0xd8);
+	ASM_DB(0x81);
+	ASM_DB(0xc3);
+	ASM_DB(0x52);
+	ASM_DB(0x09);
+	ASM_DB(0x83);
+	ASM_DB(0x7f);
+	ASM_DB(0x08);
+	ASM_DB(0x00);
+	ASM_DB(0x75);
+	ASM_DB(0x04);
+	ASM_DB(0x85);
+	ASM_DB(0xf6);
+	ASM_DB(0x75);
+	ASM_DB(0xe4);
+	ASM_DB(0x8b);
+	ASM_DB(0xc1);
+	ASM_DB(0xbb);
+	ASM_DB(0x0e);
+	ASM_DB(0x00);
+	ASM_DB(0xf7);
+	ASM_DB(0xe3);
+	ASM_DB(0x8b);
+	ASM_DB(0xd8);
+	ASM_DB(0x81);
+	ASM_DB(0xc3);
+	ASM_DB(0x52);
+	ASM_DB(0x09);
+	ASM_DB(0x8b);
+	ASM_DB(0x47);
+	ASM_DB(0x08);
+	ASM_DB(0x5e);
+	ASM_DB(0x5a);
+	ASM_DB(0x59);
 }
 
