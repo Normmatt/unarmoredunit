@@ -123,14 +123,7 @@ ROMTOP::
 		;End Hack
 		_12:
 		MOV	CX,AX
-		
-		;Start Hack
-		SHL	CX,3
-		;DB 0xC1
-		;DB 0xE1
-		;DB 0x03
-		;End Hack
-		
+		SHL	CX,3		
 		CMP	AX,1000H
 		JA	_14
 		
