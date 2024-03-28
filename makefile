@@ -60,7 +60,7 @@ MAINMAP.obj:	MAINMAP.p86
 #	lcc86 -a$(CRT0) -m$(MODEL) -k "-Fc -T 0 -TDATA 10000 -TSAVE_DATA 11E00 -TTEXT 80000 -T_GHOST_DATA 9F000 -TFAR_DATA A0000 -TFAR_DATA2 B0000 -TFAR_DATA3 C0000 -TFAR_DATA4 D0000 -TFAR_DATA5 E0000 -TFAR_DATA6 F0000 -TRESET FFFF0 -TFAR_DATA7 F0000 -TFAR_DATA8 F0000 -TFAR_DATA9 F0000" -k-M -o $@ $#
 #	lcc86 -a$(CRT0) -m$(MODEL) -k "-Fc -T 0 -TDATA 10000" -k-M -o $@ $#
 
-armoredunit.hex:	SWANMAIN.obj DFONT_char_adr.obj SPRINTF.obj SYSTEM.obj PAD.obj MEMORY.obj select.obj ASM.obj SERIAL.obj IP_MES.obj DEBUG.obj CONSOLE.obj TITLE.obj LOGO.obj m_game.obj m_sub.obj m_weapon.obj m_cpu2p.obj menu.obj unisel.obj stagesel.obj tuneup.obj story.obj PUT_TEXT.obj SOUND_CODE.obj ending.obj flash.obj RAND.obj SWAN_L_C.obj LMUL.obj STRING.obj GENERAL.obj MAINMAP.obj
+armoredunit.hex:	SWANMAIN.obj DFONT_char_adr.obj SPRINTF.obj SYSTEM.obj PAD.obj MEMORY.obj select.obj WORK.obj ASM.obj SERIAL.obj IP_MES.obj DEBUG.obj CONSOLE.obj TITLE.obj LOGO.obj m_game.obj m_sub.obj m_weapon.obj m_cpu2p.obj menu.obj unisel.obj stagesel.obj tuneup.obj story.obj PUT_TEXT.obj SOUND_CODE.obj ending.obj flash.obj RAND.obj SWAN_L_C.obj LMUL.obj STRING.obj GENERAL.obj MAINMAP.obj
 	lcc86 -a$(CRT0) -m$(MODEL) -k "-Fh -T 0 -TDATA 10000 -TSAVE_DATA 11E00 -TTEXT 80000 -T_GHOST_DATA 9F000 -TFAR_DATA A0000 -TFAR_DATA2 B0000 -TFAR_DATA3 C0000 -TFAR_DATA4 D0000 -TFAR_DATA5 E0000 -TFAR_DATA6 F0000 -TRESET FFFF0 -TFAR_DATA7 F0000 -TFAR_DATA8 F0000 -TFAR_DATA9 F0000" -k-M -o $@ $#
 
 armoredunit.bin: armoredunit.hex
@@ -72,6 +72,7 @@ SYSTEM.a86:  SYSTEM.c
 PAD.a86:  PAD.c
 MEMORY.a86:  MEMORY.c
 select.a86:  select.c
+WORK.a86:  WORK.c
 ASM.a86:  ASM.c
 SERIAL.a86:  SERIAL.c
 IP_MES.a86:  IP_MES.c
@@ -104,6 +105,7 @@ SYSTEM.obj:  SYSTEM.a86
 PAD.obj:  PAD.a86
 MEMORY.obj:  MEMORY.a86
 select.obj:  select.a86
+WORK.obj:  WORK.a86
 ASM.obj:  ASM.a86
 SERIAL.obj:  SERIAL.a86
 IP_MES.obj:  IP_MES.a86

@@ -48,7 +48,7 @@ const char far select_debug_text15[] = "        sound check!        ";
 const char far select_debug_text16[] = "SEno:SE2P:    :    :Seri:Lv.";
 const char far select_debug_text17[] = "    :    :    :    :    :   ";
 
-const char far * far select_debug_textall[] =
+const char far * far select_debug_text_all[] =
 {
     select_debug_text00,
     select_debug_text01,
@@ -108,7 +108,7 @@ struct DebugHandler
     void_pointer func;
 };
 
-const struct DebugHandler far DebugHandlers[] =
+static const struct DebugHandler far DebugHandlers[] =
 {
     { 0,  SampleMasterMode,     alpha_init          }, 
     { 0,  SysLogo,              logo_init           },
