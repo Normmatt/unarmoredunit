@@ -1,4 +1,19 @@
+#include <machine.h>
+#include "types.h"
+#include "m_sub.h"
 
+static const char far str_pause[] = "PAUSE";
+static const char far str_exit[] = "EXIT";
+
+static const char far * far str_all[] =
+{
+    str_pause,
+    str_exit,
+};
+
+static const u8 far unk_1[] = {5,4};
+static const u8 far unk_2[] = {4,6,8,6};
+static const u8 far unk_3[] = {4,6,8};
 
 void font_put3()
 {
