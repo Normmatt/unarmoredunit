@@ -46,13 +46,14 @@ void task_default_task(u16 unk)
 
 void task_default_task2(u16 unk)
 {
-	if((pad.unk0 & 4) && (pad.unk0 & 8) && (pad.unk4 & 2))
-	{
-		meminit();
-		pad_init();
-		tsk_init();
-		remain();
-	}
+	if(pad.unk0 & 4) return;
+	if(pad.unk0 & 8) return;
+	if(pad.unk4 & 2) return;
+	
+	meminit();
+	pad_init();
+	tsk_init();
+	remain();
 }
 
 s16 tsk_init()

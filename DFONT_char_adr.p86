@@ -1,4 +1,4 @@
-FAR_DATA	DSEG	'FAR_DATA'
+FAR_DATA	DSEG	'FAR_DATA' PARA
 ;
 ;	const static unsigned char far DFONT_char_adr[] = {
 	EVEN

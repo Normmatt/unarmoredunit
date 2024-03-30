@@ -62,13 +62,32 @@ armoredunit.hex:	SWANMAIN.obj \
 					m_game.obj \
 					m_sub.obj \
 					G_CONFIG.obj \
+					func_tbl.obj \
 					m_weapon.obj \
 					m_cpu2p.obj \
 					menu.obj \
+					G_MENU.obj \
+					G_ENG.obj \
+					G_GAME.obj \
+					G_TURN.obj \
+					G_HP.obj \
+					G_FUNC.obj \
+					G_SPACE.obj \
+					G_AU1.obj \
+					G_AU2.obj \
+					G_AU3.obj \
+					G_TITLE.obj \
 					unisel.obj \
+					G_UNISE2.obj \
+					G_STGSEL.obj \
 					stagesel.obj \
 					tuneup.obj \
+					G_TUNEUP.obj \
 					story.obj \
+					G_STORY.obj \
+					G_FACE.obj \
+					G_02.obj \
+					G_04.obj \
 					PUT_TEXT.obj \
 					SOUND_CODE.obj \
 					ending.obj \
@@ -84,3 +103,6 @@ armoredunit.hex:	SWANMAIN.obj \
 armoredunit.bin: armoredunit.hex
 	hex2bin -s 0000 -l 100000 -p FF armoredunit.hex
 
+#Why does codegen chagne if we go straight to obj without making the .a86 for these
+SWANMAIN.a86:  SWANMAIN.c
+SYSTEM.a86:  SYSTEM.c
