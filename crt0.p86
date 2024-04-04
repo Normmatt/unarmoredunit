@@ -205,7 +205,7 @@ sound_init_::
 	PUSH AX
 	PUSH DS
 	PUSH ES
-	CALLF SOUND_INIT_##
+	CALLF SOUND_INIT##
 	POP ES
 	POP DS
 	POP AX
@@ -221,7 +221,7 @@ bgmreq_::
 		DB 0x00
 	;End Hack
 	_50:
-	JMPF SDREQ_##
+	JMPF SDREQ##
 	_51:
 	RETF
 	
@@ -235,7 +235,7 @@ sereq_::
 		DB 0x00
 	;End Hack
 	_60:
-	JMPF SDREQ_##
+	JMPF SDREQ##
 	_61:
 	RETF
 

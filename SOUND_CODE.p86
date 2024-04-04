@@ -11,14 +11,68 @@ BSS	DSEG
 
 
 
-SOUND_CODE	CSEG
+SOUND_CODE	CSEG PARA
 
 ;
+;#include <machine.h>
+;#include "types.h"
 ;
 ;void SOUND_INIT()
 
-SOUND_INIT_::
+SOUND_INIT::
 ;{
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0xBE);
+	DB	190
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0xBF);
+	DB	191
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0xB9);
+	DB	185
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xF3);
+	DB	243
+;	ASM_DB(0xA5);
+	DB	165
+;	ASM_DB(0xE8);
+	DB	232
+;	ASM_DB(0x1E);
+	DB	30
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xE8);
+	DB	232
+;	ASM_DB(0xDD);
+	DB	221
+;	ASM_DB(0x04);
+	DB	4
 ;}
 	RETF
 
@@ -28,8 +82,122 @@ SOUND_INIT_::
 ;
 ;void SDREQ()
 
-SDREQ_::
+SDREQ::
 ;{
+;	ASM_DB(0xFA);
+	DB	250
+;	ASM_DB(0x60);
+	DB	96
+;	ASM_DB(0x1E);
+	DB	30
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x2A);
+	DB	42
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xC8);
+	DB	200
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0xBE);
+	DB	190
+;	ASM_DB(0xAC);
+	DB	172
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xF0);
+	DB	240
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x83);
+	DB	131
+;	ASM_DB(0xCF);
+	DB	207
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x34);
+	DB	52
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0x46);
+	DB	70
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x11);
+	DB	17
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0xB5);
+	DB	181
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xE8);
+	DB	232
+;	ASM_DB(0xE5);
+	DB	229
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x1F);
+	DB	31
+;	ASM_DB(0x61);
+	DB	97
+;	ASM_DB(0xFB);
+	DB	251
 ;}
 	RETF
 
@@ -37,12 +205,2472 @@ SDREQ_::
 
 
 ;
-;void SOUND()
+;static void unk_90A25()
 
-SOUND_::
+unk_90A25_:
 ;{
+;	ASM_DB(0xB5);
+	DB	181
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0x46);
+	DB	70
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0x46);
+	DB	70
+;	ASM_DB(0x3C);
+	DB	60
+;	ASM_DB(0xFF);
+	DB	255
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0xEF);
+	DB	239
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0xBF);
+	DB	191
+;	ASM_DB(0x10);
+	DB	16
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xF8);
+	DB	248
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x2D);
+	DB	45
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x7D);
+	DB	125
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x0C);
+	DB	12
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x24);
+	DB	36
+;	ASM_DB(0x7F);
+	DB	127
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x45);
+	DB	69
+;	ASM_DB(0x0E);
+	DB	14
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x4D);
+	DB	77
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xD2);
+	DB	210
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x22);
+	DB	34
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0x46);
+	DB	70
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x45);
+	DB	69
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0x46);
+	DB	70
+;	ASM_DB(0x46);
+	DB	70
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x45);
+	DB	69
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x45);
+	DB	69
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x45);
+	DB	69
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x45);
+	DB	69
+;	ASM_DB(0x0B);
+	DB	11
+;	ASM_DB(0xFF);
+	DB	255
+;}
+
+
+
+
+;
+;void unk_90A85()
+
+unk_90A85_:
+;{
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x45);
+	DB	69
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x45);
+	DB	69
+;	ASM_DB(0x10);
+	DB	16
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x45);
+	DB	69
+;	ASM_DB(0x19);
+	DB	25
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x94);
+	DB	148
+;	ASM_DB(0xFF);
+	DB	255
+
+;
+;void SOUND()
+SOUND::
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x83);
+	DB	131
+;	ASM_DB(0xCF);
+	DB	207
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x08);
+	DB	8
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x73);
+	DB	115
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x08);
+	DB	8
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x67);
+	DB	103
+;	ASM_DB(0x09);
+	DB	9
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x0B);
+	DB	11
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0xBE);
+	DB	190
+;	ASM_DB(0x10);
+	DB	16
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0xB9);
+	DB	185
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x51);
+	DB	81
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x16);
+	DB	22
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xC8);
+	DB	200
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x09);
+	DB	9
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x08);
+	DB	8
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x4C);
+	DB	76
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x4C);
+	DB	76
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x7C);
+	DB	124
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x3C);
+	DB	60
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x72);
+	DB	114
+;	ASM_DB(0x58);
+	DB	88
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x5C);
+	DB	92
+;	ASM_DB(0x3C);
+	DB	60
+;	ASM_DB(0xE0);
+	DB	224
+;	ASM_DB(0x72);
+	DB	114
+;	ASM_DB(0x0F);
+	DB	15
+;	ASM_DB(0x2C);
+	DB	44
+;	ASM_DB(0xE0);
+	DB	224
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x57);
+	DB	87
+;	ASM_DB(0xBF);
+	DB	191
+;	ASM_DB(0x50);
+	DB	80
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xF8);
+	DB	248
+;	ASM_DB(0x2E);
+	DB	46
+;	ASM_DB(0xFF);
+	DB	255
+;	ASM_DB(0x25);
+	DB	37
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xD6);
+	DB	214
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xF7);
+	DB	247
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x30);
+	DB	48
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x40);
+	DB	64
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x50);
+	DB	80
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xE1);
+	DB	225
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xEC);
+	DB	236
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xCB);
+	DB	203
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x9D);
+	DB	157
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x72);
+	DB	114
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x5E);
+	DB	94
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x9A);
+	DB	154
+;	ASM_DB(0xFF);
+	DB	255
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x3C);
+	DB	60
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x72);
+	DB	114
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x4C);
+	DB	76
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xB5);
+	DB	181
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xD9);
+	DB	217
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xD2);
+	DB	210
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x22);
+	DB	34
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0xE2);
+	DB	226
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x3C);
+	DB	60
+;	ASM_DB(0xD0);
+	DB	208
+;	ASM_DB(0x73);
+	DB	115
+;	ASM_DB(0x78);
+	DB	120
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xE8);
+	DB	232
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x3C);
+	DB	60
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x72);
+	DB	114
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x57);
+	DB	87
+;	ASM_DB(0xBF);
+	DB	191
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xC5);
+	DB	197
+;	ASM_DB(0x2C);
+	DB	44
+;	ASM_DB(0x81);
+	DB	129
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x19);
+	DB	25
+;	ASM_DB(0x24);
+	DB	36
+;	ASM_DB(0x7F);
+	DB	127
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xF8);
+	DB	248
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x6C);
+	DB	108
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0xFD);
+	DB	253
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x14);
+	DB	20
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x0D);
+	DB	13
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x0B);
+	DB	11
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x24);
+	DB	36
+;	ASM_DB(0x7F);
+	DB	127
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0xC7);
+	DB	199
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0E);
+	DB	14
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xC5);
+	DB	197
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x23);
+	DB	35
+;	ASM_DB(0xBA);
+	DB	186
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xD5);
+	DB	213
+;	ASM_DB(0xB0);
+	DB	176
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xEE);
+	DB	238
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xED);
+	DB	237
+;	ASM_DB(0xBA);
+	DB	186
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xD5);
+	DB	213
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x14);
+	DB	20
+;	ASM_DB(0xEF);
+	DB	239
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x4C);
+	DB	76
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0xD2);
+	DB	210
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x66);
+	DB	102
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xE8);
+	DB	232
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x3C);
+	DB	60
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x72);
+	DB	114
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x7C);
+	DB	124
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0xBF);
+	DB	191
+;	ASM_DB(0xFF);
+	DB	255
+;	ASM_DB(0x24);
+	DB	36
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xC5);
+	DB	197
+;	ASM_DB(0x2C);
+	DB	44
+;	ASM_DB(0xD0);
+	DB	208
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xF8);
+	DB	248
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x2A);
+	DB	42
+;	ASM_DB(0xB0);
+	DB	176
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0xC8);
+	DB	200
+;	ASM_DB(0x25);
+	DB	37
+;	ASM_DB(0xFF);
+	DB	255
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0xE7);
+	DB	231
+;	ASM_DB(0x86);
+	DB	134
+;	ASM_DB(0x0D);
+	DB	13
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0E);
+	DB	14
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0xC1);
+	DB	193
+;	ASM_DB(0xB1);
+	DB	177
+;	ASM_DB(0x0D);
+	DB	13
+;	ASM_DB(0xD3);
+	DB	211
+;	ASM_DB(0xE8);
+	DB	232
+;	ASM_DB(0x0C);
+	DB	12
+;	ASM_DB(0x18);
+	DB	24
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x0C);
+	DB	12
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x0C);
+	DB	12
+;	ASM_DB(0x08);
+	DB	8
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0D);
+	DB	13
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x11);
+	DB	17
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xC8);
+	DB	200
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0xBF);
+	DB	191
+;	ASM_DB(0xD9);
+	DB	217
+;	ASM_DB(0x22);
+	DB	34
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xF8);
+	DB	248
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x08);
+	DB	8
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x1A);
+	DB	26
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x65);
+	DB	101
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x19);
+	DB	25
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x5A);
+	DB	90
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x4F);
+	DB	79
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x10);
+	DB	16
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x18);
+	DB	24
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x39);
+	DB	57
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0B);
+	DB	11
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x2E);
+	DB	46
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x56);
+	DB	86
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x1E);
+	DB	30
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x4C);
+	DB	76
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xB5);
+	DB	181
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC9);
+	DB	201
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC9);
+	DB	201
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC9);
+	DB	201
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC9);
+	DB	201
+;	ASM_DB(0x8C);
+	DB	140
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0xF7);
+	DB	247
+;	ASM_DB(0xBF);
+	DB	191
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xF9);
+	DB	249
+;	ASM_DB(0xB9);
+	DB	185
+;	ASM_DB(0x08);
+	DB	8
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xF3);
+	DB	243
+;	ASM_DB(0xA5);
+	DB	165
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x1F);
+	DB	31
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x5E);
+	DB	94
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x8C);
+	DB	140
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x24);
+	DB	36
+;	ASM_DB(0xBF);
+	DB	191
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0xF0);
+	DB	240
+;	ASM_DB(0xFD);
+	DB	253
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x8D);
+	DB	141
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x0C);
+	DB	12
+;	ASM_DB(0x40);
+	DB	64
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0xE0);
+	DB	224
+;	ASM_DB(0xFD);
+	DB	253
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0xD2);
+	DB	210
+;	ASM_DB(0xFD);
+	DB	253
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x4C);
+	DB	76
+;	ASM_DB(0x18);
+	DB	24
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x09);
+	DB	9
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0xF8);
+	DB	248
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0xFD);
+	DB	253
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0xBE);
+	DB	190
+;	ASM_DB(0xFD);
+	DB	253
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xC8);
+	DB	200
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x12);
+	DB	18
+;	ASM_DB(0xBA);
+	DB	186
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xD1);
+	DB	209
+;	ASM_DB(0xB0);
+	DB	176
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xEE);
+	DB	238
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xD2);
+	DB	210
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x22);
+	DB	34
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x8D);
+	DB	141
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0xF8);
+	DB	248
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xFD);
+	DB	253
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x7C);
+	DB	124
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x13);
+	DB	19
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x11);
+	DB	17
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xC8);
+	DB	200
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0xBF);
+	DB	191
+;	ASM_DB(0xD9);
+	DB	217
+;	ASM_DB(0x22);
+	DB	34
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xF8);
+	DB	248
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x08);
+	DB	8
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x10);
+	DB	16
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x11);
+	DB	17
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xC8);
+	DB	200
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0xBF);
+	DB	191
+;	ASM_DB(0x3F);
+	DB	63
+;	ASM_DB(0x25);
+	DB	37
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xF8);
+	DB	248
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x11);
+	DB	17
+;	ASM_DB(0xE8);
+	DB	232
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xE8);
+	DB	232
+;	ASM_DB(0xDB);
+	DB	219
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xE8);
+	DB	232
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x31);
+	DB	49
+;	ASM_DB(0xBA);
+	DB	186
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xD5);
+	DB	213
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0C);
+	DB	12
+;	ASM_DB(0xEE);
+	DB	238
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xED);
+	DB	237
+;	ASM_DB(0xBA);
+	DB	186
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xD5);
+	DB	213
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x16);
+	DB	22
+;	ASM_DB(0xEF);
+	DB	239
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x4C);
+	DB	76
+;	ASM_DB(0x0E);
+	DB	14
+;	ASM_DB(0xF7);
+	DB	247
+;	ASM_DB(0xC1);
+	DB	193
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x11);
+	DB	17
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0D);
+	DB	13
+;	ASM_DB(0x98);
+	DB	152
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC1);
+	DB	193
+;	ASM_DB(0x25);
+	DB	37
+;	ASM_DB(0xFF);
+	DB	255
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0xE7);
+	DB	231
+;	ASM_DB(0x86);
+	DB	134
+;	ASM_DB(0x0D);
+	DB	13
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0E);
+	DB	14
+;	ASM_DB(0x59);
+	DB	89
+;	ASM_DB(0x83);
+	DB	131
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x20);
+	DB	32
+;	ASM_DB(0x49);
+	DB	73
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0xD6);
+	DB	214
+;	ASM_DB(0xFC);
+	DB	252
 ;}
 	RETF
+
+
+
+
+;
+;static void near unk_90E05()
+
+unk_90E05_:
+;{
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0xBE);
+	DB	190
+;	ASM_DB(0x10);
+	DB	16
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0xBF);
+	DB	191
+;	ASM_DB(0x12);
+	DB	18
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0xB9);
+	DB	185
+;	ASM_DB(0x5F);
+	DB	95
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xF3);
+	DB	243
+;	ASM_DB(0xA5);
+	DB	165
+;	ASM_DB(0xB0);
+	DB	176
+;	ASM_DB(0x0D);
+	DB	13
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x91);
+	DB	145
+;	ASM_DB(0xB0);
+	DB	176
+;	ASM_DB(0x10);
+	DB	16
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x8F);
+	DB	143
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x24);
+	DB	36
+;	ASM_DB(0x20);
+	DB	32
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0xB0);
+	DB	176
+;	ASM_DB(0x0F);
+	DB	15
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x94);
+	DB	148
+;}
+	RET
+
+
+
+
+;
+;static void near unk_90E34()
+
+unk_90E34_:
+;{
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x0D);
+	DB	13
+;	ASM_DB(0xF7);
+	DB	247
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0E);
+	DB	14
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0B);
+	DB	11
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x46);
+	DB	70
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x4C);
+	DB	76
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x7C);
+	DB	124
+;	ASM_DB(0x08);
+	DB	8
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x3C);
+	DB	60
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x3D);
+	DB	61
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0xF2);
+	DB	242
+;	ASM_DB(0xFF);
+	DB	255
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x7C);
+	DB	124
+;	ASM_DB(0x08);
+	DB	8
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xE0);
+	DB	224
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x5C);
+	DB	92
+;	ASM_DB(0x0B);
+	DB	11
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xFB);
+	DB	251
+;	ASM_DB(0x24);
+	DB	36
+;	ASM_DB(0x0F);
+	DB	15
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0xE3);
+	DB	227
+;	ASM_DB(0x0F);
+	DB	15
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0xF3);
+	DB	243
+;	ASM_DB(0x0F);
+	DB	15
+;	ASM_DB(0x2A);
+	DB	42
+;	ASM_DB(0xC3);
+	DB	195
+;	ASM_DB(0x73);
+	DB	115
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xB0);
+	DB	176
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0xF0);
+	DB	240
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0xE7);
+	DB	231
+;	ASM_DB(0xF0);
+	DB	240
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0xF7);
+	DB	247
+;	ASM_DB(0xF0);
+	DB	240
+;	ASM_DB(0x2A);
+	DB	42
+;	ASM_DB(0xE7);
+	DB	231
+;	ASM_DB(0x73);
+	DB	115
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x0C);
+	DB	12
+;}
+	RET
+
+
+
+
+;
+;static void near unk_90E92()
+
+unk_90E92_:
+;{
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x10);
+	DB	16
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x14);
+	DB	20
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x24);
+	DB	36
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0x4C);
+	DB	76
+;	ASM_DB(0x13);
+	DB	19
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x22);
+	DB	34
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x7C);
+	DB	124
+;	ASM_DB(0x11);
+	DB	17
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x3C);
+	DB	60
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x3D);
+	DB	61
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0xF2);
+	DB	242
+;	ASM_DB(0xFF);
+	DB	255
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x13);
+	DB	19
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x7C);
+	DB	124
+;	ASM_DB(0x11);
+	DB	17
+;	ASM_DB(0x98);
+	DB	152
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x14);
+	DB	20
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x44);
+	DB	68
+;	ASM_DB(0x16);
+	DB	22
+;}
+	RET
+
+
+
+
+;
+;static void near unk_90EC7()
+
+unk_90EC7_:
+;{
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x24);
+	DB	36
+;	ASM_DB(0xDF);
+	DB	223
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;}
+	RET
 
 
 
@@ -50,8 +2678,164 @@ SOUND_::
 ;
 ;void VOREQ()
 
-VOREQ_::
+VOREQ::
 ;{
+;	ASM_DB(0xFA);
+	DB	250
+;	ASM_DB(0x60);
+	DB	96
+;	ASM_DB(0x1E);
+	DB	30
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0xE8);
+	DB	232
+;	ASM_DB(0xE1);
+	DB	225
+;	ASM_DB(0xFF);
+	DB	255
+;	ASM_DB(0xE9);
+	DB	233
+;	ASM_DB(0x3C);
+	DB	60
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xC8);
+	DB	200
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0xC8);
+	DB	200
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x83);
+	DB	131
+;	ASM_DB(0xCF);
+	DB	207
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x76);
+	DB	118
+;	ASM_DB(0x25);
+	DB	37
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC9);
+	DB	201
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xC9);
+	DB	201
+;	ASM_DB(0xB5);
+	DB	181
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xD9);
+	DB	217
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x37);
+	DB	55
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x8C);
+	DB	140
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x46);
+	DB	70
+;	ASM_DB(0x46);
+	DB	70
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x77);
+	DB	119
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x01);
+	DB	1
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x0C);
+	DB	12
+;	ASM_DB(0x20);
+	DB	32
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x1F);
+	DB	31
+;	ASM_DB(0x61);
+	DB	97
+;	ASM_DB(0xFB);
+	DB	251
 ;}
 	RETF
 
@@ -61,8 +2845,255 @@ VOREQ_::
 ;
 ;void VOICE()
 
-VOICE_::
+VOICE::
 ;{
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x1F);
+	DB	31
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0x77);
+	DB	119
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0x26);
+	DB	38
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x46);
+	DB	70
+;	ASM_DB(0x89);
+	DB	137
+;	ASM_DB(0x77);
+	DB	119
+;	ASM_DB(0x04);
+	DB	4
+;	ASM_DB(0xFF);
+	DB	255
+;	ASM_DB(0x0F);
+	DB	15
+;	ASM_DB(0x75);
+	DB	117
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x24);
+	DB	36
+;	ASM_DB(0xDF);
+	DB	223
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;}
+	RETF
+
+
+
+
+;
+;static void unk_90F59()
+
+unk_90F59_:
+;{
+;	ASM_DB(0x1E);
+	DB	30
+;	ASM_DB(0x60);
+	DB	96
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0xC8);
+	DB	200
+;	ASM_DB(0x33);
+	DB	51
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0xD0);
+	DB	208
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0xD0);
+	DB	208
+;	ASM_DB(0xC8);
+	DB	200
+;	ASM_DB(0x73);
+	DB	115
+;	ASM_DB(0x32);
+	DB	50
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0xC2);
+	DB	194
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x03);
+	DB	3
+;	ASM_DB(0xC0);
+	DB	192
+;	ASM_DB(0x05);
+	DB	5
+;	ASM_DB(0x10);
+	DB	16
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x8B);
+	DB	139
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0x80);
+	DB	128
+;	ASM_DB(0x3F);
+	DB	63
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x74);
+	DB	116
+;	ASM_DB(0x1C);
+	DB	28
+;	ASM_DB(0xC6);
+	DB	198
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x51);
+	DB	81
+;	ASM_DB(0x52);
+	DB	82
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x4F);
+	DB	79
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xBA);
+	DB	186
+;	ASM_DB(0x88);
+	DB	136
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x02);
+	DB	2
+;	ASM_DB(0xD1);
+	DB	209
+;	ASM_DB(0xB0);
+	DB	176
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0xEE);
+	DB	238
+;	ASM_DB(0xB4);
+	DB	180
+;	ASM_DB(0xFE);
+	DB	254
+;	ASM_DB(0xD2);
+	DB	210
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0xE4);
+	DB	228
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x22);
+	DB	34
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0xE6);
+	DB	230
+;	ASM_DB(0x90);
+	DB	144
+;	ASM_DB(0x5A);
+	DB	90
+;	ASM_DB(0x59);
+	DB	89
+;	ASM_DB(0x42);
+	DB	66
+;	ASM_DB(0x83);
+	DB	131
+;	ASM_DB(0xFA);
+	DB	250
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x72);
+	DB	114
+;	ASM_DB(0xC4);
+	DB	196
+;	ASM_DB(0x61);
+	DB	97
+;	ASM_DB(0x1F);
+	DB	31
 ;}
 	RETF
 
@@ -72,8 +3103,40 @@ VOICE_::
 ;
 ;void CHECK_VOICE()
 
-CHECK_VOICE_::
+CHECK_VOICE::
 ;{
+;	ASM_DB(0x1E);
+	DB	30
+;	ASM_DB(0x50);
+	DB	80
+;	ASM_DB(0x53);
+	DB	83
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x06);
+	DB	6
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x5B);
+	DB	91
+;	ASM_DB(0x58);
+	DB	88
+;	ASM_DB(0x1F);
+	DB	31
 ;}
 	RETF
 
@@ -83,13 +3146,52 @@ CHECK_VOICE_::
 ;
 ;void CHECK_SE()
 
-CHECK_SE_::
+CHECK_SE::
 ;{
+;	ASM_DB(0x1E);
+	DB	30
+;	ASM_DB(0x50);
+	DB	80
+;	ASM_DB(0x53);
+	DB	83
+;	ASM_DB(0xB8);
+	DB	184
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x00);
+	DB	0
+;	ASM_DB(0x8E);
+	DB	142
+;	ASM_DB(0xD8);
+	DB	216
+;	ASM_DB(0xBB);
+	DB	187
+;	ASM_DB(0x10);
+	DB	16
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x8A);
+	DB	138
+;	ASM_DB(0x07);
+	DB	7
+;	ASM_DB(0x0A);
+	DB	10
+;	ASM_DB(0x47);
+	DB	71
+;	ASM_DB(0x20);
+	DB	32
+;	ASM_DB(0x5B);
+	DB	91
+;	ASM_DB(0x58);
+	DB	88
+;	ASM_DB(0x1F);
+	DB	31
 ;}
 	RETF
 
 
 
-;core used: 2072
+
+;core used: 57480
 
 	END

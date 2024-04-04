@@ -3,6 +3,50 @@
 #include "types.h"
 #include "story.h"
 
+extern const u8 far G_01_char_adr[];
+extern const u8 far G_02_char_adr[];
+extern const u8 far G_03_char_adr[];
+extern const u8 far G_04_char_adr[];
+extern const u8 far G_05_char_adr[];
+extern const u8 far G_06_char_adr[];
+extern const u8 far G_07_char_adr[];
+extern const u8 far G_08_char_adr[];
+extern const u8 far G_09_char_adr[];
+extern const u8 far G_10_char_adr[];
+extern const u8 far G_11_char_adr[];
+extern const u8 far G_12_char_adr[];
+extern const u8 far G_13_char_adr[];
+extern const u8 far G_14_char_adr[];
+extern const u8 far G_15_char_adr[];
+extern const u8 far G_16_char_adr[];
+extern const u8 far G_17_char_adr[];
+extern const u8 far G_18_char_adr[];
+extern const u8 far G_19_char_adr[];
+extern const u8 far G_20_char_adr[];
+
+static const u8 far * far graphics[] =
+{
+    G_01_char_adr, 
+	G_02_char_adr, 
+	G_03_char_adr, 
+	G_04_char_adr, 
+	G_05_char_adr, 
+	G_06_char_adr, 
+	G_07_char_adr, 
+	G_08_char_adr, 
+	G_09_char_adr, 
+	G_10_char_adr, 
+	G_11_char_adr, 
+	G_12_char_adr, 
+	G_13_char_adr, 
+	G_14_char_adr, 
+	G_15_char_adr, 
+	G_16_char_adr, 
+	G_17_char_adr, 
+	G_18_char_adr, 
+	G_19_char_adr, 
+	G_20_char_adr, 
+};
 static void near unk_8F9FF()
 {
 	ASM_DB(0x51);
