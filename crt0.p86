@@ -102,7 +102,7 @@ ROMTOP::
 ;clear BSS
 ;	CLD
 	MOV	DI,BEGINBSS
-	MOV	CX,ENDBSS
+	MOV	CX,_STACK ;ENDBSS
 	SUB	CX,DI
 	XOR	AL,AL
 	REP STOSB
@@ -202,13 +202,13 @@ _DEF_FPE_::
 
 ;Might be a seperate asm file but putting here for now.
 sound_init_::
-	PUSH AX
+	PUSHA
 	PUSH DS
 	PUSH ES
 	CALLF SOUND_INIT##
 	POP ES
 	POP DS
-	POP AX
+	POPA
 	RETF
 	
 bgmreq_::

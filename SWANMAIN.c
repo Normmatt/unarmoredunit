@@ -46,9 +46,9 @@ void task_default_task(u16 unk)
 
 void task_default_task2(u16 unk)
 {
-	if(pad.unk0 & 4) return;
-	if(pad.unk0 & 8) return;
-	if(pad.unk4 & 2) return;
+	if(!(pad.unk0 & 4)) return;
+	if(!(pad.unk0 & 8)) return;
+	if(!(pad.unk4 & 2)) return;
 	
 	meminit();
 	pad_init();
@@ -69,7 +69,7 @@ s16 tsk_init()
 	}
 
 	tsk1cont.unk2[0] = alpha_init;
-	tsk1cont.unk42[0] = flash_init;
+	tsk1cont.unk2[1] = flash_init;
 	tsk1cont.unk0 = 2;
 	return 0;
 }
