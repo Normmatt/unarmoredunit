@@ -1,12 +1,12 @@
 import sys
 import os
 
-def bin_to_asm(input_file, output_file, name):
+def bin_to_asm(input_file, output_file, name, extension):
     with open(input_file, 'rb') as bin_file, open(output_file, 'w') as asm_file:
         byte = bin_file.read(1)
         asm_file.write(f"{name}	DSEG	'FAR_DATA' PARA\n\n");
         asm_file.write(f"	EVEN\n");
-        asm_file.write(f"{name}_char_adr_::\n");
+        asm_file.write(f"{name}_{extension}_adr_::\n");
         while byte:
             asm_file.write(f"\tDB 0x{byte.hex().upper()}\n")
             byte = bin_file.read(1)
@@ -18,7 +18,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     input_file = sys.argv[1]
-    name = os.path.splitext(input_file)[0]
+    name, extension = os.path.splitext(input_file)
     output_file = name + ".d86"
-    bin_to_asm(input_file, output_file, name)
+    bin_to_asm(input_file, output_file, name, extension[1:])
     print(f"Output saved to {output_file}")

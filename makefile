@@ -3,7 +3,7 @@
 # makefile for samples/hello
 #	$Id: $
 
-.SUFFIXES: .bin .obj .p86 .a86 .d86 .c
+.SUFFIXES: .bin .char .obj .p86 .a86 .d86 .c
 
 CRT0=crt0.obj
 
@@ -20,6 +20,10 @@ MODEL=p
 .a86.obj:
 	r86 $(AFLAGS) -o $@ $<
 
+.char.obj:
+	python bin2d86.py $*.char
+	r86 $(AFLAGS) -o $*.obj $*.d86
+
 .bin.obj:
 	python bin2d86.py $*.bin
 	r86 $(AFLAGS) -o $*.obj $*.d86
@@ -34,7 +38,7 @@ clean:
 	$(RM) armoredunit.hex
 	$(RM) armoredunit.bin
 
-all:	clean crt0.obj armoredunit.hex armoredunit.bin
+all:  crt0.obj armoredunit.hex armoredunit.bin
 
 crt0.obj:	crt0.p86
 	cpp -o crt0.a86 $<
