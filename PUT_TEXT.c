@@ -243,7 +243,6 @@ static const u8 far unk56[] = {
 
 static const u8 far * far unk57[] = {
 	NULL,
-	unk00,
 	unk01,
 	unk02,
 	unk03,
@@ -254,6 +253,7 @@ static const u8 far * far unk57[] = {
 	unk08,
 	unk09,
 	unk10,
+	unk11,
 };
 
 static const u8 far * far unk58[] = {
@@ -295,6 +295,9 @@ static const u8 far * far unk59[] = {
 	unk42,
 	unk43,
 	unk44,
+	NULL,
+	NULL,
+	NULL,
 	unk45,
 	unk46,
 	unk47,
@@ -307,9 +310,6 @@ static const u8 far * far unk59[] = {
 	unk54,
 	unk55,
 	unk56,
-	unk57,
-	unk58,
-	unk59,
 };
 
 void put_message()
