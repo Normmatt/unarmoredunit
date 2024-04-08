@@ -21,4 +21,4 @@ _LMUL::
 	mul     cx
 	add     bx, dx
 	pop     dx
-	ret
+	retf

@@ -128,8 +128,8 @@ OBJS= 	SWANMAIN.obj \
 		G_ENDING.obj \
 		ending.obj \
 		flash.obj \
+		_GENETEXT.obj \
 		SWAN_L_C.obj \
-		RAND.obj \
 		LMUL.obj \
 		STRING.obj \
 		GENERAL.obj \

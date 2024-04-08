@@ -9,7 +9,7 @@ extern u16 h_blank_cnt_count;
 extern u16 sr_count;
 extern u16 sw_count;
 extern u16 int_frag;
-extern u16 int_enable;
+extern vu8 int_enable;
 
 void font_load();
 void put_sprite();

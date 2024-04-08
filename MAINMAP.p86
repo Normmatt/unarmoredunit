@@ -34121,7 +34121,7 @@ MAINMAP_text_adr_::
 	DB	48
 	DB	48
 	DB	13
-	DB	10
+	;DB	10
 
 
 
