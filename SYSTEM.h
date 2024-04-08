@@ -7,7 +7,7 @@ struct TaskContext
 {
     /* 0886 */ s16 unk0;
     /* 0888 */ task_pointer unk2[16];
-    /* 08CA */ task_pointer2 unk42[16];
+    /* 08C8 */ task_pointer2 unk42[16];
     /* 0908 */ u16 unk82[16];
     /* 0928 */ u16 unkA2[16];
     /* 0948 */ u16 unkC2;
