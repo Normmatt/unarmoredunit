@@ -175,7 +175,7 @@ void flash_clear()
 	ASM_DB(0x5D);
 }
 
-void flash_init(u16 a, u16 b)
+void flash_init()
 {
 	ASM_DB(0x55);
 	ASM_DB(0x8B);

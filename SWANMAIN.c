@@ -88,76 +88,23 @@ s16 task_append(task_pointer task, short unk)
 
 s16 task_call()
 {
-	/*if(tsk1cont.unk0 < 1)
+	if(tsk1cont.unk0 < 1)
 	{
 		return -1;
 	}
-	tsk1cont.unk2[tsk1cont.unk0](tsk1cont.unk82[tsk1cont.unk0]);
-	return 0;*/
-	ASM_DB(0x83);
-	ASM_DB(0x3E);
-	ASM_DB(0x86);
-	ASM_DB(0x08);
-	ASM_DB(0x01);
-	ASM_DB(0x7D);
-	ASM_DB(0x04);
-	ASM_DB(0xB8);
-	ASM_DB(0xFF);
-	ASM_DB(0xFF);
-	ASM_DB(0xCB);
-	ASM_DB(0x8B);
-	ASM_DB(0x1E);
-	ASM_DB(0x86);
-	ASM_DB(0x08);
-	ASM_DB(0xD1);
-	ASM_DB(0xE3);
-	ASM_DB(0x8B);
-	ASM_DB(0x87);
-	ASM_DB(0x06);
-	ASM_DB(0x09);
-	ASM_DB(0x8B);
-	ASM_DB(0x1E);
-	ASM_DB(0x86);
-	ASM_DB(0x08);
-	ASM_DB(0xD1);
-	ASM_DB(0xE3);
-	ASM_DB(0xD1);
-	ASM_DB(0xE3);
-	ASM_DB(0xFF);
-	ASM_DB(0x9F);
-	ASM_DB(0x84);
-	ASM_DB(0x08);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
+	/*tsk1cont.unk2[tsk1cont.unk0-1](tsk1cont.unk82[tsk1cont.unk0-1]);*/
+	(*((tsk1cont.unk2 - 1) + tsk1cont.unk0))(*((tsk1cont.unk82 - 1) + tsk1cont.unk0));
+	return 0;
 }
 
 s16 task_call_param2()
 {
-	/*if(tsk1cont.unk0 < 1)
+	if(tsk1cont.unk0 < 1)
 	{
 		return 0;
 	}
-	return tsk1cont.unk82[tsk1cont.unk0];*/
-	ASM_DB(0x83);
-	ASM_DB(0x3E);
-	ASM_DB(0x86);
-	ASM_DB(0x08);
-	ASM_DB(0x01);
-	ASM_DB(0x7D);
-	ASM_DB(0x03);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
-	ASM_DB(0xCB);
-	ASM_DB(0x8B);
-	ASM_DB(0x1E);
-	ASM_DB(0x86);
-	ASM_DB(0x08);
-	ASM_DB(0xD1);
-	ASM_DB(0xE3);
-	ASM_DB(0x8B);
-	ASM_DB(0x87);
-	ASM_DB(0x06);
-	ASM_DB(0x09);
+	/*return tsk1cont.unk82[tsk1cont.unk0];*/
+	return *((tsk1cont.unk82 - 1) + tsk1cont.unk0);
 }
 
 s16 task_delete()

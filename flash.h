@@ -4,6 +4,6 @@
 void stage_get();
 void hstrlen();
 void flash_clear();
-void flash_init(u16, u16);
+void flash_init();
 
 #endif
