@@ -197,9 +197,6 @@ ROMTOP::
 _DEF_FPE_::
 	RET
 
-;RESETVEC	CSEG	'RESETVEC'
-;	JMPF	ROMTOP
-
 ;Might be a seperate asm file but putting here for now.
 sound_init_::
 	PUSHA
@@ -269,6 +266,18 @@ _GHOST_DATA	DSEG	PARA				; data in ROM, copied to RAM in startup
 
 RESET		ESEG
 CPUTOP::
-	RS 10h
+	JMPF ROMTOP
+	DB 0x00 ;Maintenance
+	DB 0x0B ;Publisher ID
+	DB 0x00 ;Color
+	DB 0x03 ;Game ID
+	DB 0x00 ;Game version
+	DB 0x02 ;ROM size
+	DB 0x01 ;Save type
+	DB 0x04 ;Flags
+	DB 0x00 ;Flags
+	DB 0x3A ;Checksum
+	DB 0x4F ;Checksum
+
 
 	end

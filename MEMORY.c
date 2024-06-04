@@ -2,7 +2,7 @@
 #include "types.h"
 #include "MEMORY.h"
 
-u8 memory_alloc_work[1042];
+u8 memory_alloc_work[1042]; /*096E*/
 
 static const char far str1[] = "Memory test program";
 static const char far str2[] = "                 level1.00";
