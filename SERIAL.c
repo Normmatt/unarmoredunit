@@ -1,184 +1,110 @@
 #include <machine.h>
+#include <memory.h>
 #include "types.h"
 #include "SERIAL.h"
 
-u8 rcv_work[12];
+sSerialInfo_t rcv_work;
 u8 receive_buf[630];
 u16 mother_child;
 
-static void near unk_2BAC()
+static void near unk_2F8B();
+static s16 near unk_2FB2();
+static void near unk_2FD3();
+static void near unk_2FFF();
+static void near unk_3097();
+
+static u16 near unk_2BAC(sSerialInfo_t *a, u16 b)
 {
-	ASM_DB(0x56);
-	ASM_DB(0x8b);
-	ASM_DB(0xf0);
-	ASM_DB(0x8b);
-	ASM_DB(0x1c);
-	ASM_DB(0x03);
-	ASM_DB(0x5c);
-	ASM_DB(0x04);
-	ASM_DB(0x81);
-	ASM_DB(0xe3);
-	ASM_DB(0xff);
-	ASM_DB(0x00);
-	ASM_DB(0x03);
-	ASM_DB(0x5c);
-	ASM_DB(0x0a);
-	ASM_DB(0x8a);
-	ASM_DB(0x07);
-	ASM_DB(0xff);
-	ASM_DB(0x44);
-	ASM_DB(0x04);
-	ASM_DB(0x32);
-	ASM_DB(0xe4);
-	ASM_DB(0x5e);
+	u8 ret = a->unkA[((a->unk0 + a->unk4) & 0xFF)];
+	a->unk4++;
+	return ret;
 }
 
-static void near unk_2BC4()
+static void near unk_2BC4(sSerialInfo_t *a)
 {
-	ASM_DB(0x56);
-	ASM_DB(0x8b);
-	ASM_DB(0xf0);
-	ASM_DB(0x8b);
-	ASM_DB(0xde);
-	ASM_DB(0x8b);
-	ASM_DB(0x44);
-	ASM_DB(0x04);
-	ASM_DB(0x01);
-	ASM_DB(0x07);
-	ASM_DB(0x81);
-	ASM_DB(0x24);
-	ASM_DB(0xff);
-	ASM_DB(0x00);
-	ASM_DB(0xc7);
-	ASM_DB(0x44);
-	ASM_DB(0x04);
-	ASM_DB(0x00);
-	ASM_DB(0x00);
-	ASM_DB(0xff);
-	ASM_DB(0x4c);
-	ASM_DB(0x08);
-	ASM_DB(0x5e);
+	a->unk0 += a->unk4;
+	a->unk0 &= 0xFF;
+	a->unk4 = 0;
+	a->unk8--;
 }
 
-static void near unk_2BDC()
+static s16 near unk_2BDC(sSerialInfo_t *a, u8 data)
 {
-	ASM_DB(0x51);
-	ASM_DB(0x56);
-	ASM_DB(0x57);
-	ASM_DB(0x8b);
-	ASM_DB(0xf8);
-	ASM_DB(0x8b);
-	ASM_DB(0x75);
-	ASM_DB(0x02);
-	ASM_DB(0x03);
-	ASM_DB(0x75);
-	ASM_DB(0x06);
-	ASM_DB(0x83);
-	ASM_DB(0x3d);
-	ASM_DB(0x00);
-	ASM_DB(0x74);
-	ASM_DB(0x05);
-	ASM_DB(0x8b);
-	ASM_DB(0x0d);
-	ASM_DB(0x49);
-	ASM_DB(0xeb);
-	ASM_DB(0x03);
-	ASM_DB(0xb9);
-	ASM_DB(0xff);
-	ASM_DB(0x00);
-	ASM_DB(0x8b);
-	ASM_DB(0xc6);
-	ASM_DB(0x25);
-	ASM_DB(0xff);
-	ASM_DB(0x00);
-	ASM_DB(0x3b);
-	ASM_DB(0xc1);
-	ASM_DB(0x74);
-	ASM_DB(0x10);
-	ASM_DB(0x81);
-	ASM_DB(0xe6);
-	ASM_DB(0xff);
-	ASM_DB(0x00);
-	ASM_DB(0x03);
-	ASM_DB(0x75);
-	ASM_DB(0x0a);
-	ASM_DB(0x88);
-	ASM_DB(0x1c);
-	ASM_DB(0xff);
-	ASM_DB(0x45);
-	ASM_DB(0x06);
-	ASM_DB(0x33);
-	ASM_DB(0xc0);
-	ASM_DB(0xeb);
-	ASM_DB(0x03);
-	ASM_DB(0xb8);
-	ASM_DB(0xff);
-	ASM_DB(0xff);
-	ASM_DB(0x5f);
-	ASM_DB(0x5e);
-	ASM_DB(0x59);
+	u16 val;
+	u16 idx = (a->unk2 + a->unk6);
+
+	if(a->unk0)
+	{
+		val = a->unk0 - 1;
+	}
+	else
+	{
+		val = 0xFF;
+	}
+
+	if((idx & 0xFF) != val)
+	{
+		a->unkA[(idx & 0xFF)] = data;
+		a->unk6++;
+		return 0;
+	}
+	return -1;
 }
 
-static void near unk_2C14()
+static void near unk_2C14(sSerialInfo_t *a)
 {
-	ASM_DB(0x56);
-	ASM_DB(0x8b);
-	ASM_DB(0xf0);
-	ASM_DB(0x8b);
-	ASM_DB(0xde);
-	ASM_DB(0x8b);
-	ASM_DB(0x44);
-	ASM_DB(0x06);
-	ASM_DB(0x01);
-	ASM_DB(0x47);
-	ASM_DB(0x02);
-	ASM_DB(0x81);
-	ASM_DB(0x64);
-	ASM_DB(0x02);
-	ASM_DB(0xff);
-	ASM_DB(0x00);
-	ASM_DB(0xc7);
-	ASM_DB(0x44);
-	ASM_DB(0x06);
-	ASM_DB(0x00);
-	ASM_DB(0x00);
-	ASM_DB(0xff);
-	ASM_DB(0x44);
-	ASM_DB(0x08);
-	ASM_DB(0x5e);
+	a->unk2 += a->unk6;
+	a->unk2 &= 0xFF;
+	a->unk6 = 0;
+	a->unk8++;
 }
 
 void serial_init()
 {
-	ASM_DB(0x51);
-	ASM_DB(0xb8);
-	ASM_DB(0x80);
-	ASM_DB(0x0d);
-	ASM_DB(0x32);
-	ASM_DB(0xdb);
-	ASM_DB(0xb9);
-	ASM_DB(0x0c);
-	ASM_DB(0x00);
-	ASM_DB(0x9a);
-	ASM_DB(0x8e);
-	ASM_DB(0x02);
-	ASM_DB(0x8e);
-	ASM_DB(0x91);
-	ASM_DB(0xc7);
-	ASM_DB(0x06);
-	ASM_DB(0x8a);
-	ASM_DB(0x0d);
-	ASM_DB(0x8c);
-	ASM_DB(0x0d);
-	ASM_DB(0xb0);
-	ASM_DB(0xc0);
-	ASM_DB(0xe6);
-	ASM_DB(0xb3);
-	ASM_DB(0x59);
+	memset(&rcv_work, 0, sizeof(sSerialInfo_t));
+	rcv_work.unkA = receive_buf;
+
+	{
+		//required to match
+		u8 val = 0xC0;
+		outp8(0xB3,val);
+	}
 }
 
 static void near unk_2C48()
 {
+	/*s16 val1;
+	s16 val2;
+	s16 val3;
+	int i;
+	
+	val1 = unk_2FB2();
+	if(val1 < 0)
+	{
+		return -1;
+	}
+	unk_2F8B();
+	unk_2BDC(&rcv_work,val1);
+
+	val2 = unk_2FB2();
+	if(val2 < 0)
+	{
+		return -1;
+	}
+	unk_2F8B();
+
+	val3 = unk_2FB2();
+	if(val3 < 0)
+	{
+		return -1;
+	}
+	unk_2F8B();
+
+	for(i = 0; i < val1; i++)
+	{
+
+	}*/
+
 	ASM_DB(0x51);
 	ASM_DB(0x52);
 	ASM_DB(0x56);
@@ -1069,7 +995,7 @@ static void near unk_2F8B()
 	ASM_DB(0x59);
 }
 
-static void near unk_2FB2()
+static s16 near unk_2FB2()
 {
 	ASM_DB(0x51);
 	ASM_DB(0x33);
@@ -1404,8 +1330,6 @@ u16 serial_exist()
 
 s16 serial_in_frag()
 {
-	ASM_DB(0xa1);
-	ASM_DB(0x88);
-	ASM_DB(0x0d);
+	return rcv_work.unk8;
 }
 

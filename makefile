@@ -11,11 +11,13 @@ CFLAGS=-I.\lsic86ws\include -L.\lsic86ws\lib
 DEFINES=
 MODEL=p
 
+#Add -g for line info
 .c.obj:
-	lcc86 -cv -m$(MODEL) -c $(CFLAGS) $(DEFINES) -o $@ $<
+	lcc86 -O -B -cv -m$(MODEL) -c $(CFLAGS) $(DEFINES) -o $@ $<
+	obj2asm.exe $@ -c$*.cod
 
 .c.a86:
-	lcc86 -cv -m$(MODEL) -SC $(CFLAGS) $(DEFINES) -o $@ $<
+	lcc86 -O -B -cv -m$(MODEL) -SC $(CFLAGS) $(DEFINES) -o $@ $<
 
 .a86.obj:
 	r86 $(AFLAGS) -o $@ $<

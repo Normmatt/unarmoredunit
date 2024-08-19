@@ -11,6 +11,15 @@ extern u16 sw_count;
 extern u16 int_frag;
 extern vu8 int_enable;
 
+/*void rand();
+void srand();
+void font_put2XY();
+void get_bmp_cell_no();
+void font_putXY();
+void font_putXYT();
+void font_put2();*/
+
+//_GENETEXT.p86
 void font_load();
 void put_sprite();
 void pad_in();
