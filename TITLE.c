@@ -69,7 +69,7 @@ static void unk_83CEA()
 	ASM_DB(0x59);
 }
 
-static void unk_83D28()
+static void unk_83D28(u16 a, u16 b, u16 c)
 {
 	ASM_DB(0x51);
 	ASM_DB(0x52);
@@ -212,169 +212,48 @@ static void unk_83D28()
 
 static void unk_83DB2()
 {
-	ASM_DB(0x51);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
-	ASM_DB(0x33);
-	ASM_DB(0xDB);
-	ASM_DB(0xB9);
-	ASM_DB(0x08);
-	ASM_DB(0x03);
-	ASM_DB(0x9A);
-	ASM_DB(0x48);
-	ASM_DB(0x00);
-	ASM_DB(0xCE);
-	ASM_DB(0x83);
-	ASM_DB(0x59);
+	unk_83D28(0, 0, 0x308);
 }
 
 static void unk_83DC1()
 {
-	ASM_DB(0x51);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
-	ASM_DB(0x33);
-	ASM_DB(0xDB);
-	ASM_DB(0xB9);
-	ASM_DB(0x18);
-	ASM_DB(0x03);
-	ASM_DB(0x9A);
-	ASM_DB(0x48);
-	ASM_DB(0x00);
-	ASM_DB(0xCE);
-	ASM_DB(0x83);
-	ASM_DB(0x59);
+	unk_83D28(0, 0, 0x318);
 }
 
 static void unk_83DD0()
 {
-	ASM_DB(0x51);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
-	ASM_DB(0x33);
-	ASM_DB(0xDB);
-	ASM_DB(0xB9);
-	ASM_DB(0x28);
-	ASM_DB(0x03);
-	ASM_DB(0x9A);
-	ASM_DB(0x48);
-	ASM_DB(0x00);
-	ASM_DB(0xCE);
-	ASM_DB(0x83);
-	ASM_DB(0x59);
+	unk_83D28(0, 0, 0x328);
 }
 
 static void unk_83DDF()
 {
-	ASM_DB(0x51);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
-	ASM_DB(0x33);
-	ASM_DB(0xDB);
-	ASM_DB(0xB9);
-	ASM_DB(0x38);
-	ASM_DB(0x03);
-	ASM_DB(0x9A);
-	ASM_DB(0x48);
-	ASM_DB(0x00);
-	ASM_DB(0xCE);
-	ASM_DB(0x83);
-	ASM_DB(0x59);
+	unk_83D28(0, 0, 0x338);
 }
 
 static void unk_83DEE()
 {
-	ASM_DB(0x51);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
-	ASM_DB(0x33);
-	ASM_DB(0xDB);
-	ASM_DB(0xB9);
-	ASM_DB(0x48);
-	ASM_DB(0x03);
-	ASM_DB(0x9A);
-	ASM_DB(0x48);
-	ASM_DB(0x00);
-	ASM_DB(0xCE);
-	ASM_DB(0x83);
-	ASM_DB(0x59);
+	unk_83D28(0, 0, 0x348);
 }
 
 static void unk_83DFD()
 {
-	ASM_DB(0x51);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
-	ASM_DB(0x33);
-	ASM_DB(0xDB);
-	ASM_DB(0xB9);
-	ASM_DB(0x58);
-	ASM_DB(0x03);
-	ASM_DB(0x9A);
-	ASM_DB(0x48);
-	ASM_DB(0x00);
-	ASM_DB(0xCE);
-	ASM_DB(0x83);
-	ASM_DB(0x59);
+	unk_83D28(0, 0, 0x358);
 }
 
 static void unk_83E0C()
 {
-	ASM_DB(0x51);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
-	ASM_DB(0x33);
-	ASM_DB(0xDB);
-	ASM_DB(0xB9);
-	ASM_DB(0x68);
-	ASM_DB(0x03);
-	ASM_DB(0x9A);
-	ASM_DB(0x48);
-	ASM_DB(0x00);
-	ASM_DB(0xCE);
-	ASM_DB(0x83);
-	ASM_DB(0x59);
+	unk_83D28(0, 0, 0x368);
 }
 
 static void unk_83E1B()
 {
-	ASM_DB(0x51);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
-	ASM_DB(0x33);
-	ASM_DB(0xDB);
-	ASM_DB(0xB9);
-	ASM_DB(0x78);
-	ASM_DB(0x03);
-	ASM_DB(0x9A);
-	ASM_DB(0x48);
-	ASM_DB(0x00);
-	ASM_DB(0xCE);
-	ASM_DB(0x83);
-	ASM_DB(0x59);
+	unk_83D28(0, 0, 0x378);
 }
 
 static void unk_83E2A()
 {
-	ASM_DB(0x51);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
-	ASM_DB(0x33);
-	ASM_DB(0xDB);
-	ASM_DB(0xB9);
-	ASM_DB(0x88);
-	ASM_DB(0x03);
-	ASM_DB(0x9A);
-	ASM_DB(0x48);
-	ASM_DB(0x00);
-	ASM_DB(0xCE);
-	ASM_DB(0x83);
-	ASM_DB(0x9A);
-	ASM_DB(0x53);
-	ASM_DB(0x00);
-	ASM_DB(0x73);
-	ASM_DB(0x91);
-	ASM_DB(0x59);
+	unk_83D28(0, 0, 0x388);
+	flash_clear();
 }
 
 static void unk_83E3E()
