@@ -2,6 +2,9 @@
 #include <machine.h>
 #include "types.h"
 #include "LOGO.h"
+#include "MEMORY.h"
+#include "SWANMAIN.h"
+#include "SYSTEM.h"
 
 void logo_init()
 {
@@ -118,111 +121,47 @@ void logo_init()
 	ASM_DB(0x59);
 }
 
-static void unk_842E6()
+static void unk_842E6(struct logo_struct *a)
 {
-	ASM_DB(0x56);
-	ASM_DB(0x8B);
-	ASM_DB(0xF0);
-	ASM_DB(0x8B);
-	ASM_DB(0xDE);
-	ASM_DB(0x8B);
-	ASM_DB(0x47);
-	ASM_DB(0x02);
-	ASM_DB(0x3D);
-	ASM_DB(0x03);
-	ASM_DB(0x00);
-	ASM_DB(0x74);
-	ASM_DB(0x46);
-	ASM_DB(0x3D);
-	ASM_DB(0x02);
-	ASM_DB(0x00);
-	ASM_DB(0x74);
-	ASM_DB(0x2B);
-	ASM_DB(0x3D);
-	ASM_DB(0x01);
-	ASM_DB(0x00);
-	ASM_DB(0x74);
-	ASM_DB(0x1A);
-	ASM_DB(0x85);
-	ASM_DB(0xC0);
-	ASM_DB(0x75);
-	ASM_DB(0x4B);
-	ASM_DB(0xFF);
-	ASM_DB(0x44);
-	ASM_DB(0x04);
-	ASM_DB(0x83);
-	ASM_DB(0x7C);
-	ASM_DB(0x04);
-	ASM_DB(0x1E);
-	ASM_DB(0x7E);
-	ASM_DB(0x42);
-	ASM_DB(0xFF);
-	ASM_DB(0x44);
-	ASM_DB(0x02);
-	ASM_DB(0xB8);
-	ASM_DB(0x0A);
-	ASM_DB(0x00);
-	ASM_DB(0x9A);
-	ASM_DB(0x74);
-	ASM_DB(0x03);
-	ASM_DB(0xEB);
-	ASM_DB(0x80);
-	ASM_DB(0xEB);
-	ASM_DB(0x35);
-	ASM_DB(0x83);
-	ASM_DB(0x3E);
-	ASM_DB(0x4E);
-	ASM_DB(0x09);
-	ASM_DB(0x64);
-	ASM_DB(0x75);
-	ASM_DB(0x2E);
-	ASM_DB(0xFF);
-	ASM_DB(0x44);
-	ASM_DB(0x02);
-	ASM_DB(0xEB);
-	ASM_DB(0x29);
-	ASM_DB(0xFF);
-	ASM_DB(0x44);
-	ASM_DB(0x04);
-	ASM_DB(0x83);
-	ASM_DB(0x7C);
-	ASM_DB(0x04);
-	ASM_DB(0x3C);
-	ASM_DB(0x7E);
-	ASM_DB(0x20);
-	ASM_DB(0xFF);
-	ASM_DB(0x44);
-	ASM_DB(0x02);
-	ASM_DB(0xB8);
-	ASM_DB(0x0A);
-	ASM_DB(0x00);
-	ASM_DB(0x9A);
-	ASM_DB(0x7F);
-	ASM_DB(0x03);
-	ASM_DB(0xEB);
-	ASM_DB(0x80);
-	ASM_DB(0xEB);
-	ASM_DB(0x13);
-	ASM_DB(0x83);
-	ASM_DB(0x3E);
-	ASM_DB(0x4E);
-	ASM_DB(0x09);
-	ASM_DB(0x00);
-	ASM_DB(0x75);
-	ASM_DB(0x0C);
-	ASM_DB(0x9A);
-	ASM_DB(0x74);
-	ASM_DB(0x02);
-	ASM_DB(0x0A);
-	ASM_DB(0x80);
-	ASM_DB(0x8B);
-	ASM_DB(0xC6);
-	ASM_DB(0x9A);
-	ASM_DB(0xF1);
-	ASM_DB(0x00);
-	ASM_DB(0x4D);
-	ASM_DB(0x81);
-	ASM_DB(0x5E);
+	struct logo_struct *b = a;
+	switch(a->field1_0x2)
+	{
+		case 0:
+		{
+			if(0x1e < ++b->field2_0x4)
+			{
+				b->field1_0x2++;
+				fade_in(10);
+			}
+			break;
+		}
+		case 1:
+		{
+			if (fade[0] == 100)
+			{
+				b->field1_0x2++;
+			}
+			break;
+		}
+		case 2:
+		{
+			if (0x3c < ++b->field2_0x4)
+			{
+				b->field1_0x2++;
+				fade_out(10);
+			}
+			break;
+		}
+		case 3:
+		{
+			if (fade[0] == 0)
+			{
+				task_delete();
+				memfree(b);
+			}
+			break;
+		}
+	}
 }
 
 

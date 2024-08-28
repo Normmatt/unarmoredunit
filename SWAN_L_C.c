@@ -507,7 +507,7 @@ void get_bmp_cell_no()
 	ASM_DB(0x5D);
 }
 
-void font_putXY()
+void font_putXY(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f, u16 g, u8 far *gfx)
 {
 	ASM_DB(0x55);
 	ASM_DB(0x8B);

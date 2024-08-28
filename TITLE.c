@@ -1,75 +1,19 @@
 #include <machine.h>
 #include "types.h"
 #include "TITLE.h"
+#include "SWAN_L_C.h"
 
 static const u8 far title_unk[] = {0,1,2,3,2,1};
 
-static void unk_83CEA()
+extern u8 far G_TITLE_char_adr[];
+
+static void unk_83CEA(u16 a)
 {
-	ASM_DB(0x51);
-	ASM_DB(0x52);
-	ASM_DB(0x8B);
-	ASM_DB(0xC8);
-	ASM_DB(0xB8);
-	ASM_DB(0x24);
-	ASM_DB(0xA2);
-	ASM_DB(0x8E);
-	ASM_DB(0xC0);
-	ASM_DB(0x8B);
-	ASM_DB(0xD9);
-	ASM_DB(0x26);
-	ASM_DB(0x8A);
-	ASM_DB(0x8F);
-	ASM_DB(0x08);
-	ASM_DB(0x00);
-	ASM_DB(0x32);
-	ASM_DB(0xED);
-	ASM_DB(0xBB);
-	ASM_DB(0x00);
-	ASM_DB(0x00);
-	ASM_DB(0xB8);
-	ASM_DB(0xE4);
-	ASM_DB(0xB7);
-	ASM_DB(0x50);
-	ASM_DB(0x53);
-	ASM_DB(0xB8);
-	ASM_DB(0x01);
-	ASM_DB(0x00);
-	ASM_DB(0x50);
-	ASM_DB(0xB8);
-	ASM_DB(0x0E);
-	ASM_DB(0x00);
-	ASM_DB(0x50);
-	ASM_DB(0xB8);
-	ASM_DB(0x08);
-	ASM_DB(0x00);
-	ASM_DB(0x50);
-	ASM_DB(0x33);
-	ASM_DB(0xC0);
-	ASM_DB(0xBB);
-	ASM_DB(0x12);
-	ASM_DB(0x00);
-	ASM_DB(0x03);
-	ASM_DB(0xD9);
-	ASM_DB(0xB9);
-	ASM_DB(0x0C);
-	ASM_DB(0x00);
-	ASM_DB(0xBA);
-	ASM_DB(0x01);
-	ASM_DB(0x00);
-	ASM_DB(0x9A);
-	ASM_DB(0xE9);
-	ASM_DB(0x01);
-	ASM_DB(0xD2);
-	ASM_DB(0x91);
-	ASM_DB(0x83);
-	ASM_DB(0xC4);
-	ASM_DB(0x0A);
-	ASM_DB(0x5A);
-	ASM_DB(0x59);
+	a = title_unk[a];
+	font_putXY(0, 18 + a, 12, 1, 8, 14, 1, G_TITLE_char_adr);
 }
 
-static void unk_83D28(u16 a, u16 b, u16 c)
+static void unk_83D28(u16 a, u16 b, u8 *c)
 {
 	ASM_DB(0x51);
 	ASM_DB(0x52);
@@ -212,47 +156,47 @@ static void unk_83D28(u16 a, u16 b, u16 c)
 
 static void unk_83DB2()
 {
-	unk_83D28(0, 0, 0x308);
+	unk_83D28(0, 0, (u8*)0x308);
 }
 
 static void unk_83DC1()
 {
-	unk_83D28(0, 0, 0x318);
+	unk_83D28(0, 0, (u8*)0x318);
 }
 
 static void unk_83DD0()
 {
-	unk_83D28(0, 0, 0x328);
+	unk_83D28(0, 0, (u8*)0x328);
 }
 
 static void unk_83DDF()
 {
-	unk_83D28(0, 0, 0x338);
+	unk_83D28(0, 0, (u8*)0x338);
 }
 
 static void unk_83DEE()
 {
-	unk_83D28(0, 0, 0x348);
+	unk_83D28(0, 0, (u8*)0x348);
 }
 
 static void unk_83DFD()
 {
-	unk_83D28(0, 0, 0x358);
+	unk_83D28(0, 0, (u8*)0x358);
 }
 
 static void unk_83E0C()
 {
-	unk_83D28(0, 0, 0x368);
+	unk_83D28(0, 0, (u8*)0x368);
 }
 
 static void unk_83E1B()
 {
-	unk_83D28(0, 0, 0x378);
+	unk_83D28(0, 0, (u8*)0x378);
 }
 
 static void unk_83E2A()
 {
-	unk_83D28(0, 0, 0x388);
+	unk_83D28(0, 0, (u8*)0x388);
 	flash_clear();
 }
 

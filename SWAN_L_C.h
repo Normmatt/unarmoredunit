@@ -14,10 +14,11 @@ extern vu8 int_enable;
 /*void rand();
 void srand();
 void font_put2XY();
-void get_bmp_cell_no();
-void font_putXY();
-void font_putXYT();
+void get_bmp_cell_no();*/
+void font_putXY(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f, u16 g, u8 far *gfx);
+/*void font_putXYT();
 void font_put2();*/
+
 
 //_GENETEXT.p86
 void font_load();
