@@ -100,7 +100,7 @@ void meminit()
 	ASM_DB(0xff);
 }
 
-void memalloc()
+void *memalloc(u16 size)
 {
 	ASM_DB(0x51);
 	ASM_DB(0x52);

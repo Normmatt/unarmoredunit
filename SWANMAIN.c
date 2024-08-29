@@ -74,7 +74,7 @@ s16 tsk_init()
 	return 0;
 }
 
-s16 task_append(task_pointer task, short unk)
+s16 task_append(task_pointer task, u16 unk)
 {
 	if(tsk1cont.unk0 < 16)
 	{
@@ -145,7 +145,7 @@ s16 task_delete_all()
 	return 0;
 }
 
-s16 task_append2(task_pointer2 task, short unk)
+s16 task_append2(task_pointer2 task, u16 unk)
 {
 	s16 val = 0;
 	while (val < 16)

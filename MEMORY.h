@@ -5,7 +5,7 @@
 extern unsigned char memory_alloc_work[1042];
 
 void meminit();
-void memalloc();
+void *memalloc(u16 size);
 void memfree();
 void memory_test_init();
 void memory_dump_init();

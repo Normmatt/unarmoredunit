@@ -105,7 +105,7 @@ struct DebugHandler
 {
     u16 unk;
     const char far * namestr;
-    void_pointer func;
+    task_pointer func;
 };
 
 static const struct DebugHandler far DebugHandlers[] =

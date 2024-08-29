@@ -21,13 +21,13 @@ void font_put2();*/
 
 
 //_GENETEXT.p86
-void font_load();
+void font_load(u16 id, u8 far *data);
 void put_sprite();
 void pad_in();
 void get_cell_no();
 void put_cell_no();
 void far_strcpy();
-void font_put();
+void font_put(u16 id, u8 far *data);
 void bitmap();
 void put_cell_pixel();
 void get_bmp_cell_pixel();
