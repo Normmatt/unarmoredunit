@@ -21,6 +21,7 @@ MODEL=p
 
 .a86.obj:
 	r86 $(AFLAGS) -o $@ $<
+	obj2asm.exe $@ -c$*.cod
 
 .char.obj:
 	python bin2d86.py $*.char

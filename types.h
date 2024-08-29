@@ -1,6 +1,8 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#include <machine.h>
+
 #ifndef NULL
 #define NULL 0
 #endif
@@ -35,5 +37,9 @@ typedef void (*task_pointer2)(u16, u16);
 #define ASM_DB(c) _asm_c("\tDB\t" _q_(__eval__(c)))
 #define ASM_DW(c) _asm_c("\tDW\t" _q_(__eval__(c)))
 #define ASM_DD(c) _asm_c("\tDD\t" _q_(__eval__(c)))
+
+/* Required to match some out calls */
+#define	outp2(p, c)	\
+	_asm_i("\n\tOUT\tDX,AL", (unsigned)(c), _asm_c, _asm_c, (unsigned)(p))
 
 #endif

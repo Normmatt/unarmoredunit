@@ -6,10 +6,10 @@
 short cel_tbl[2] = {0x2000, 0x2000};
 short map_tbl[2] = {0x1000, 0x1800};
 short spr_tbl[2] = {0x0200, 0x2000};
-long nbg_disp = 0;
-short spr_disp = 0;
-long nbg_xoff = 0;
-long nbg_yoff = 0;
+u16 nbg_disp[2] = {0, 0};
+u16 spr_disp = 0;
+u16 nbg_xoff[2] = {0, 0};
+u16 nbg_yoff[2] = {0, 0};
 short lcd_option = 0;
 short colpal[64] = {
 	0x0007, 0x0005, 0x0003, 0x0000,
@@ -166,176 +166,54 @@ u8 _ctype[257] = {
 struct TaskContext tsk1cont;
 s16 fade[2];
 
-void nbg_ddf()
+u16 nbg_ddf(u16 a, u16 b)
 {
-    ASM_DB(0x51);
-	ASM_DB(0x52);
-	ASM_DB(0x56);
-	ASM_DB(0x8b);
-	ASM_DB(0xf0);
-	ASM_DB(0x8b);
-	ASM_DB(0xcb);
-	ASM_DB(0x83);
-	ASM_DB(0xf9);
-	ASM_DB(0x01);
-	ASM_DB(0x74);
-	ASM_DB(0x04);
-	ASM_DB(0x85);
-	ASM_DB(0xc9);
-	ASM_DB(0x75);
-	ASM_DB(0x20);
-	ASM_DB(0xd1);
-	ASM_DB(0xe6);
-	ASM_DB(0x89);
-	ASM_DB(0x8c);
-	ASM_DB(0x68);
-	ASM_DB(0x00);
-	ASM_DB(0xa1);
-	ASM_DB(0x6c);
-	ASM_DB(0x00);
-	ASM_DB(0xd1);
-	ASM_DB(0xe0);
-	ASM_DB(0xd1);
-	ASM_DB(0xe0);
-	ASM_DB(0x8b);
-	ASM_DB(0x1e);
-	ASM_DB(0x6a);
-	ASM_DB(0x00);
-	ASM_DB(0xd1);
-	ASM_DB(0xe3);
-	ASM_DB(0x0b);
-	ASM_DB(0xc3);
-	ASM_DB(0x0b);
-	ASM_DB(0x06);
-	ASM_DB(0x68);
-	ASM_DB(0x00);
-	ASM_DB(0x33);
-	ASM_DB(0xd2);
-	ASM_DB(0xef);
-	ASM_DB(0x8b);
-	ASM_DB(0xc1);
-	ASM_DB(0xeb);
-	ASM_DB(0x06);
-	ASM_DB(0xd1);
-	ASM_DB(0xe6);
-	ASM_DB(0x8b);
-	ASM_DB(0x84);
-	ASM_DB(0x68);
-	ASM_DB(0x00);
-	ASM_DB(0x5e);
-	ASM_DB(0x5a);
-	ASM_DB(0x59);
+	if(b == 1 || b == 0)
+	{
+		nbg_disp[a] = b;
+		outpw(0,(spr_disp<<2) | (nbg_disp[1] << 1) | nbg_disp[0]);
+		return b;
+	}
+	else
+	{
+		return nbg_disp[a];
+	}
 }
 
-void spr_ddf()
+u16 spr_ddf(u16 a)
 {
-    ASM_DB(0x51);
-	ASM_DB(0x52);
-	ASM_DB(0x8b);
-	ASM_DB(0xc8);
-	ASM_DB(0x83);
-	ASM_DB(0xf9);
-	ASM_DB(0x01);
-	ASM_DB(0x74);
-	ASM_DB(0x04);
-	ASM_DB(0x85);
-	ASM_DB(0xc9);
-	ASM_DB(0x75);
-	ASM_DB(0x1e);
-	ASM_DB(0x89);
-	ASM_DB(0x0e);
-	ASM_DB(0x6c);
-	ASM_DB(0x00);
-	ASM_DB(0xa1);
-	ASM_DB(0x6c);
-	ASM_DB(0x00);
-	ASM_DB(0xd1);
-	ASM_DB(0xe0);
-	ASM_DB(0xd1);
-	ASM_DB(0xe0);
-	ASM_DB(0x8b);
-	ASM_DB(0x1e);
-	ASM_DB(0x6a);
-	ASM_DB(0x00);
-	ASM_DB(0xd1);
-	ASM_DB(0xe3);
-	ASM_DB(0x0b);
-	ASM_DB(0xc3);
-	ASM_DB(0x0b);
-	ASM_DB(0x06);
-	ASM_DB(0x68);
-	ASM_DB(0x00);
-	ASM_DB(0x33);
-	ASM_DB(0xd2);
-	ASM_DB(0xef);
-	ASM_DB(0x8b);
-	ASM_DB(0xc1);
-	ASM_DB(0xeb);
-	ASM_DB(0x03);
-	ASM_DB(0xa1);
-	ASM_DB(0x6c);
-	ASM_DB(0x00);
-	ASM_DB(0x5a);
-	ASM_DB(0x59);
+	if(a == 1 || a == 0)
+	{
+		spr_disp = a;
+		outpw(0,(spr_disp<<2) | (nbg_disp[1] << 1) | nbg_disp[0]);
+		return a;
+	}
+	else
+	{
+		return spr_disp;
+	}
 }
 
-void nbg_scroll()
+void nbg_scroll(u16 a, u16 b, u16 c)
 {
-	ASM_DB(0x52);
-	ASM_DB(0x56);
-	ASM_DB(0x8b);
-	ASM_DB(0xf0);
-	ASM_DB(0xd1);
-	ASM_DB(0xe6);
-	ASM_DB(0x89);
-	ASM_DB(0x9c);
-	ASM_DB(0x6e);
-	ASM_DB(0x00);
-	ASM_DB(0x8b);
-	ASM_DB(0xf0);
-	ASM_DB(0xd1);
-	ASM_DB(0xe6);
-	ASM_DB(0x89);
-	ASM_DB(0x8c);
-	ASM_DB(0x72);
-	ASM_DB(0x00);
-	ASM_DB(0x3d);
-	ASM_DB(0x01);
-	ASM_DB(0x00);
-	ASM_DB(0x74);
-	ASM_DB(0x12);
-	ASM_DB(0x85);
-	ASM_DB(0xc0);
-	ASM_DB(0x75);
-	ASM_DB(0x1a);
-	ASM_DB(0x8b);
-	ASM_DB(0xc3);
-	ASM_DB(0xba);
-	ASM_DB(0x10);
-	ASM_DB(0x00);
-	ASM_DB(0xee);
-	ASM_DB(0x8b);
-	ASM_DB(0xc1);
-	ASM_DB(0xba);
-	ASM_DB(0x11);
-	ASM_DB(0x00);
-	ASM_DB(0xee);
-	ASM_DB(0xeb);
-	ASM_DB(0x0c);
-	ASM_DB(0x8b);
-	ASM_DB(0xc3);
-	ASM_DB(0xba);
-	ASM_DB(0x12);
-	ASM_DB(0x00);
-	ASM_DB(0xee);
-	ASM_DB(0x8b);
-	ASM_DB(0xc1);
-	ASM_DB(0xba);
-	ASM_DB(0x13);
-	ASM_DB(0x00);
-	ASM_DB(0xee);
-	ASM_DB(0x5e);
-	ASM_DB(0x5a);
+	nbg_xoff[a] = b;
+	nbg_yoff[a] = c;
+
+	switch(a)
+	{
+		case 0:
+		{
+			outp2(0x10,b);
+			outp2(0x11,c);
+			break;
+		}
+		case 1:
+		{
+			outp2(0x12,b);
+			outp2(0x13,c);
+			break;
+		}
+	}
 }
 
 void cls()
