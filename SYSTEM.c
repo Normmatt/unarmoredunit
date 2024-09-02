@@ -216,8 +216,22 @@ void nbg_scroll(u16 a, u16 b, u16 c)
 	}
 }
 
-void cls()
+void cls(u16 a)
 {
+	/*u16 *v = vram;
+	u16 *m = map_tbl[a];
+	s16 i;
+
+	for(i = 0x400; i != 0; i--)
+	{
+		*m++ = 0x9FF;
+	}
+
+	m = cel_tbl[a] + 0x1ff0;
+	for(i = 8; i != 0; i--)
+	{
+		*m++ = 0;
+	}*/
 	ASM_DB(0x55);
 	ASM_DB(0x8b);
 	ASM_DB(0xec);

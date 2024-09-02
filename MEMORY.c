@@ -2,7 +2,8 @@
 #include "types.h"
 #include "MEMORY.h"
 
-u8 memory_alloc_work[1042]; /*096E*/
+memory_node_t memory_alloc_work[128]; /*096E*/
+static u8 unk[18]; /*0D6E*/
 
 static const char far str1[] = "Memory test program";
 static const char far str2[] = "                 level1.00";
@@ -15,276 +16,92 @@ static const char far str8[] = "button push";
 
 void meminit()
 {
-	ASM_DB(0xbb);
-	ASM_DB(0x6e);
-	ASM_DB(0x09);
-	ASM_DB(0xb8);
-	ASM_DB(0x00);
-	ASM_DB(0x04);
-	ASM_DB(0xeb);
-	ASM_DB(0x05);
-	ASM_DB(0xc6);
-	ASM_DB(0x07);
-	ASM_DB(0x00);
-	ASM_DB(0x43);
-	ASM_DB(0x48);
-	ASM_DB(0x85);
-	ASM_DB(0xc0);
-	ASM_DB(0x75);
-	ASM_DB(0xf7);
-	ASM_DB(0xbb);
-	ASM_DB(0x6e);
-	ASM_DB(0x09);
-	ASM_DB(0xc7);
-	ASM_DB(0x07);
-	ASM_DB(0x41);
-	ASM_DB(0xff);
-	ASM_DB(0xc7);
-	ASM_DB(0x47);
-	ASM_DB(0x02);
-	ASM_DB(0x76);
-	ASM_DB(0x09);
-	ASM_DB(0xc7);
-	ASM_DB(0x47);
-	ASM_DB(0x04);
-	ASM_DB(0x00);
-	ASM_DB(0x00);
-	ASM_DB(0xc7);
-	ASM_DB(0x47);
-	ASM_DB(0x06);
-	ASM_DB(0x55);
-	ASM_DB(0xff);
-	ASM_DB(0xbb);
-	ASM_DB(0x76);
-	ASM_DB(0x09);
-	ASM_DB(0xc7);
-	ASM_DB(0x07);
-	ASM_DB(0x6e);
-	ASM_DB(0x09);
-	ASM_DB(0xc7);
-	ASM_DB(0x47);
-	ASM_DB(0x02);
-	ASM_DB(0x66);
-	ASM_DB(0x0d);
-	ASM_DB(0xc7);
-	ASM_DB(0x47);
-	ASM_DB(0x04);
-	ASM_DB(0xe8);
-	ASM_DB(0x03);
-	ASM_DB(0xc7);
-	ASM_DB(0x47);
-	ASM_DB(0x06);
-	ASM_DB(0x46);
-	ASM_DB(0xff);
-	ASM_DB(0xbb);
-	ASM_DB(0x66);
-	ASM_DB(0x0d);
-	ASM_DB(0xc7);
-	ASM_DB(0x07);
-	ASM_DB(0x76);
-	ASM_DB(0x09);
-	ASM_DB(0xc7);
-	ASM_DB(0x47);
-	ASM_DB(0x02);
-	ASM_DB(0x42);
-	ASM_DB(0xff);
-	ASM_DB(0xc7);
-	ASM_DB(0x47);
-	ASM_DB(0x04);
-	ASM_DB(0x00);
-	ASM_DB(0x00);
-	ASM_DB(0xc7);
-	ASM_DB(0x47);
-	ASM_DB(0x06);
-	ASM_DB(0x55);
-	ASM_DB(0xff);
+	u8 *p = (u8*)memory_alloc_work;
+	memory_node_t *m;
+	s16 i;
+	for (i = sizeof(memory_alloc_work); i; i--)
+	{
+		*p++ = 0;
+	}
+
+	m = &memory_alloc_work[0];
+	m->unk0 = (memory_node_t *)MEMORY_FLAG_FF41;
+	m->unk2 = &memory_alloc_work[1];
+	m->unk4 = 0;
+	m->unk6 = MEMORY_FLAG_FF55;
+
+	m = &memory_alloc_work[1];
+	m->unk0 = &memory_alloc_work[0];
+	m->unk2 = &memory_alloc_work[127];
+	m->unk4 = 1000;
+	m->unk6 = MEMORY_FLAG_FF46;
+	
+	m = &memory_alloc_work[127];
+	m->unk0 = &memory_alloc_work[1];
+	m->unk2 = (memory_node_t *)MEMORY_FLAG_FF42;
+	m->unk4 = 0;
+	m->unk6 = MEMORY_FLAG_FF55;
 }
 
 void *memalloc(u16 size)
 {
-	ASM_DB(0x51);
-	ASM_DB(0x52);
-	ASM_DB(0x56);
-	ASM_DB(0x57);
-	ASM_DB(0xbb);
-	ASM_DB(0x6e);
-	ASM_DB(0x09);
-	ASM_DB(0xeb);
-	ASM_DB(0x49);
-	ASM_DB(0x81);
-	ASM_DB(0x7f);
-	ASM_DB(0x06);
-	ASM_DB(0x46);
-	ASM_DB(0xff);
-	ASM_DB(0x75);
-	ASM_DB(0x3f);
-	ASM_DB(0xb9);
-	ASM_DB(0x08);
-	ASM_DB(0x00);
-	ASM_DB(0x03);
-	ASM_DB(0xc8);
-	ASM_DB(0x3b);
-	ASM_DB(0x4f);
-	ASM_DB(0x04);
-	ASM_DB(0x77);
-	ASM_DB(0x35);
-	ASM_DB(0x8b);
-	ASM_DB(0xf3);
-	ASM_DB(0x83);
-	ASM_DB(0xc6);
-	ASM_DB(0x08);
-	ASM_DB(0x03);
-	ASM_DB(0xf0);
-	ASM_DB(0x8b);
-	ASM_DB(0x7f);
-	ASM_DB(0x02);
-	ASM_DB(0x89);
-	ASM_DB(0x1c);
-	ASM_DB(0x89);
-	ASM_DB(0x7c);
-	ASM_DB(0x02);
-	ASM_DB(0xb9);
-	ASM_DB(0x08);
-	ASM_DB(0x00);
-	ASM_DB(0x03);
-	ASM_DB(0xc8);
-	ASM_DB(0x8b);
-	ASM_DB(0x57);
-	ASM_DB(0x04);
-	ASM_DB(0x2b);
-	ASM_DB(0xd1);
-	ASM_DB(0x89);
-	ASM_DB(0x54);
-	ASM_DB(0x04);
-	ASM_DB(0xc7);
-	ASM_DB(0x44);
-	ASM_DB(0x06);
-	ASM_DB(0x46);
-	ASM_DB(0xff);
-	ASM_DB(0x89);
-	ASM_DB(0x77);
-	ASM_DB(0x02);
-	ASM_DB(0x89);
-	ASM_DB(0x47);
-	ASM_DB(0x04);
-	ASM_DB(0xc7);
-	ASM_DB(0x47);
-	ASM_DB(0x06);
-	ASM_DB(0x55);
-	ASM_DB(0xff);
-	ASM_DB(0x89);
-	ASM_DB(0x35);
-	ASM_DB(0x83);
-	ASM_DB(0xc3);
-	ASM_DB(0x08);
-	ASM_DB(0x8b);
-	ASM_DB(0xc3);
-	ASM_DB(0xeb);
-	ASM_DB(0x0c);
-	ASM_DB(0x8b);
-	ASM_DB(0x5f);
-	ASM_DB(0x02);
-	ASM_DB(0x81);
-	ASM_DB(0x7f);
-	ASM_DB(0x02);
-	ASM_DB(0x42);
-	ASM_DB(0xff);
-	ASM_DB(0x75);
-	ASM_DB(0xb0);
-	ASM_DB(0x33);
-	ASM_DB(0xc0);
-	ASM_DB(0x5f);
-	ASM_DB(0x5e);
-	ASM_DB(0x5a);
-	ASM_DB(0x59);
+	memory_node_t *m = memory_alloc_work;
+	memory_node_t *n;
+	memory_node_t *o;
+	
+	while(m->unk2 != (memory_node_t *)MEMORY_FLAG_FF42)
+	{
+		if(m->unk6 == MEMORY_FLAG_FF46 && ((8 + size) <= m->unk4))
+		{
+			n = (memory_node_t*)((u16)(m+1) + size);
+			o = m->unk2;
+			n->unk0 = m;
+			n->unk2 = o;
+			n->unk4 = m->unk4 - (8 + size);
+			n->unk6 = MEMORY_FLAG_FF46;
+
+			m->unk2 = n;
+			m->unk4 = size;
+			m->unk6 = MEMORY_FLAG_FF55;
+			o->unk0 = n;
+
+			return m+1;
+		}
+		m = m->unk2;
+	}
+	return 0;
 }
 
-static int near unk_1589()
+static void near unk_1589(memory_node_t *n)
 {
-    ASM_DB(0x56);
-    ASM_DB(0x57);
-    ASM_DB(0x8b);
-    ASM_DB(0xd8);
-    ASM_DB(0x8b);
-    ASM_DB(0x77);
-    ASM_DB(0x02);
-    ASM_DB(0x8b);
-    ASM_DB(0x7c);
-    ASM_DB(0x02);
-    ASM_DB(0x81);
-    ASM_DB(0x7c);
-    ASM_DB(0x06);
-    ASM_DB(0x46);
-    ASM_DB(0xff);
-    ASM_DB(0x75);
-    ASM_DB(0x13);
-    ASM_DB(0x8b);
-    ASM_DB(0x44);
-    ASM_DB(0x02);
-    ASM_DB(0x89);
-    ASM_DB(0x47);
-    ASM_DB(0x02);
-    ASM_DB(0x8b);
-    ASM_DB(0x04);
-    ASM_DB(0x89);
-    ASM_DB(0x05);
-    ASM_DB(0x8b);
-    ASM_DB(0x44);
-    ASM_DB(0x04);
-    ASM_DB(0x05);
-    ASM_DB(0x08);
-    ASM_DB(0x00);
-    ASM_DB(0x01);
-    ASM_DB(0x47);
-    ASM_DB(0x04);
-    ASM_DB(0x5f);
-    ASM_DB(0x5e);
+	memory_node_t *a, *b;
+
+	a = n->unk2;
+	b = a->unk2;
+	if(a->unk6 == MEMORY_FLAG_FF46)
+	{
+		n->unk2 = a->unk2;
+		b->unk0 = a->unk0;
+		n->unk4 += a->unk4 + sizeof(memory_node_t);
+
+	}
 }
 
-static int near unk_15B0()
+static void near unk_15B0(memory_node_t *n)
 {
-	ASM_DB(0x8b);
-	ASM_DB(0xd8);
-	ASM_DB(0x8b);
-	ASM_DB(0x1f);
-	ASM_DB(0x81);
-	ASM_DB(0x7f);
-	ASM_DB(0x06);
-	ASM_DB(0x46);
-	ASM_DB(0xff);
-	ASM_DB(0x75);
-	ASM_DB(0x05);
-	ASM_DB(0x8b);
-	ASM_DB(0xc3);
-	ASM_DB(0xe8);
-	ASM_DB(0xc9);
-	ASM_DB(0xff);
+	n = n->unk0;
+	if(n->unk6 == MEMORY_FLAG_FF46)
+	{
+		unk_1589(n);
+	}
 }
 
-void memfree()
+void memfree(memory_node_t *n)
 {
-	ASM_DB(0x56);
-	ASM_DB(0x8b);
-	ASM_DB(0xf0);
-	ASM_DB(0x83);
-	ASM_DB(0xee);
-	ASM_DB(0x08);
-	ASM_DB(0xc7);
-	ASM_DB(0x44);
-	ASM_DB(0x06);
-	ASM_DB(0x46);
-	ASM_DB(0xff);
-	ASM_DB(0x8b);
-	ASM_DB(0xc6);
-	ASM_DB(0xe8);
-	ASM_DB(0xb8);
-	ASM_DB(0xff);
-	ASM_DB(0x8b);
-	ASM_DB(0xc6);
-	ASM_DB(0xe8);
-	ASM_DB(0xda);
-	ASM_DB(0xff);
-	ASM_DB(0x5e);
+	n--;
+	n->unk6 = MEMORY_FLAG_FF46;
+	unk_1589(n);
+	unk_15B0(n);
 }
 
 void memory_test_init()
