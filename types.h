@@ -37,7 +37,13 @@ typedef void (*task_pointer2)(u16, u16);
 #define ASM_DB(c) _asm_c("\tDB\t" _q_(__eval__(c)))
 #define ASM_DW(c) _asm_c("\tDW\t" _q_(__eval__(c)))
 #define ASM_DD(c) _asm_c("\tDD\t" _q_(__eval__(c)))
-
+#define ASM_INLINE(c) _asm_c(c)
+#define ASM_OP1(c) ASM_DB(c)
+#define ASM_OP2(c,d) ASM_OP1(c); ASM_OP1(d)
+#define ASM_OP3(c,d,e) ASM_OP2(c,d); ASM_OP1(e)
+#define ASM_OP4(c,d,e,f) ASM_OP3(c,d,e); ASM_OP1(f)
+#define ASM_OP5(c,d,e,f,g) ASM_OP4(c,d,e,f); ASM_OP1(g)
+#define ASM_OP6(c,d,e,f,g,h) ASM_OP5(c,d,e,f,g); ASM_OP1(h)
 /* Required to match some out calls */
 #define	outp2(p, c)	\
 	_asm_i("\n\tOUT\tDX,AL", (unsigned)(c), _asm_c, _asm_c, (unsigned)(p))

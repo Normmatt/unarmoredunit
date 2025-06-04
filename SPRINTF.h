@@ -11,7 +11,7 @@ extern const unsigned long far hex_div_tbl[];
 extern const unsigned long far bin_div_tbl[];
 
 	
-void print(u16 unk, u16 unk2, u16 unk3, u16 unk4, u8 far font[]);
+void print(u16 unk, u16 unk2, u16 unk3, u8 *unk4, u8 far font[]);
 void bmp_print();
 void bmp_print_next();
 void hsprintf();

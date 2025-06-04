@@ -3,6 +3,7 @@
 #include "types.h"
 #include "SPRINTF.h"
 #include "SWANMAIN.h"
+#include "SYSTEM.h"
 
 void far *ssprintf = hsprintf;
 
@@ -13,8 +14,21 @@ const u32 far hex_div_tbl[] = {0x10000,0x1000,0x100,0x10,1};
 const u32 far bin_div_tbl[] = {0x10000,0x8000,0x4000,0x2000,0x1000,0x800,0x400,0x100,0x80,0x40,0x20,0x10,0x8,0x4,0x2,0x1};
 
 	
-void print(u16 unk, u16 unk2, u16 unk3, u16 unk4, u8 far font[])
+void print(u16 unk, u16 unk2, u16 unk3, u8 *unk4, u8 far font[])
 {
+	/*u16 width;
+	u16 ptr;
+	u16 *map;
+
+	width = *(u16 far *)(font + 0x0E);
+	ptr = *(u16 far *)vram;
+	map = map_tbl[unk3];
+	
+	for (; *unk4 != 0; unk4++)
+	{
+		map[unk2 * 0x20 + unk] = *(u16 far *)(font + (*(u8 *)unk4 * 2 -0x40) + width + 0x800);
+		unk++;
+	}*/
 	ASM_DB(85);
 	ASM_DB(139);
 	ASM_DB(236);
