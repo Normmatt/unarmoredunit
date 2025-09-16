@@ -41,7 +41,7 @@ clean:
 	$(RM) armoredunit.hex
 	$(RM) armoredunit.bin
 
-all:  crt0.obj armoredunit.hex armoredunit.bin
+all:  crt0.obj armoredunit.hex armoredunit.bin compare
 
 crt0.obj:	crt0.p86
 	cpp -o crt0.a86 $<
@@ -148,6 +148,12 @@ armoredunit.hex:	crt0.obj $(OBJS)
 armoredunit.bin: armoredunit.hex
 	hex2bin -s 0000 -l 100000 -p FF armoredunit.hex
 
+compare:
+	sha1sum -c armoredunit.sha1
+
 #Why does codegen chagne if we go straight to obj without making the .a86 for these
 SWANMAIN.a86:  SWANMAIN.c
 SYSTEM.a86:  SYSTEM.c
+CONSOLE.a86:  CONSOLE.c
+stagesel.a86:  stagesel.c
+SPRINTF.a86:  SPRINTF.c
