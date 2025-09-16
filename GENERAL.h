@@ -1,6 +1,6 @@
 #ifndef GENERAL_H
 #define GENERAL_H
 
-void max();
+int max(s16 a, s16 b);
 
 #endif
