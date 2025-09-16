@@ -3,62 +3,175 @@
 #include "types.h"
 #include "PUT_TEXT.h"
 
+// "DUMMY"
 static const char far unk00[] = "¥x0Eﾀﾞﾐｰ";
+
+// "Not enough energy"
 static const char far unk01[] = "¥x0Eｴﾈﾙｷﾞｰ¥x0Fｶﾞﾀﾘﾏｾﾝ";
+
+// "Charging"
 static const char far unk02[] = "¥x0Eﾁｬｰｼﾞ¥x0Fﾁｭｳﾃﾞｽ";
+
+// "Search area designation"
 static const char far unk03[] = "¥x0Eｻｰﾁｴﾘｱ¥x0Fﾉｼﾃｲ";
+
+// "Enemy AU discovered!"
 static const char far unk04[] = "¥x0FﾃｷAUｦﾊｯｹﾝ!";
+
+// "Enemy AU detected"
 static const char far unk05[] = "¥x0FﾃｷAUｦｶﾝﾁｼﾏｼﾀ";
+
+// "No response"
 static const char far unk06[] = "¥x0Fﾊﾝﾉｳﾊｱﾘﾏｾﾝ";
+
+// "Please select a target"
 static const char far unk07[] = "¥x0Fﾓｸﾋｮｳｦｷﾒﾃｸﾀﾞｻｲ";
+
+// "Hit! %1d damage!"
 static const char far unk08[] = "¥x0Eﾋｯﾄ!%1d¥x0Fﾉ¥x0Eﾀﾞﾒｰｼﾞ!";
+
+// "Miss / No damage"
 static const char far unk09[] = "¥x0Eﾐｽ･ﾉｰﾀﾞﾒｰｼﾞ";
+
+// "Took %1d damage!"
 static const char far unk10[] = "¥x0F%1dﾉ¥x0Eﾀﾞﾒｰｼﾞ¥x0Fｦｸﾗｯﾀ!";
+
+// "Select command"
 static const char far unk11[] = "¥x0Eｺﾏﾝﾄﾞ¥x0Fｦｾﾝﾀｸ";
+
+// "Attack %1d ready"
 static const char far unk12[] = "Attack %1d ready";
+
+// "Won a battle!"
 static const char far unk13[] = "Won a battle!";
+
+// "Stage Cleared"
 static const char far unk14[] = "Stage Cleared";
+
+// "Lost a battle"
 static const char far unk15[] = "Lost a battle";
+
+// "Mission failed"
 static const char far unk16[] = "Mission failed";
+
+// "Draw a battle"
 static const char far unk17[] = "Draw a battle";
+
+// "Hit A Button!"
 static const char far unk18[] = "Hit A Button!";
+
+// "Wait.."
 static const char far unk19[] = "Wait..";
+
+// "AU movement"
 static const char far unk20[] = "AU¥x0Fﾉｲﾄﾞｳ";
+
+// "Standard search"
 static const char far unk21[] = "¥x0Fﾋｮｳｼﾞｭﾝﾃｷﾅ¥x0Eｻｰﾁ";
+
+// "Low-cost search"
 static const char far unk22[] = "¥x0Eｺｽﾄ¥x0Fﾉｶﾙｲ¥x0Eｻｰﾁ";
+
+// "High-performance search equipment"
 static const char far unk23[] = "¥x0Fｺｳｾｲﾉｳﾅ¥x0Eｻｰﾁ¥x0Fｿｳﾋﾞ";
+
+// "Standard weapon"
 static const char far unk24[] = "¥x0Fﾋｮｳｼﾞｭﾝﾃｷﾅﾌﾞｷ";
+
+// "Powerful rifle"
 static const char far unk25[] = "¥x0Fｲﾘｮｸﾉｱﾙ¥x0Eﾗｲﾌﾙ";
+
+// "Long-range laser"
 static const char far unk26[] = "¥x0Fｼｬﾃｲﾉﾅｶﾞｲ¥x0Eﾚｰｻﾞｰ";
+
+// "Medium-type linear weapon"
 static const char far unk27[] = "¥x0Fﾁｭｳｶﾞﾀﾉ¥x0Eﾘﾆｱ¥x0Fﾍｲｷ";
+
+// "Small gun"
 static const char far unk28[] = "¥x0Fｺｶﾞﾀﾉｼﾞｭｳ";
+
+// "Powerful gun"
 static const char far unk29[] = "¥x0Fﾊｶｲﾘｮｸﾉｱﾙｼﾞｭｳ";
+
+// "Search-capable bomb"
 static const char far unk30[] = "¥x0Eｻｰﾁ¥x0Fｶﾉｳﾅ¥x0Eﾎﾞﾑ";
+
+// "Anti-AU small missile"
 static const char far unk31[] = "¥x0FﾀｲAUﾖｳｺｶﾞﾀ¥x0Eﾐｻｲﾙ";
+
+// "Wide-range explosive shell"
 static const char far unk32[] = "¥x0Fﾊﾝｲﾉﾋﾛｲｻｸﾚﾂﾀﾞﾝ";
+
+// "Fires multiple shots"
 static const char far unk33[] = "¥x0Fﾑｽｳﾉﾀﾏｦﾊｯｼｬｽﾙ";
+
+// "Wide-area laser"
 static const char far unk34[] = "¥x0Fｺｳｶﾉﾋﾛｲ¥x0Eﾚｰｻﾞｰ";
+
+// "AU-use warp device"
 static const char far unk35[] = "AU¥x0Fﾖｳﾉ¥x0Eﾜｰﾌﾟ¥x0Fｿｳﾁ";
+
+// "Double movement possible"
 static const char far unk36[] = "2¥x0Fﾊﾞｲﾉｲﾄﾞｳｶﾞｶﾉｳ";
+
+// "Charge 10 ENG"
 static const char far unk37[] = "ENG¥x0Fｦ10¥x0Eﾁｬｰｼﾞ¥x0Fｽﾙ";
+
+// "Disturb enemy information"
 static const char far unk38[] = "¥x0Fﾃｷﾉｼﾞｮｳﾎｳｦｶｸﾗﾝ";
+
+// "Copy enemy appearance"
 static const char far unk39[] = "¥x0Fﾃｷﾉｽｶﾞﾀｦｳﾂｽ";
+
+// "Decoy unit"
 static const char far unk40[] = "¥x0Fｵﾄﾘﾖｳ¥x0Eﾕﾆｯﾄ";
+
+// "Copy enemy appearance" (duplicate of unk39)
 static const char far unk41[] = "¥x0Fﾃｷﾉｽｶﾞﾀｦｳﾂｽ";
+
+// "Melee weapon"
 static const char far unk42[] = "¥x0Fｷﾝｾﾂﾖｳﾉﾌﾞｷ";
+
+// "Federation weapon 2"
 static const char far unk43[] = "¥x0Fﾚﾝﾎﾟｳﾉ¥x0Eﾌﾞｷ2";
+
+// "Federation weapon 1"
 static const char far unk44[] = "¥x0Fﾚﾝﾎﾟｳﾉ¥x0Eﾌﾞｷ1";
+
+// "Raise max HP"
 static const char far unk45[] = "¥x0FHPﾉMAXｦｱｹﾞﾏｽ";
+
+// "Raise max ENG"
 static const char far unk46[] = "ENG¥x0FﾉMAXｦｱｹﾞﾏｽ";
+
+// "Lower max HP"
 static const char far unk47[] = "¥x0FHPﾉMAXｦｻｹﾞﾏｽ";
+
+// "Lower max ENG"
 static const char far unk48[] = "ENG¥x0FﾉMAXｦｻｹﾞﾏｽ";
+
+// "Cannot increase further"
 static const char far unk49[] = "¥x0Fｺﾚｲｼﾞｮｳﾌｴﾏｾﾝ";
+
+// "Cannot decrease further"
 static const char far unk50[] = "¥x0Fｺﾚｲｼﾞｮｳﾍﾘﾏｾﾝ";
+
+// "This part cannot be removed"
 static const char far unk51[] = "¥x0Fｺﾉ¥x0Eﾊﾟｰﾂ¥x0Fﾊﾊｽﾞｾﾏｾﾝ";
+
+// "Cannot do any more"
 static const char far unk52[] = "¥x0Fｺﾚｲｼﾞｮｳﾃﾞｷﾏｾﾝ";
+
+// "Tuning finished"
 static const char far unk53[] = "¥x0Eﾁｭｰﾝ¥x0Fｦｼｭｳﾘｮｳｼﾏｽ";
+
+// "Not enough TP"
 static const char far unk54[] = "¥x0FTPｶﾞﾀﾘﾏｾﾝ";
+
+// "Raise max HP"
 static const char far unk55[] = "¥x0FHPﾉMAXｦｱｹﾞﾏｽ";
+
+// "Raise max EN"
 static const char far unk56[] = "EN¥x0FﾉMAXｦｱｹﾞﾏｽ";
 
 static const u8 far * far unk57[] = {
