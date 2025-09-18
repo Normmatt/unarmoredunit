@@ -12,6 +12,10 @@ typedef struct sSerialInfo {
     u8* unkA;
 } sSerialInfo_t;
 
+extern sSerialInfo_t rcv_work;
+extern u8 receive_buf[630];
+extern u16 mother_child;
+
 void serial_init();
 void serial_receive();
 void serial_in();

@@ -15,9 +15,9 @@ struct TaskContext
     /* 094C */ u16 unkC6;
 };
 
-extern short cel_tbl[];
-extern short map_tbl[];
-extern short spr_tbl[];
+extern u16 cel_tbl[];
+extern u16 map_tbl[];
+extern u16 spr_tbl[];
 extern u16 nbg_disp[];
 extern u16 spr_disp;
 extern u16 nbg_xoff[];

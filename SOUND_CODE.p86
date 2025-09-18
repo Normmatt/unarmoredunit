@@ -20,60 +20,16 @@ SOUND_CODE	CSEG PARA
 ;void SOUND_INIT()
 
 SOUND_INIT::
-;{
-;	ASM_DB(0xB8);
-	DB	184
-;	ASM_DB(0x00);
-	DB	0
-;	ASM_DB(0x00);
-	DB	0
-;	ASM_DB(0x8E);
-	DB	142
-;	ASM_DB(0xD8);
-	DB	216
-;	ASM_DB(0x8E);
-	DB	142
-;	ASM_DB(0xC0);
-	DB	192
-;	ASM_DB(0xBE);
-	DB	190
-;	ASM_DB(0x00);
-	DB	0
-;	ASM_DB(0x07);
-	DB	7
-;	ASM_DB(0xBF);
-	DB	191
-;	ASM_DB(0x02);
-	DB	2
-;	ASM_DB(0x07);
-	DB	7
-;	ASM_DB(0xB9);
-	DB	185
-;	ASM_DB(0x07);
-	DB	7
-;	ASM_DB(0x00);
-	DB	0
-;	ASM_DB(0x89);
-	DB	137
-;	ASM_DB(0x04);
-	DB	4
-;	ASM_DB(0xF3);
-	DB	243
-;	ASM_DB(0xA5);
-	DB	165
-;	ASM_DB(0xE8);
-	DB	232
-;	ASM_DB(0x1E);
-	DB	30
-;	ASM_DB(0x04);
-	DB	4
-;	ASM_DB(0xE8);
-	DB	232
-;	ASM_DB(0xDD);
-	DB	221
-;	ASM_DB(0x04);
-	DB	4
-;}
+	MOV	AX,0x0000
+	MOV	DS,AX
+	MOV	ES,AX
+	MOV	SI,0x0700
+	MOV	DI,0x0702
+	MOV	CX,0x0007
+	MOV	[SI].W,AX
+	REP MOVSW
+	CALL	unk_90E05_
+	CALL	unk_90EC7_
 	RETF
 
 
@@ -3104,40 +3060,16 @@ unk_90F59_:
 ;void CHECK_VOICE()
 
 CHECK_VOICE::
-;{
-;	ASM_DB(0x1E);
-	DB	30
-;	ASM_DB(0x50);
-	DB	80
-;	ASM_DB(0x53);
-	DB	83
-;	ASM_DB(0xB8);
-	DB	184
-;	ASM_DB(0x00);
-	DB	0
-;	ASM_DB(0x00);
-	DB	0
-;	ASM_DB(0x8E);
-	DB	142
-;	ASM_DB(0xD8);
-	DB	216
-;	ASM_DB(0xBB);
-	DB	187
-;	ASM_DB(0x06);
-	DB	6
-;	ASM_DB(0x07);
-	DB	7
-;	ASM_DB(0x8A);
-	DB	138
-;	ASM_DB(0x07);
-	DB	7
-;	ASM_DB(0x5B);
-	DB	91
-;	ASM_DB(0x58);
-	DB	88
-;	ASM_DB(0x1F);
-	DB	31
-;}
+	PUSH	DS
+	PUSH	AX
+	PUSH	BX
+	MOV	AX,0x0000
+	MOV	DS,AX
+	MOV	BX,0x0706
+	MOV	AL,[BX].B
+	POP	BX
+	POP	AX
+	POP	DS
 	RETF
 
 
@@ -3147,46 +3079,17 @@ CHECK_VOICE::
 ;void CHECK_SE()
 
 CHECK_SE::
-;{
-;	ASM_DB(0x1E);
-	DB	30
-;	ASM_DB(0x50);
-	DB	80
-;	ASM_DB(0x53);
-	DB	83
-;	ASM_DB(0xB8);
-	DB	184
-;	ASM_DB(0x00);
-	DB	0
-;	ASM_DB(0x00);
-	DB	0
-;	ASM_DB(0x8E);
-	DB	142
-;	ASM_DB(0xD8);
-	DB	216
-;	ASM_DB(0xBB);
-	DB	187
-;	ASM_DB(0x10);
-	DB	16
-;	ASM_DB(0x07);
-	DB	7
-;	ASM_DB(0x8A);
-	DB	138
-;	ASM_DB(0x07);
-	DB	7
-;	ASM_DB(0x0A);
-	DB	10
-;	ASM_DB(0x47);
-	DB	71
-;	ASM_DB(0x20);
-	DB	32
-;	ASM_DB(0x5B);
-	DB	91
-;	ASM_DB(0x58);
-	DB	88
-;	ASM_DB(0x1F);
-	DB	31
-;}
+	PUSH	DS
+	PUSH	AX
+	PUSH	BX
+	MOV	AX,0x0000
+	MOV	DS,AX
+	MOV	BX,0x0710
+	MOV	AL,[BX].B
+	OR	AL,[BX+0x20].B
+	POP	BX
+	POP	AX
+	POP	DS
 	RETF
 
 

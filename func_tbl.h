@@ -3,5 +3,6 @@
 
 extern const u8 far functbl[];
 extern const u8 far tuneup_table[];
+extern const u8 far aulist[];
 
 #endif
