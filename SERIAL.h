@@ -25,10 +25,10 @@ u16 serial_ver_info();
 u16 serial_exist();
 s16 serial_in_frag();
 
-/*static void near unk_2F8B();
-static s16 near unk_2FB2();
-static void near unk_2FD3();
-static void near unk_2FFF();
-static void near unk_3097();*/
+/*static void near unk_82F8B();
+static s16 near unk_82FB2();
+static void near unk_82FD3();
+static void near unk_82FFF();
+static void near unk_83097();*/
 
 #endif
