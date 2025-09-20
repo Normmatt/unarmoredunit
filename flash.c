@@ -1,6 +1,14 @@
 #include <machine.h>
 #include "types.h"
 #include "flash.h"
+#include "SWAN_L_C.h"
+#include "SWANMAIN.h"
+#include "SPRINTF.h"
+#include "SYSTEM.h"
+#include "SOUND_CODE.h"
+#include "MEMORY.h"
+#include "PAD.h"
+#include "story.h"
 
 static const u8 far unk00[] = {
     0x4D, 0x53, 0x01, 0x03, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80,
@@ -27,15 +35,11 @@ static const u8 far unk00[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
 };
 
-static const u8 far unk01[] = {
-    0x0E, 0xBE, 0xB0, 0xCC, 0xDE, 0xC3, 0xDE, 0xB0, 0xC0, 0x0F, 0xA6, 0x20, 0xBC, 0xAE, 0xB7, 0xB6,
-    0xBC, 0xCF, 0xBC, 0xC0, 0x00
-};
+//"Save data... has been created."
+static const char far unk01[] = "¥x0Eｾｰﾌﾞﾃﾞｰﾀ¥x0Fｦ ｼｮｷｶｼﾏｼﾀ";
 
-static const u8 far unk02[] = {
-    0x53, 0x54, 0x41, 0x52, 0x54, 0x0E, 0xCE, 0xDE, 0xC0, 0xDD, 0x0F, 0xC3, 0xDE, 0x0E, 0xB9, 0xDE,
-    0xB0, 0xD1, 0x0F, 0xC6, 0xD3, 0xC4, 0xDE, 0xD8, 0xCF, 0xBD, 0x00 
-};
+//"START button to start the game"
+static const char far unk02[] = "START¥x0Eﾎﾞﾀﾝ¥x0Fﾃﾞ¥x0Eｹﾞｰﾑ¥x0Fﾆﾓﾄﾞﾘﾏｽ";
 
 void stage_get()
 {
@@ -123,6 +127,16 @@ ASM_INLINE("_917AA:");
 
 void flash_init()
 {
+	task_delete; //Force include
+	flash_clear; //Force include
+	task_append; //Force include
+	task_append; //Force include
+	fade_tone; //Force include
+	fade_in; //Force include
+	fade_run; //Force include
+	bitmap; //Force include
+	nbg_ddf; //Force include
+	sereq; //Force include
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
 	ASM_INLINE("SUB	SP,0x0004");
@@ -147,26 +161,26 @@ ASM_INLINE("_917E3:");
 	ASM_INLINE("TEST	CX,CX");
 	ASM_INLINE("JNZ	_917D3");
 ASM_INLINE("_917E7:");
-	ASM_INLINE("CALLF	0x0274, 0x800A");
+	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
 	ASM_INLINE("TEST	CX,CX");
 	ASM_INLINE("JZ	_91830");
-	ASM_INLINE("CALLF	0x0053, 0x9173");
-	ASM_INLINE("MOV	AX,0x0106");
-	ASM_INLINE("MOV	BX,0x9173");
+	ASM_INLINE("CALLF	flash_clear_, SEG flash_clear_");
+	ASM_INLINE("MOV	AX,unk_91836_");
+	ASM_INLINE("MOV	BX,SEG unk_91836_");
 	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	0x01F7, 0x800A");
+	ASM_INLINE("CALLF	task_append_, SEG task_append_");
 	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	0x0370, 0x80EB");
+	ASM_INLINE("CALLF	fade_tone_, SEG fade_tone_");
 	ASM_INLINE("MOV	AX,0x000A");
-	ASM_INLINE("CALLF	0x0374, 0x80EB");
-	ASM_INLINE("CALLF	0x032E, 0x80EB");
+	ASM_INLINE("CALLF	fade_in_, SEG fade_in_");
+	ASM_INLINE("CALLF	fade_run_, SEG fade_run_");
 	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("CALLF	0x015E, 0x918E");
+	ASM_INLINE("CALLF	bitmap_, SEG bitmap_");
 	ASM_INLINE("MOV	AX,0x0001");
 	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("CALLF	0x0007, 0x80EB");
+	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
 	ASM_INLINE("MOV	AL,0x0F");
-	ASM_INLINE("CALLF	0x009F, 0x8000");
+	ASM_INLINE("CALLF	sereq_, SEG sereq_");
 ASM_INLINE("_91830:");
 	ASM_INLINE("POP	SI");
 	ASM_INLINE("POP	CX");
@@ -176,6 +190,9 @@ ASM_INLINE("_91830:");
 
 static void unk_91836()
 {
+	hstrlen; //Force include
+	bmp_print; //Force include
+	task_delete_fade; //Force include
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
 	ASM_INLINE("SUB	SP,0x0040");
@@ -198,7 +215,7 @@ ASM_INLINE("_91848:");
 	ASM_INLINE("TEST	AL,AL");
 	ASM_INLINE("JNZ	_91847");
 	ASM_INLINE("LEA	AX,[BP-0x40].B");
-	ASM_INLINE("CALLF	0x0037, 0x9173");
+	ASM_INLINE("CALLF	hstrlen_, SEG hstrlen_");
 	ASM_INLINE("SHL	AX,1");
 	ASM_INLINE("SHL	AX,1");
 	ASM_INLINE("SHL	AX,1");
@@ -211,7 +228,7 @@ ASM_INLINE("_91848:");
 	ASM_INLINE("MOV	BX,DI");
 	ASM_INLINE("LEA	CX,[BP-0x40].B");
 	ASM_INLINE("MOV	DX,0x0001");
-	ASM_INLINE("CALLF	0x0094, 0x8053");
+	ASM_INLINE("CALLF	bmp_print_, SEG bmp_print_");
 	ASM_INLINE("ADD	SP,0x0002");
 	ASM_INLINE("XOR	SI,SI");
 	ASM_INLINE("JMP	_91888");
@@ -227,7 +244,7 @@ ASM_INLINE("_91888:");
 	ASM_INLINE("TEST	AL,AL");
 	ASM_INLINE("JNZ	_91887");
 	ASM_INLINE("LEA	AX,[BP-0x40].B");
-	ASM_INLINE("CALLF	0x0037, 0x9173");
+	ASM_INLINE("CALLF	hstrlen_, SEG hstrlen_");
 	ASM_INLINE("SHL	AX,1");
 	ASM_INLINE("SHL	AX,1");
 	ASM_INLINE("SHL	AX,1");
@@ -241,15 +258,15 @@ ASM_INLINE("_91888:");
 	ASM_INLINE("MOV	BX,DI");
 	ASM_INLINE("LEA	CX,[BP-0x40].B");
 	ASM_INLINE("MOV	DX,0x0001");
-	ASM_INLINE("CALLF	0x0094, 0x8053");
+	ASM_INLINE("CALLF	bmp_print_, SEG bmp_print_");
 	ASM_INLINE("ADD	SP,0x0002");
 	ASM_INLINE("TEST	[0x0956].W,0x0002");
 	ASM_INLINE("JZ	_918E2");
 	ASM_INLINE("MOV	AL,0x0A");
-	ASM_INLINE("CALLF	0x009F, 0x8000");
-	ASM_INLINE("CALLF	0x0274, 0x800A");
+	ASM_INLINE("CALLF	sereq_, SEG sereq_");
+	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
 	ASM_INLINE("MOV	AX,0x000A");
-	ASM_INLINE("CALLF	0x02B0, 0x800A");
+	ASM_INLINE("CALLF	task_delete_fade_, SEG task_delete_fade_");
 ASM_INLINE("_918E2:");
 	ASM_INLINE("POP	DI");
 	ASM_INLINE("POP	SI");

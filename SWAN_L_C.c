@@ -3,6 +3,7 @@
 #include "types.h"
 #include "SWAN_L_C.h"
 #include "SYSTEM.h"
+#include "ASM.h"
 
 /*1004*/ u16 v_blank_cnt_count;
 /*1006*/ u16 v_blank_int_count;
@@ -22,7 +23,7 @@ void rand()
 	ASM_INLINE("MOV	BX,[0x0782].W");
 	ASM_INLINE("MOV	CX,0x4E6D");
 	ASM_INLINE("MOV	DX,0x41C6");
-	ASM_INLINE("CALLF	0x000E, 0x9211");
+	ASM_INLINE("CALLF	0x000E, 0x9211"); //_LMUL
 	ASM_INLINE("ADD	AX,0x3039");
 	ASM_INLINE("ADC	BX,0x0000");
 	ASM_INLINE("MOV	[0x0780].W,AX");
@@ -54,6 +55,7 @@ void font_put2XY()
 {
 	map_tbl; //Force extern reference
 	cel_tbl; //Force extern reference
+	font_put2_sub; //Force include
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
 	ASM_INLINE("SUB	SP,0x0012");
@@ -181,7 +183,7 @@ ASM_INLINE("_91E17:");
 	ASM_INLINE("SHL	DI,1");
 	ASM_INLINE("SHL	DI,1");
 	ASM_INLINE("ADD	CX,DI");
-	ASM_INLINE("CALLF	0x0020, 0x82B1");
+	ASM_INLINE("CALLF	font_put2_sub_, SEG font_put2_sub_");
 	ASM_INLINE("ADD	SP,0x0002");
 	ASM_INLINE("POP	BX");
 	ASM_INLINE("INC	BX");
@@ -255,6 +257,8 @@ void get_bmp_cell_no()
 
 void font_putXY(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f, u16 g, u8 far *gfx)
 {
+	get_bmp_cell_no; //Force include
+	put_cell_no; //Force include
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
 	ASM_INLINE("SUB	SP,0x0002");
@@ -293,12 +297,12 @@ ASM_INLINE("_91F23:");
 	ASM_INLINE("ADD	BX,[BP-0x02].W");
 	ASM_INLINE("MOV	CX,[BP+0x0C].W");
 	ASM_INLINE("MOV	DX,[BP+0x0E].W");
-	ASM_INLINE("CALLF	0x018A, 0x91D2");
+	ASM_INLINE("CALLF	get_bmp_cell_no_, SEG get_bmp_cell_no_");
 	ASM_INLINE("MOV	DX,AX");
 	ASM_INLINE("POP	CX");
 	ASM_INLINE("POP	BX");
 	ASM_INLINE("POP	AX");
-	ASM_INLINE("CALLF	0x00C0, 0x918E");
+	ASM_INLINE("CALLF	put_cell_no_, SEG put_cell_no_");
 	ASM_INLINE("POP	DX");
 	ASM_INLINE("INC	DX");
 	ASM_INLINE("POP	CX");
@@ -358,14 +362,14 @@ ASM_INLINE("_91F92:");
 	ASM_INLINE("ADD	BX,[BP-0x02].W");
 	ASM_INLINE("MOV	CX,[BP+0x0E].W");
 	ASM_INLINE("MOV	DX,[BP+0x10].W");
-	ASM_INLINE("CALLF	0x018A, 0x91D2");
+	ASM_INLINE("CALLF	get_bmp_cell_no_, SEG get_bmp_cell_no_");
 	ASM_INLINE("AND	AX,0xF1FF");
 	ASM_INLINE("OR	AX,[BP+0x0A].W");
 	ASM_INLINE("MOV	DX,AX");
 	ASM_INLINE("POP	CX");
 	ASM_INLINE("POP	BX");
 	ASM_INLINE("POP	AX");
-	ASM_INLINE("CALLF	0x00C0, 0x918E");
+	ASM_INLINE("CALLF	put_cell_no_, SEG put_cell_no_");
 	ASM_INLINE("POP	DX");
 	ASM_INLINE("INC	DX");
 	ASM_INLINE("POP	CX");
@@ -498,7 +502,7 @@ ASM_INLINE("_9208D:");
 	ASM_INLINE("SHL	DI,1");
 	ASM_INLINE("SHL	DI,1");
 	ASM_INLINE("ADD	CX,DI");
-	ASM_INLINE("CALLF	0x0020, 0x82B1");
+	ASM_INLINE("CALLF	font_put2_sub_, SEG font_put2_sub_");
 	ASM_INLINE("ADD	SP,0x0002");
 	ASM_INLINE("POP	CX");
 	ASM_INLINE("INC	CX");

@@ -31,6 +31,7 @@
 #include "SWANMAIN.h"
 #include "SWAN_L_C.h"
 #include "SOUND_CODE.h"
+#include "GENERAL.h"
 
 const char far select_debug_text00[] = "   Sammy Special Version    ";
 const char far select_debug_text01[] = "     Swan OS level2.13 9/18 ";
@@ -964,13 +965,14 @@ static void unk_828B5()
 
 static void unk_82911()
 {
+	max; //Force include
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
 	ASM_INLINE("SUB	SP,0x0100");
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("MOV	BX,0x000D");
-	ASM_INLINE("MOV	AX,0x9213");
+	ASM_INLINE("MOV	BX,max_");
+	ASM_INLINE("MOV	AX,SEG max_");
 	ASM_INLINE("PUSH	AX");
 	ASM_INLINE("PUSH	BX");
 	ASM_INLINE("MOV	AX,0x01FC");
