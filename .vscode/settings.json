@@ -1,0 +1,29 @@
+{
+    "files.associations": {
+        "swanmain.h": "c",
+        "pad.h": "c",
+        "select.h": "c",
+        "system.h": "c",
+        "types.h": "c",
+        "flash.h": "c",
+        "serial.h": "c",
+        "sprintf.h": "c",
+        "sound_code.h": "c",
+        "machine.h": "c",
+        "general.h": "c",
+        "memory.h": "c",
+        "put_text.h": "c",
+        "tuneup.h": "c",
+        "logo.h": "c",
+        "m_sub.h": "c",
+        "unisel.h": "c",
+        "func_tbl.h": "c",
+        "ip_mes.h": "c",
+        "menu.h": "c",
+        "stagesel.h": "c",
+        "story.h": "c",
+        "ending.h": "c",
+        "swan_l_c.h": "c"
+    },
+    "files.encoding": "shiftjis"
+}
