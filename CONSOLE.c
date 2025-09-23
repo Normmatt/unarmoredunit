@@ -8,7 +8,7 @@
 #include "SWAN_L_C.h"
 #include "PAD.h"
 
-u8 console_data[] = {
+static u8 console_data[] = {
 	0x02, 0x00, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -217,7 +217,7 @@ static void near unk_83B50()
 	ASM_INLINE("PUSH	SI");
 	ASM_INLINE("PUSH	DI");
 	ASM_INLINE("LEA	DI,[BP-0x16].B");
-	ASM_INLINE("MOV	SI,0x02F2");
+	ASM_INLINE("MOV	SI,console_data_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -372,12 +372,12 @@ static void unk_83C7B(struct ConsoleWork *buf)
 	ASM_INLINE("TEST	AX,AX");
 	ASM_INLINE("JNZ	_83CDB");
 	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	CX,0x0008");
-	ASM_INLINE("MOV	DX,0xA21A");
+	ASM_INLINE("MOV	CX,console_text_");
+	ASM_INLINE("MOV	DX,SEG console_text_");
 	ASM_INLINE("CALL	unk_83B18_");
 	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	CX,0x0006");
-	ASM_INLINE("MOV	DX,0xA223");
+	ASM_INLINE("MOV	CX,console_login_");
+	ASM_INLINE("MOV	DX,SEG console_login_");
 	ASM_INLINE("CALL	unk_83B18_");
 	ASM_INLINE("MOV	[SI].W,0x0001");
 	ASM_INLINE("JMP	_83CE6");

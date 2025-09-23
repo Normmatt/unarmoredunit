@@ -190,87 +190,6 @@ static u8 m_game_data19[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data20[] = {
-	0x08, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00,
-};
-
-static u8 m_game_data21[] = {
-	0x07, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00,
-};
-
-static u8 m_game_data22[] = {
-	0x03, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00,
-};
-
-static u8 m_game_data23[] = {
-    0x02, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00,
-};
-
-static u8 m_game_data24[] = {
-	0x04, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00,
-};
-
-static u8 m_game_data25[] = {
-	0x05, 0x02, 0xA8, 0xC0,
-    0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-    0x05, 0x00,
-};
-
-static u8 m_game_data26[] = {
-	0x06, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00,
-};
-
-static u8 m_game_data27[] = {
-	0x07, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00,
-};
-
-static u8 m_game_data28[] = {
-	0x08, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00
-};
-
 void m_game_reinit()
 {
 	ip_clear; //Force include
@@ -304,7 +223,7 @@ void m_game_reinit()
 	ASM_INLINE("MOV	DI,AX");
 	ASM_INLINE("PUSH	DI");
 	ASM_INLINE("LEA	DI,[BP-0x16].B");
-	ASM_INLINE("MOV	SI,0x0398");
+	ASM_INLINE("MOV	SI,m_game_data_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -313,7 +232,7 @@ void m_game_reinit()
 	ASM_INLINE("LEA	AX,[BP-0x16].B");
 	ASM_INLINE("CALLF	ip_clear_, SEG ip_clear_");
 	ASM_INLINE("LEA	DI,[BP-0x2C].B");
-	ASM_INLINE("MOV	SI,0x03AE");
+	ASM_INLINE("MOV	SI,m_game_data2_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -322,7 +241,7 @@ void m_game_reinit()
 	ASM_INLINE("LEA	AX,[BP-0x2C].B");
 	ASM_INLINE("CALLF	ip_clear_, SEG ip_clear_");
 	ASM_INLINE("LEA	DI,[BP-0x42].B");
-	ASM_INLINE("MOV	SI,0x03C4");
+	ASM_INLINE("MOV	SI,m_game_data3_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -331,7 +250,7 @@ void m_game_reinit()
 	ASM_INLINE("LEA	AX,[BP-0x42].B");
 	ASM_INLINE("CALLF	ip_clear_, SEG ip_clear_");
 	ASM_INLINE("LEA	DI,[BP-0x58].B");
-	ASM_INLINE("MOV	SI,0x03DA");
+	ASM_INLINE("MOV	SI,m_game_data4_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -340,7 +259,7 @@ void m_game_reinit()
 	ASM_INLINE("LEA	AX,[BP-0x58].B");
 	ASM_INLINE("CALLF	ip_clear_, SEG ip_clear_");
 	ASM_INLINE("LEA	DI,[BP-0x6E].B");
-	ASM_INLINE("MOV	SI,0x03F0");
+	ASM_INLINE("MOV	SI,m_game_data5_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -349,7 +268,7 @@ void m_game_reinit()
 	ASM_INLINE("LEA	AX,[BP-0x6E].B");
 	ASM_INLINE("CALLF	ip_clear_, SEG ip_clear_");
 	ASM_INLINE("LEA	DI,[BP-0x0084].B");
-	ASM_INLINE("MOV	SI,0x0406");
+	ASM_INLINE("MOV	SI,m_game_data6_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -358,7 +277,7 @@ void m_game_reinit()
 	ASM_INLINE("LEA	AX,[BP-0x0084].B");
 	ASM_INLINE("CALLF	ip_clear_, SEG ip_clear_");
 	ASM_INLINE("LEA	DI,[BP-0x009A].B");
-	ASM_INLINE("MOV	SI,0x041C");
+	ASM_INLINE("MOV	SI,m_game_data7_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -367,7 +286,7 @@ void m_game_reinit()
 	ASM_INLINE("LEA	AX,[BP-0x009A].B");
 	ASM_INLINE("CALLF	ip_clear_, SEG ip_clear_");
 	ASM_INLINE("LEA	DI,[BP-0x00B0].B");
-	ASM_INLINE("MOV	SI,0x0432");
+	ASM_INLINE("MOV	SI,m_game_data8_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -376,7 +295,7 @@ void m_game_reinit()
 	ASM_INLINE("LEA	AX,[BP-0x00B0].B");
 	ASM_INLINE("CALLF	ip_clear_, SEG ip_clear_");
 	ASM_INLINE("LEA	DI,[BP-0x00C6].B");
-	ASM_INLINE("MOV	SI,0x0448");
+	ASM_INLINE("MOV	SI,m_game_data9_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -1251,7 +1170,7 @@ ASM_INLINE("_84C8E:");
 	ASM_INLINE("JMP	_84E65");
 ASM_INLINE("_84C98:");
 	ASM_INLINE("LEA	DI,[BP-0x20].B");
-	ASM_INLINE("MOV	SI,0x045E");
+	ASM_INLINE("MOV	SI,m_game_data10_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -1502,7 +1421,7 @@ ASM_INLINE("_84F16:");
 	ASM_INLINE("JMP	_856F9");
 ASM_INLINE("_84F21:");
 	ASM_INLINE("LEA	DI,[BP-0x36].B");
-	ASM_INLINE("MOV	SI,0x0474");
+	ASM_INLINE("MOV	SI,m_game_data11_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -1527,7 +1446,7 @@ ASM_INLINE("_84F5F:");
 	ASM_INLINE("JMP	_856F9");
 ASM_INLINE("_84F6A:");
 	ASM_INLINE("LEA	DI,[BP-0x4C].B");
-	ASM_INLINE("MOV	SI,0x048A");
+	ASM_INLINE("MOV	SI,m_game_data12_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -1632,7 +1551,7 @@ ASM_INLINE("_8507F:");
 	ASM_INLINE("JMP	_856F9");
 ASM_INLINE("_85091:");
 	ASM_INLINE("LEA	DI,[BP-0x62].B");
-	ASM_INLINE("MOV	SI,0x04A0");
+	ASM_INLINE("MOV	SI,m_game_data13_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -1851,7 +1770,7 @@ ASM_INLINE("_852D7:");
 	ASM_INLINE("JMP	_856F9");
 ASM_INLINE("_852E2:");
 	ASM_INLINE("LEA	DI,[BP-0x7E].B");
-	ASM_INLINE("MOV	SI,0x04B6");
+	ASM_INLINE("MOV	SI,m_game_data14_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -3560,7 +3479,7 @@ ASM_INLINE("_86310:");
 	ASM_INLINE("MOV	BX,ES:[SI+0x0A].W");
 	ASM_INLINE("CALLF	put_message_, SEG put_message_");
 	ASM_INLINE("LEA	DI,[BP-0x18].B");
-	ASM_INLINE("MOV	SI,0x04CC");
+	ASM_INLINE("MOV	SI,m_game_data15_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -3615,7 +3534,7 @@ ASM_INLINE("_863E7:");
 	ASM_INLINE("JZ	_86443");
 	ASM_INLINE("PUSH	DI");
 	ASM_INLINE("LEA	DI,[BP-0x2E].B");
-	ASM_INLINE("MOV	SI,0x04E2");
+	ASM_INLINE("MOV	SI,m_game_data16_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -3685,7 +3604,7 @@ ASM_INLINE("_86443:");
 	ASM_INLINE("PUSH	SI");
 	ASM_INLINE("PUSH	DI");
 	ASM_INLINE("LEA	DI,[BP-0x44].B");
-	ASM_INLINE("MOV	SI,0x04F8");
+	ASM_INLINE("MOV	SI,m_game_data17_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -3986,7 +3905,7 @@ ASM_INLINE("_866F1:");
 	ASM_INLINE("MOV	BX,[BX+0x5A].W");
 	ASM_INLINE("CALLF	put_energy_level_, SEG put_energy_level_");
 	ASM_INLINE("LEA	DI,[BP-0x16].B");
-	ASM_INLINE("MOV	SI,0x050E");
+	ASM_INLINE("MOV	SI,m_game_data18_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -4016,7 +3935,7 @@ ASM_INLINE("_8673C:");
 	ASM_INLINE("CALLF	ip_w_, SEG ip_w_");
 ASM_INLINE("_86759:");
 	ASM_INLINE("LEA	DI,[BP-0x2C].B");
-	ASM_INLINE("MOV	SI,0x0524");
+	ASM_INLINE("MOV	SI,m_game_data19_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");

@@ -28,7 +28,7 @@ static char str6[] = "%02d";
 static char str7[] = "%02d";
 static char str8[] = "--";
 
-u8 unisel_data[] = {
+static u8 unisel_data[] = {
 	0x01, 0x01, 0xA8, 0xC0,
     0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -37,7 +37,7 @@ u8 unisel_data[] = {
     0x04, 0x00,
 };
 
-u8 unisel_data2[] = {
+static u8 unisel_data2[] = {
 	0x01, 0x01, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -46,7 +46,7 @@ u8 unisel_data2[] = {
 	0x04, 0x00,
 };
 
-u8 unisel_data3[] = {
+static u8 unisel_data3[] = {
 	0x01, 0x01, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00,
@@ -2245,7 +2245,7 @@ ASM_INLINE("_8C797:");
 	ASM_INLINE("MOV	[SI+0x0A].W,0x0000");
 	ASM_INLINE("CALL	unk_8B5EC_");
 	ASM_INLINE("LEA	DI,[BP-0x16].B");
-	ASM_INLINE("MOV	SI,0x073C");
+	ASM_INLINE("MOV	SI,unisel_data_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -2974,7 +2974,7 @@ static void near unk_8CEEC()
 	ASM_INLINE("PUSH	SI");
 	ASM_INLINE("PUSH	DI");
 	ASM_INLINE("LEA	DI,[BP-0x16].B");
-	ASM_INLINE("MOV	SI,0x0752");
+	ASM_INLINE("MOV	SI,unisel_data2_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -3024,7 +3024,7 @@ static void near unk_8CF48()
 	ASM_INLINE("PUSH	DI");
 	ASM_INLINE("MOV	DX,AX");
 	ASM_INLINE("LEA	DI,[BP-0x16].B");
-	ASM_INLINE("MOV	SI,0x0768");
+	ASM_INLINE("MOV	SI,unisel_data3_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");

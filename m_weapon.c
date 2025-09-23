@@ -20,6 +20,24 @@
 #include "tuneup.h"
 #include "ASM.h"
 
+static u8 m_weapon_data[] = {
+	0x08, 0x02, 0xA8, 0xC0,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x05, 0x00,
+};
+
+static u8 m_weapon_data2[] = {
+	0x07, 0x02, 0xA8, 0xC0,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x05, 0x00,
+};
+
 void m_game_main_weapon_i_sub()
 {
 	put_lange_cousor; //Force include
@@ -697,7 +715,7 @@ ASM_INLINE("_88C39:");
 	ASM_INLINE("JZ	_88D0B");
 	ASM_INLINE("PUSH	DI");
 	ASM_INLINE("LEA	DI,[BP-0x16].B");
-	ASM_INLINE("MOV	SI,0x053A");
+	ASM_INLINE("MOV	SI,m_weapon_data_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
@@ -935,7 +953,7 @@ ASM_INLINE("_88E81:");
 	ASM_INLINE("MOV	BX,DI");
 	ASM_INLINE("MOV	[BX+0x0171].B,0x00");
 	ASM_INLINE("LEA	DI,[BP-0x16].B");
-	ASM_INLINE("MOV	SI,0x0550");
+	ASM_INLINE("MOV	SI,m_weapon_data2_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");

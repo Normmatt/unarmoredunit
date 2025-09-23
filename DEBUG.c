@@ -132,7 +132,7 @@ static void unk_83949(struct DebugWork* work)
 	ASM_INLINE("PUSH	DI");
 	ASM_INLINE("PUSH	AX");
 	ASM_INLINE("LEA	DI,[BP-0x16].B");
-	ASM_INLINE("MOV	SI,0x02DC");
+	ASM_INLINE("MOV	SI,debug_data_");
 	ASM_INLINE("MOV	CX,0x0016");
 	ASM_INLINE("PUSH	DS");
 	ASM_INLINE("POP	ES");
