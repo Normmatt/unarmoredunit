@@ -307,7 +307,7 @@ ASM_INLINE("_80766:");
 	ASM_INLINE("POP	CX");
 }
 
-void hsprintf()
+void hsprintf(char *fmt, ...)
 {
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");

@@ -50,8 +50,8 @@ crt0.obj:	crt0.p86
 
 _GENETEXT.obj:	_GENETEXT.p86
 	cpp -o _GENETEXT.a86 $<
-	obj2asm.exe $@ -c$*.cod
 	r86 -o $@ _GENETEXT.a86
+	obj2asm.exe $@ -c$*.cod
 
 OBJS= 	SWANMAIN.obj \
 		DFONT_char_adr.obj \
@@ -166,3 +166,13 @@ SYSTEM.a86:  SYSTEM.c
 CONSOLE.a86:  CONSOLE.c
 stagesel.a86:  stagesel.c
 SPRINTF.a86:  SPRINTF.c
+GENERAL.a86:  GENERAL.c
+SWAN_L_C.a86:  SWAN_L_C.c
+m_cpu2p.a86:  m_cpu2p.c
+flash.a86:  flash.c
+PAD.a86:  PAD.c
+IP_MES.a86:  IP_MES.c
+m_game.a86:  m_game.c
+m_sub.a86:  m_sub.c
+tuneup.a86:  tuneup.c
+unisel.a86:  unisel.c

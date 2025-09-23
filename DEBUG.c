@@ -99,8 +99,18 @@ void debug_init()
 
 }
 
-static void unk_83949()
+static void unk_83949(struct DebugWork* work)
 {
+/*	s16 i;
+	char buf[22];
+
+	for(i = 0; i < sizeof(buf); i++)
+	{
+		buf[i] = ((char*)0x2dc);
+	}*/
+
+
+
 	ip_r; //Force include
 	sereq; //Force include
 	memfree; //Force include
