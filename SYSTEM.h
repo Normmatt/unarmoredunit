@@ -32,6 +32,8 @@ extern u8 _ctype[];
 extern struct TaskContext tsk1cont;
 extern s16 fade[];
 
+extern u8 SAVE_DATA_START[];
+
 u16 nbg_ddf(u16 a, u16 b);
 u16 spr_ddf(u16 a);
 void nbg_scroll(u16 a, u16 b, u16 c);

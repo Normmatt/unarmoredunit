@@ -6,10 +6,14 @@
 #include "MEMORY.h"
 #include "SYSTEM.h"
 #include "SWAN_L_C.h"
+#include "PAD.h"
 
 static const char far console_text[] = "SW8000EX Console Ver 1.00b¥r¥nCopyright 1999 By minisoft/¥r¥n/Switches95/Fillsail/CHARA.¥r¥n¥r¥n  ReturnSystem Push !!¥r¥n   [L]+[R] and [A] Button¥r¥n¥r¥n";
 static const char far console_login[] = "login:";
 static const char far console_password[] = "password:";
+
+
+static void unk_83C7B(struct ConsoleWork *buf);
 
 static void near unk_839BF()
 {
@@ -69,43 +73,34 @@ ASM_INLINE("_83A17:");
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_83A24()
+static void near unk_83A24(struct ConsoleWork *buf)
 {
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("INC	[SI+0x02].B");
-	ASM_INLINE("CMP	[SI+0x02].B,0x1C");
-	ASM_INLINE("JB	_83A43");
-	ASM_INLINE("MOV	[SI+0x02].B,0x00");
-	ASM_INLINE("INC	[SI+0x03].B");
-	ASM_INLINE("CMP	[SI+0x03].B,0x12");
-	ASM_INLINE("JB	_83A43");
-	ASM_INLINE("CALL	unk_839BF_");
-	ASM_INLINE("DEC	[SI+0x03].B");
-ASM_INLINE("_83A43:");
-	ASM_INLINE("POP	SI");
+	if(++buf->unk2 >= 0x1C)
+	{
+		buf->unk2 = 0;
+		if(++buf->unk3 >= 0x12)
+		{
+			unk_839BF();
+			buf->unk3--;
+		}
+	}
 }
 
-static void near unk_83A45()
+static void near unk_83A45(struct ConsoleWork *buf)
 {
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("MOV	[BX+0x02].B,0x00");
+	buf->unk2 = 0;
 }
 
-static void near unk_83A4C()
+static void near unk_83A4C(struct ConsoleWork *buf)
 {
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("INC	[SI+0x03].B");
-	ASM_INLINE("CMP	[SI+0x03].B,0x12");
-	ASM_INLINE("JB	_83A5E");
-	ASM_INLINE("CALL	unk_839BF_");
-	ASM_INLINE("DEC	[SI+0x03].B");
-ASM_INLINE("_83A5E:");
-	ASM_INLINE("POP	SI");
+	if(++buf->unk3 >= 0x12)
+	{
+		unk_839BF();
+		buf->unk3--;
+	}
 }
 
-static void near unk_83A60()
+static void near unk_83A60(struct ConsoleWork *buf, u8 character)
 {
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
@@ -192,34 +187,15 @@ ASM_INLINE("_83B10:");
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_83B18()
+static void near unk_83B18(struct ConsoleWork *buf, const char far *string)
 {
-	ASM_INLINE("PUSH	BP");
-	ASM_INLINE("MOV	BP,SP");
-	ASM_INLINE("SUB	SP,0x0004");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	[BP-0x04].W,CX");
-	ASM_INLINE("MOV	[BP-0x02].W,DX");
-	ASM_INLINE("JMP	_83B38");
-ASM_INLINE("_83B29:");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("INC	[BP-0x04].W");
-	ASM_INLINE("LES	BX,[BP-0x04]");
-	ASM_INLINE("DEC	BX");
-	ASM_INLINE("MOV	BL,ES:[BX].B");
-	ASM_INLINE("CALL	unk_83A60_");
-ASM_INLINE("_83B38:");
-	ASM_INLINE("LES	BX,[BP-0x04]");
-	ASM_INLINE("CMP	ES:[BX].B,0x00");
-	ASM_INLINE("JNZ	_83B29");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("CALL	unk_83A45_");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("CALL	unk_83A4C_");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("MOV	SP,BP");
-	ASM_INLINE("POP	BP");
+	while(*string)
+	{
+		unk_83A60(buf, *string++);
+
+	}
+	unk_83A45(buf);
+	unk_83A4C(buf);
 }
 
 static void near unk_83B50()
@@ -258,7 +234,7 @@ ASM_INLINE("_83B84:");
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_83B8B()
+static void near unk_83B8B(struct ConsoleWork *buf)
 {
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	SI");
@@ -312,62 +288,68 @@ ASM_INLINE("_83BEC:");
 
 void console_init()
 {
-	task_delete; //Force include
-	memalloc; //Force include
-	task_append; //Force include
-	nbg_ddf; //Force include
-	spr_ddf; //Force include
-	font_load; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("MOV	AX,0x0088");
-	ASM_INLINE("CALLF	memalloc_, SEG memalloc_");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("TEST	SI,SI");
-	ASM_INLINE("JZ	_83C77");
-	ASM_INLINE("MOV	AX,0x02CB");
-	ASM_INLINE("MOV	BX,0x839B");
-	ASM_INLINE("MOV	CX,SI");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("MOV	[SI].W,0x0064");
-	ASM_INLINE("MOV	[SI+0x02].B,0x00");
-	ASM_INLINE("MOV	[SI+0x03].B,0x00");
-	ASM_INLINE("MOV	[SI+0x04].B,0x00");
-	ASM_INLINE("MOV	[SI+0x05].B,0x00");
-	ASM_INLINE("MOV	[SI+0x06].B,0x00");
-	ASM_INLINE("MOV	[SI+0x0086].B,0x00");
-	ASM_INLINE("MOV	[SI+0x0087].B,0x00");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	spr_ddf_, SEG spr_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	CX,0x0000");
-	ASM_INLINE("MOV	DX,0xA000");
-	ASM_INLINE("CALLF	font_load_, SEG font_load_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	spr_ddf_, SEG spr_ddf_");
-ASM_INLINE("_83C77:");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	struct ConsoleWork *work;
+	task_delete();
+	work = (struct ConsoleWork*)memalloc(sizeof (struct ConsoleWork));
+	if(work)
+	{
+		task_append((task_pointer)unk_83C7B, (u16)work);
+
+		work->unk0 = 0x64;
+		work->unk2 = 0;
+		work->unk3 = 0;
+		work->unk4 = 0;
+		work->unk5 = 0;
+		work->unk6 = 0;
+		work->unk86 = 0;
+		work->unk87 = 0;
+
+		nbg_ddf(0, 0);
+		nbg_ddf(1, 0);
+		spr_ddf(0);
+		font_load(1,DFONT_char_adr);
+		nbg_ddf(0, 0);
+		nbg_ddf(1, 1);
+		spr_ddf(0);
+	}
 }
 
-static void unk_83C7B()
+static void unk_83C7B(struct ConsoleWork *buf)
 {
-	task_delete; //Force include
+	/*u16 val = buf->unk0;
+	if(val != 0x76)
+	{
+		if(val != 1)
+		{
+			if(val == 0)
+			{
+				unk_83B18(buf, console_text);
+				unk_83B18(buf, console_login);
+				buf->unk0 = 1;
+			}
+			else
+			{
+				unk_83B8B(buf);
+				if(!val || ((pad.unk0 & 0x200) || (pad.unk0 & 0x800) || !(pad.unk4 & 0x4)))
+				{
+					task_delete();
+					memfree(buf);
+				}
+			}
+		}
+		else
+		{
+			unk_839BF();
+			buf->unk0++;
+		}
+		
+	}
+	else
+	{
+		buf->unk0 = 0;
+	}*/
+
+	task_delete; //Force include 
 	memfree; //Force include
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");

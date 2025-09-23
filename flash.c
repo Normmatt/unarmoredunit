@@ -41,239 +41,132 @@ static const char far unk01[] = "¥x0Eｾｰﾌﾞﾃﾞｰﾀ¥x0Fｦ ｼｮｷ
 //"START button to start the game"
 static const char far unk02[] = "START¥x0Eﾎﾞﾀﾝ¥x0Fﾃﾞ¥x0Eｹﾞｰﾑ¥x0Fﾆﾓﾄﾞﾘﾏｽ";
 
-void stage_get()
+static void unk_91836(u16 val);
+
+u16 stage_get(u16 a)
 {
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	CX,AX");
-	ASM_INLINE("MOV	SI,0x000F");
-	ASM_INLINE("JMP	_9175C");
-ASM_INLINE("_9173F:");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("MOV	BX,0x001D");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("ADD	BX,0x1E3C");
-	ASM_INLINE("ADD	BX,0x000D");
-	ASM_INLINE("ADD	BX,SI");
-	ASM_INLINE("CMP	[BX].B,0x00");
-	ASM_INLINE("JZ	_9175B");
-	ASM_INLINE("INC	SI");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("JMP	_91763");
-ASM_INLINE("_9175B:");
-	ASM_INLINE("DEC	SI");
-ASM_INLINE("_9175C:");
-	ASM_INLINE("CMP	SI,0x0000");
-	ASM_INLINE("JGE	_9173F");
-	ASM_INLINE("XOR	AX,AX");
-ASM_INLINE("_91763:");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	u8 *save;
+	s16 i;
+
+	i = 15;
+
+	while(i >= 0)
+	{
+		save = a * 0x1D;
+		save += 0x1E3C;
+		save += 0xD;
+		save += i;
+		if(*save)
+		{
+			i++;
+			return i;
+		}
+		i--;
+	}
+	return 0;
 }
 
-void hstrlen()
+u16 hstrlen(char *str)
 {
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("JMP	_9177C");
-ASM_INLINE("_9176E:");
-	ASM_INLINE("MOV	BL,[SI].B");
-	ASM_INLINE("CMP	BL,0x0F");
-	ASM_INLINE("JZ	_9177B");
-	ASM_INLINE("CMP	BL,0x0E");
-	ASM_INLINE("JZ	_9177B");
-	ASM_INLINE("INC	AX");
-ASM_INLINE("_9177B:");
-	ASM_INLINE("INC	SI");
-ASM_INLINE("_9177C:");
-	ASM_INLINE("CMP	[SI].B,0x00");
-	ASM_INLINE("JNZ	_9176E");
-	ASM_INLINE("POP	SI");
+	u16 len = 0;
+	u8 val;
+
+	while(*str)
+	{
+		val = *str;
+		if(val != 0x0F && val != 0x0E)
+		{
+			len++;
+		}
+		str++;
+	}
+	return len;
 }
 
 void flash_clear()
 {
-	ASM_INLINE("PUSH	BP");
-	ASM_INLINE("MOV	BP,SP");
-	ASM_INLINE("SUB	SP,0x0004");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,0x1E00");
-	ASM_INLINE("MOV	[BP-0x04].W,0x0000");
-	ASM_INLINE("MOV	[BP-0x02].W,0xE42F");
-	ASM_INLINE("MOV	CX,0x015E");
-	ASM_INLINE("JMP	_917AA");
-ASM_INLINE("_9179D:");
-	ASM_INLINE("INC	[BP-0x04].W");
-	ASM_INLINE("LES	BX,[BP-0x04]");
-	ASM_INLINE("DEC	BX");
-	ASM_INLINE("MOV	AL,ES:[BX].B");
-	ASM_INLINE("MOV	[SI].B,AL");
-	ASM_INLINE("INC	SI");
-ASM_INLINE("_917AA:");
-	ASM_INLINE("DEC	CX");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("INC	AX");
-	ASM_INLINE("JNZ	_9179D");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("MOV	SP,BP");
-	ASM_INLINE("POP	BP");
+	u8 *save;
+	u8 far *unk0;
+	u16 i;
+
+	save = SAVE_DATA_START;
+	unk0 = (u8 far *)unk00;
+
+	i = sizeof(unk00);
+
+	while(--i+1)
+	{
+		*save++ = *unk0++;
+	}
 }
 
 void flash_init()
 {
-	task_delete; //Force include
-	flash_clear; //Force include
-	task_append; //Force include
-	task_append; //Force include
-	fade_tone; //Force include
-	fade_in; //Force include
-	fade_run; //Force include
-	bitmap; //Force include
-	nbg_ddf; //Force include
-	sereq; //Force include
-	ASM_INLINE("PUSH	BP");
-	ASM_INLINE("MOV	BP,SP");
-	ASM_INLINE("SUB	SP,0x0004");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,0x1E00");
-	ASM_INLINE("MOV	[BP-0x04].W,0x0000");
-	ASM_INLINE("MOV	[BP-0x02].W,0xE42F");
-	ASM_INLINE("MOV	AX,0x0004");
-	ASM_INLINE("MOV	CX,0x0004");
-	ASM_INLINE("JMP	_917E3");
-ASM_INLINE("_917D3:");
-	ASM_INLINE("MOV	AL,[SI].B");
-	ASM_INLINE("INC	SI");
-	ASM_INLINE("INC	[BP-0x04].W");
-	ASM_INLINE("LES	BX,[BP-0x04]");
-	ASM_INLINE("DEC	BX");
-	ASM_INLINE("CMP	AL,ES:[BX].B");
-	ASM_INLINE("JNZ	_917E7");
-	ASM_INLINE("DEC	CX");
-ASM_INLINE("_917E3:");
-	ASM_INLINE("TEST	CX,CX");
-	ASM_INLINE("JNZ	_917D3");
-ASM_INLINE("_917E7:");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("TEST	CX,CX");
-	ASM_INLINE("JZ	_91830");
-	ASM_INLINE("CALLF	flash_clear_, SEG flash_clear_");
-	ASM_INLINE("MOV	AX,unk_91836_");
-	ASM_INLINE("MOV	BX,SEG unk_91836_");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	fade_tone_, SEG fade_tone_");
-	ASM_INLINE("MOV	AX,0x000A");
-	ASM_INLINE("CALLF	fade_in_, SEG fade_in_");
-	ASM_INLINE("CALLF	fade_run_, SEG fade_run_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("CALLF	bitmap_, SEG bitmap_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("MOV	AL,0x0F");
-	ASM_INLINE("CALLF	sereq_, SEG sereq_");
-ASM_INLINE("_91830:");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("MOV	SP,BP");
-	ASM_INLINE("POP	BP");
+	u8 *save;
+	u8 far *unk0;
+	u16 i;
+	u16 j;
+
+	save = SAVE_DATA_START;
+
+	unk0 = (u8 far *)unk00;
+
+	j = 4;
+	i = 4;
+
+	while(i)
+	{
+		if(*save++ != *unk0++) break;
+		i--;
+	}
+
+	task_delete();
+	if(i)
+	{
+		flash_clear();
+		task_append((task_pointer)unk_91836, 0);
+		fade_tone(0);
+		fade_in(10);
+		fade_run();
+		bitmap(1);
+		nbg_ddf(1, 1);
+		sereq(15);
+	}
 }
 
-static void unk_91836()
+static void unk_91836(u16 val)
 {
-	hstrlen; //Force include
-	bmp_print; //Force include
-	task_delete_fade; //Force include
-	ASM_INLINE("PUSH	BP");
-	ASM_INLINE("MOV	BP,SP");
-	ASM_INLINE("SUB	SP,0x0040");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("MOV	DI,0x0040");
-	ASM_INLINE("XOR	SI,SI");
-	ASM_INLINE("JMP	_91848");
-ASM_INLINE("_91847:");
-	ASM_INLINE("INC	SI");
-ASM_INLINE("_91848:");
-	ASM_INLINE("MOV	AX,0xE444");
-	ASM_INLINE("MOV	ES,AX");
-	//ASM_INLINE("MOV	AL,ES:[SI+0x000E].B");
-	ASM_OP5(0x26,0x8A,0x84,0x0E,0x00);
-	//ASM_INLINE("MOV	[BP+SI-0x40].B,AL");
-	ASM_INLINE("MOV	-0x40[BP+SI].B,AL");
-	ASM_INLINE("TEST	AL,AL");
-	ASM_INLINE("JNZ	_91847");
-	ASM_INLINE("LEA	AX,[BP-0x40].B");
-	ASM_INLINE("CALLF	hstrlen_, SEG hstrlen_");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("MOV	BX,0x00E0");
-	ASM_INLINE("SUB	BX,AX");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("MOV	BX,DI");
-	ASM_INLINE("LEA	CX,[BP-0x40].B");
-	ASM_INLINE("MOV	DX,0x0001");
-	ASM_INLINE("CALLF	bmp_print_, SEG bmp_print_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("XOR	SI,SI");
-	ASM_INLINE("JMP	_91888");
-ASM_INLINE("_91887:");
-	ASM_INLINE("INC	SI");
-ASM_INLINE("_91888:");
-	ASM_INLINE("MOV	AX,0xE446");
-	ASM_INLINE("MOV	ES,AX");
-	//ASM_INLINE("MOV	AL,ES:[SI+0x0004].B");
-	ASM_OP5(0x26,0x8A,0x84,0x04,0x00);
-	//ASM_INLINE("MOV	[BP+SI-0x40].B,AL");
-	ASM_INLINE("MOV	-040h[BP+SI].B,AL");
-	ASM_INLINE("TEST	AL,AL");
-	ASM_INLINE("JNZ	_91887");
-	ASM_INLINE("LEA	AX,[BP-0x40].B");
-	ASM_INLINE("CALLF	hstrlen_, SEG hstrlen_");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("MOV	BX,0x00E0");
-	ASM_INLINE("SUB	BX,AX");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("ADD	DI,0x0008");
-	ASM_INLINE("MOV	BX,DI");
-	ASM_INLINE("LEA	CX,[BP-0x40].B");
-	ASM_INLINE("MOV	DX,0x0001");
-	ASM_INLINE("CALLF	bmp_print_, SEG bmp_print_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("TEST	[0x0956].W,0x0002");
-	ASM_INLINE("JZ	_918E2");
-	ASM_INLINE("MOV	AL,0x0A");
-	ASM_INLINE("CALLF	sereq_, SEG sereq_");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("MOV	AX,0x000A");
-	ASM_INLINE("CALLF	task_delete_fade_, SEG task_delete_fade_");
-ASM_INLINE("_918E2:");
-	ASM_INLINE("POP	DI");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("MOV	SP,BP");
-	ASM_INLINE("POP	BP");
+	u16 i;
+	s16 len;
+	s16 max;
+	char c;
+	char str[64];
+
+	max = 64; //might also be sizeof(str)?
+	i=0;
+	while (str[i] = unk01[i])
+	{
+		i++;
+	}
+
+	len = ((s16)(0xe0 - hstrlen(str) * 8)) >> 1;
+	bmp_print(len, max, str, 1, 0);
+
+	i=0;
+	while (str[i] = unk02[i])
+	{
+		i++;
+	}
+
+	len = ((s16)(0xe0 - hstrlen(str) * 8)) >> 1;
+	bmp_print(len, max+8, str, 1, 0);
+
+	if (pad.unk4 & 2)
+	{
+		sereq(10);
+		task_delete();
+		task_delete_fade(10);
+	}
 }
 
  
