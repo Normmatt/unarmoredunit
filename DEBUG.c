@@ -11,6 +11,8 @@
 #include "IP_MES.h"
 #include "SOUND_CODE.h"
 
+static void unk_83949();
+
 static void near unk_83853()
 {
 	ASM_INLINE("PUSH	BP");
@@ -71,72 +73,30 @@ ASM_INLINE("_838AB:");
 
 void debug_init()
 {
-	task_delete; //Force include
-	memalloc; //Force include
-	task_append; //Force include
-	font_load; //Force include
-	nbg_ddf; //Force include
-	e2lib_i_read; //Force include
-	hsprintf; //Force include
-	print; //Force include
-	ASM_INLINE("PUSH	BP");
-	ASM_INLINE("MOV	BP,SP");
-	ASM_INLINE("SUB	SP,0x0100");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("MOV	AX,0x0002");
-	ASM_INLINE("CALLF	memalloc_, SEG memalloc_");
-	ASM_INLINE("MOV	CX,AX");
-	ASM_INLINE("TEST	CX,CX");
-	ASM_INLINE("JZ	_83942");
-	ASM_INLINE("MOV	AX,0x00F9");
-	ASM_INLINE("MOV	BX,0x8385");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	CX,0x0000");
-	ASM_INLINE("MOV	DX,0xA000");
-	ASM_INLINE("CALLF	font_load_, SEG font_load_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("CALL	unk_83853_");
-	ASM_INLINE("XOR	SI,SI");
-	ASM_INLINE("JMP	_8393D");
-ASM_INLINE("_83900:");
-	ASM_INLINE("MOV	AX,0x0030");
-	ASM_INLINE("ADD	AX,SI");
-	ASM_INLINE("CALLF	e2lib_i_read_, SEG e2lib_i_read_");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	AX,0x02D2");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("LEA	AX,[BP-0x0100].B");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("CALLF	hsprintf_, SEG hsprintf_");
-	ASM_INLINE("ADD	SP,0x0008");
-	ASM_INLINE("MOV	BX,0x0000");
-	ASM_INLINE("MOV	AX,0xA000");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	BX,0x0011");
-	ASM_INLINE("MOV	CX,0x0001");
-	ASM_INLINE("LEA	DX,[BP-0x0100].B");
-	ASM_INLINE("CALLF	print_, SEG print_");
-	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("CALL	unk_83853_");
-	ASM_INLINE("INC	SI");
-ASM_INLINE("_8393D:");
-	ASM_INLINE("CMP	SI,0x0010");
-	ASM_INLINE("JL	_83900");
-ASM_INLINE("_83942:");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("MOV	SP,BP");
-	ASM_INLINE("POP	BP");
+	s16 i;
+	u16 val;
+	struct DebugWork *work;
+	char buf[256];
+
+	task_delete();
+	work = (struct DebugWork*)memalloc(sizeof (struct DebugWork));
+
+	if(work)
+	{
+		task_append((task_pointer)unk_83949, (u16)work);
+		font_load(1,DFONT_char_adr);
+		nbg_ddf(1, 1);
+		unk_83853();
+
+		for(i = 0; i < 16; i++)
+		{
+			val = e2lib_i_read(0x30 + i);
+			hsprintf(buf, 0x2d2, i, val);
+			print(0, 0x11, 1, buf, DFONT_char_adr);
+			unk_83853();
+		}
+	}
+
 }
 
 static void unk_83949()

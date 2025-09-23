@@ -42,11 +42,16 @@ clean:
 	$(RM) armoredunit.hex
 	$(RM) armoredunit.bin
 
-all:  crt0.obj armoredunit.hex armoredunit.bin compare
+all:  crt0.obj armoredunit.hex armoredunit.bin progress compare
 
 crt0.obj:	crt0.p86
 	cpp -o crt0.a86 $<
 	r86 -o $@ crt0.a86
+
+_GENETEXT.obj:	_GENETEXT.p86
+	cpp -o _GENETEXT.a86 $<
+	obj2asm.exe $@ -c$*.cod
+	r86 -o $@ _GENETEXT.a86
 
 OBJS= 	SWANMAIN.obj \
 		DFONT_char_adr.obj \
@@ -151,6 +156,9 @@ armoredunit.bin: armoredunit.hex
 
 compare:
 	sha1sum -c armoredunit.sha1
+
+progress:
+	python progress.py
 
 #Why does codegen chagne if we go straight to obj without making the .a86 for these
 SWANMAIN.a86:  SWANMAIN.c

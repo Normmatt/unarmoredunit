@@ -48,6 +48,6 @@ void interrupt_main3();
 void interrupt_main5();
 void interrupt_main6();
 void interrupt_main7();
-void e2lib_i_read();
+u16 e2lib_i_read();
 
 #endif
