@@ -38,7 +38,6 @@ clean:
 	$(RM) *.d86
 	$(RM) *.obj
 	$(RM) *.exe
-	$(RM) *.cod
 	$(RM) armoredunit.hex
 	$(RM) armoredunit.bin
 

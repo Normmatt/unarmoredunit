@@ -8,6 +8,15 @@
 #include "SWAN_L_C.h"
 #include "PAD.h"
 
+u8 console_data[] = {
+	0x02, 0x00, 0xA8, 0xC0,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x00, 0x00,
+	0x02, 0x00,
+};
+
 static const char far console_text[] = "SW8000EX Console Ver 1.00b¥r¥nCopyright 1999 By minisoft/¥r¥n/Switches95/Fillsail/CHARA.¥r¥n¥r¥n  ReturnSystem Push !!¥r¥n   [L]+[R] and [A] Button¥r¥n¥r¥n";
 static const char far console_login[] = "login:";
 static const char far console_password[] = "password:";

@@ -25,7 +25,7 @@ extern u16 nbg_yoff[];
 extern u8 lcd_option;
 extern u16 colpal[16][4];
 extern u8 vram[];
-extern u8 com_user[];
+extern u8 com_user;
 extern u8 effect_tbl[];
 extern u8 bitmap_nbg[];
 extern u8 _ctype[];

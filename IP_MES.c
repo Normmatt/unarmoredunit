@@ -9,6 +9,18 @@
 #include "SWAN_L_C.h"
 #include "PAD.h"
 
+static u16 unk0 = 0;
+
+static char str0[] = "IP_MES test program";
+static char str1[] = "                 level1.00";
+static char str2[] = "- EntryList - No:Ip:Ln:Ma -";
+static char str3[] = "%d:%d.%d.%d.%d:%d:%d";
+static char str4[] = "- used:%d - free:%d - max:%d -";
+static char str5[] = "Initialize RIGHT+LEFT+A";
+static char str6[] = "button push";
+static char str7[] = ">--=[  Ipmes Init. ]==--<";
+static char str8[] = "%04X:%04X";
+
 static void near unk_830F2()
 {
 	ASM_INLINE("PUSH	BP");

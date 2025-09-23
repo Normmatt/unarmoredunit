@@ -33,6 +33,38 @@
 #include "SOUND_CODE.h"
 #include "GENERAL.h"
 
+static u16 unk0 = 0x0000;
+
+static u8 select_stuff[] = {
+	0x01, 0x00, 0xA8, 0xC0,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 
+	0x02, 0x00
+};
+
+static char str0[] = "%04X";
+static char str1[] = "%04X";
+static char str2[] = "%04X";
+static char str3[] = "%04X";
+static char str4[] = "%04X";
+static char str5[] = "%04X";
+static char str6[] = "%04X";
+static char str7[] = "%04X";
+static char str8[] = "%04X";
+static char str9[] = "%04X";
+static char str10[] = "%04X";
+static char str11[] = "%03X";
+static char str12[] = "%04X";
+static char str13[] = "%04X";
+static char str14[] = " ";
+static char str15[] = ">";
+static char str16[] = " ";
+static char str17[] = "max=%2d";
+static char str18[] = "%2d";
+static char str19[] = "%2d";
+
 const char far select_debug_text00[] = "   Sammy Special Version    ";
 const char far select_debug_text01[] = "     Swan OS level2.13 9/18 ";
 const char far select_debug_text02[] = "  Swan ??????????? Program  ";

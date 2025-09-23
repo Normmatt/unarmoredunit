@@ -8,6 +8,16 @@
 #include "MEMORY.h"
 #include "SOUND_CODE.h"
 
+static char str0[] = "               ";
+static char str1[] = "VERSION 000105D";
+static char str2[] = "FREE PLAY      ";
+static char str3[] = "ALL SAVE CLEAR!";
+static char str4[] = "UNDEFINED!!    ";
+static char str5[] = "               ";
+static char str6[] = "TYPE 0         ";
+static char str7[] = "No Suppoted    ";
+static char str8[] = "--CLEAR--      ";
+
 static const u8 far title_unk[] = {0,1,2,3,2,1};
 
 extern u8 far G_TITLE_char_adr[];
@@ -97,47 +107,47 @@ ASM_INLINE("_83DA6:");
 
 static void unk_83DB2()
 {
-	unk_83D28(0, 0, (u8*)0x308);
+	unk_83D28(0, 0, (u8*)str0);
 }
 
 static void unk_83DC1()
 {
-	unk_83D28(0, 0, (u8*)0x318);
+	unk_83D28(0, 0, (u8*)str1);
 }
 
 static void unk_83DD0()
 {
-	unk_83D28(0, 0, (u8*)0x328);
+	unk_83D28(0, 0, (u8*)str2);
 }
 
 static void unk_83DDF()
 {
-	unk_83D28(0, 0, (u8*)0x338);
+	unk_83D28(0, 0, (u8*)str3);
 }
 
 static void unk_83DEE()
 {
-	unk_83D28(0, 0, (u8*)0x348);
+	unk_83D28(0, 0, (u8*)str4);
 }
 
 static void unk_83DFD()
 {
-	unk_83D28(0, 0, (u8*)0x358);
+	unk_83D28(0, 0, (u8*)str5);
 }
 
 static void unk_83E0C()
 {
-	unk_83D28(0, 0, (u8*)0x368);
+	unk_83D28(0, 0, (u8*)str6);
 }
 
 static void unk_83E1B()
 {
-	unk_83D28(0, 0, (u8*)0x378);
+	unk_83D28(0, 0, (u8*)str7);
 }
 
 static void unk_83E2A()
 {
-	unk_83D28(0, 0, (u8*)0x388);
+	unk_83D28(0, 0, (u8*)str8);
 	flash_clear();
 }
 

@@ -4,6 +4,10 @@
 #include "SERIAL.h"
 #include "SYSTEM.h"
 
+//SERIAL.c
+u8 com_user = 0;
+u16 com_unk = 1;
+
 sSerialInfo_t rcv_work;
 u8 receive_buf[630];
 u16 mother_child;
@@ -694,11 +698,11 @@ static void near unk_83097()
 {
 	if(unk_82F8B(0xA5) < 0)
 	{
-		com_user[0] = 0;
+		com_user = 0;
 	}
 	else
 	{
-		com_user[0] = 2;
+		com_user = 2;
 	}
 }
 

@@ -11,14 +11,36 @@ extern u8 far KEYBOARD_char_adr[];
 memory_node_t memory_alloc_work[128]; /*096E*/
 static memory_test_t memory_test; /*0D6E*/
 
-static const char far str1[] = "Memory test program";
-static const char far str2[] = "                 level1.00";
-static const char far str3[] = "memory-size:%dbytes";
-static const char far str4[] = "SRAMaddress:%04Xh";
-static const char far str5[] = "entry memory:%dbytes";
-static const char far str6[] = "free  memory:%dbytes";
-static const char far str7[] = "Initialize RIGHT+LEFT+A";
-static const char far str8[] = "button push";
+static u8 memory_stuff[] = {
+	0xA8, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00
+};
+
+static char str0[] = "%04X:";
+static char str1[] = "FAST:";
+static char str2[] = "err.:";
+static char str3[] = "%04X:";
+static char str4[] = "err.:";
+static char str5[] = "END.:";
+static char str6[] = "%04X:";
+static char str7[] = "%04X:";
+static char str8[] = "FREE";
+static char str9[] = "USE.";
+static char str10[] = "err.";
+static char str11[] = ">--=[  Memory Init. ]==--<";
+static char str12[] = ".";
+static char str13[] = "%1d.%02d";
+static char str14[] = "%03d";
+
+static const char far fstr1[] = "Memory test program";
+static const char far fstr2[] = "                 level1.00";
+static const char far fstr3[] = "memory-size:%dbytes";
+static const char far fstr4[] = "SRAMaddress:%04Xh";
+static const char far fstr5[] = "entry memory:%dbytes";
+static const char far fstr6[] = "free  memory:%dbytes";
+static const char far fstr7[] = "Initialize RIGHT+LEFT+A";
+static const char far fstr8[] = "button push";
 
 void meminit()
 {
