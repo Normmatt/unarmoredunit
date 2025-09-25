@@ -1,4 +1,5 @@
 #include <machine.h>
+#include <stdrom.h>
 #include "types.h"
 
 #include "ASM.h"
@@ -6,7 +7,6 @@
 #include "DEBUG.h"
 #include "ending.h"
 #include "flash.h"
-#include "GENERAL.h"
 #include "IP_MES.h"
 #include "LOGO.h"
 #include "m_cpu2p.h"
@@ -19,7 +19,6 @@
 #include "PUT_TEXT.h"
 #include "select.h"
 #include "SERIAL.h"
-#include "GENERAL.h"
 #include "SPRINTF.h"
 #include "stagesel.h"
 #include "story.h"
@@ -31,7 +30,6 @@
 #include "SWANMAIN.h"
 #include "SWAN_L_C.h"
 #include "SOUND_CODE.h"
-#include "GENERAL.h"
 
 static char str0[] = ".";
 static char str1[] = "%1d.%02d";

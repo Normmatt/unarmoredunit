@@ -1,11 +1,11 @@
 
 #include <machine.h>
+#include <stdrom.h>
 #include "types.h"
 #include "DEBUG.h"
 #include "SWANMAIN.h"
 #include "SWAN_L_C.h"
 #include "MEMORY.h"
-#include "GENERAL.h"
 #include "SYSTEM.h"
 #include "SPRINTF.h"
 #include "IP_MES.h"
@@ -24,60 +24,18 @@ static void unk_83949();
 
 static void near unk_83853()
 {
-	ASM_INLINE("PUSH	BP");
-	ASM_INLINE("MOV	BP,SP");
-	ASM_INLINE("SUB	SP,0x0004");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("MOV	BX,[0x00F8].W");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("MOV	DX,[0x0062].W");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("OR	BX,DX");
-	ASM_INLINE("OR	AX,CX");
-	ASM_INLINE("MOV	[BP-0x04].W,BX");
-	ASM_INLINE("MOV	[BP-0x02].W,AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("JMP	_838AB");
-ASM_INLINE("_8387B:");
-	ASM_INLINE("XOR	DI,DI");
-	ASM_INLINE("JMP	_838A5");
-ASM_INLINE("_8387F:");
-	ASM_INLINE("MOV	DX,AX");
-	ASM_INLINE("INC	DX");
-	ASM_INLINE("MOV	CL,0x05");
-	ASM_INLINE("SHL	DX,CL");
-	ASM_INLINE("ADD	DX,DI");
-	ASM_INLINE("SHL	DX,1");
-	ASM_INLINE("LES	BX,[BP-0x04]");
-	ASM_INLINE("ADD	BX,DX");
-	ASM_INLINE("MOV	SI,ES:[BX].W");
-	ASM_INLINE("MOV	DX,AX");
-	ASM_INLINE("MOV	CL,0x05");
-	ASM_INLINE("SHL	DX,CL");
-	ASM_INLINE("ADD	DX,DI");
-	ASM_INLINE("SHL	DX,1");
-	ASM_INLINE("LES	BX,[BP-0x04]");
-	ASM_INLINE("ADD	BX,DX");
-	ASM_INLINE("MOV	ES:[BX].W,SI");
-	ASM_INLINE("INC	DI");
-ASM_INLINE("_838A5:");
-	ASM_INLINE("CMP	DI,0x001C");
-	ASM_INLINE("JL	_8387F");
-	ASM_INLINE("INC	AX");
-ASM_INLINE("_838AB:");
-	ASM_INLINE("CMP	AX,0x0012");
-	ASM_INLINE("JL	_8387B");
-	ASM_INLINE("POP	DI");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("MOV	SP,BP");
-	ASM_INLINE("POP	BP");
+	s16 i;
+	s16 j;
+	s16 tmp;
+	u16 far *m = MK_FP(vram, map_tbl[1]);
+
+	for(i = 0; i < 0x12; i++)
+	{
+		for(j = 0; j < 0x1C; j++)
+		{
+			m[(0x20 * i) + j] = m[(0x20 * (i+1)) + j];
+		}
+	}
 }
 
 void debug_init()
