@@ -11,10 +11,10 @@ extern u16 sw_count;
 extern u16 int_frag;
 extern vu8 int_enable;
 
-void rand();
-void srand();
-extern void font_put2XY();
-void get_bmp_cell_no();
+int rand();
+void srand(unsigned int seed);
+void font_put2XY();
+u16 get_bmp_cell_no();
 void font_putXY(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f, u16 g, u8 far *gfx);
 void font_putXYT();
 void font_put2();

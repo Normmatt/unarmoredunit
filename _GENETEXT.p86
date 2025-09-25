@@ -4,279 +4,9 @@ DGROUP	GROUP	DATA,BSS
 
 DATA	DSEG
 
-;u8 bitmap_nbg[6] = {
+;u16 bitmap_nbg = 0
 	EVEN
-bitmap_nbg_::	DB	0
-	DB	0
-	DB	1
-	DB	0
-	DB	0
-	DB	0
-
-;    0x00, 0x00, 0x01, 0x00, 0x00, 0x00
-;};
-
-;u8 _ctype[] = {
-	EVEN
-_ctype_::DB	0
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	40
-	DB	40
-	DB	40
-	DB	40
-	DB	40
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	32
-	DB	136
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	196
-	DB	196
-	DB	196
-	DB	196
-	DB	196
-	DB	196
-	DB	196
-	DB	196
-	DB	196
-	DB	196
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	193
-	DB	193
-	DB	193
-	DB	193
-	DB	193
-	DB	193
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	129
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	194
-	DB	194
-	DB	194
-	DB	194
-	DB	194
-	DB	194
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	130
-	DB	144
-	DB	144
-	DB	144
-	DB	144
-	DB	32
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-	DB	0
-
-;};
+bitmap_nbg_::	DW	0
 
 BSS	DSEG
 
@@ -468,7 +198,7 @@ _91A02:
 bitmap_::
 	PUSH	CX	; 0x51
 	PUSH	DX	; 0x52
-	MOV	[0x077E].W,AX	; 0xA3,0x7E,0x07
+	MOV	[bitmap_nbg_].W,AX	; 0xA3,0x7E,0x07
 	SHL	AX,1	; 0xD1,0xE0
 	MOV	BX,AX	; 0x8B,0xD8
 	PUSH	BX	; 0x53
@@ -580,7 +310,7 @@ get_cel_no_offset_::
 	MOV	DX,BX	; 0x8B,0xD3
 	CMP	CX,0x0002	; 0x83,0xF9,0x02
 	JB	_91B2A	; 0x72,0x08
-	MOV	CX,[0x077E].W	; 0x8B,0x0E,0x7E,0x07
+	MOV	CX,[bitmap_nbg_].W	; 0x8B,0x0E,0x7E,0x07
 	ADD	DX,0x0090	; 0x81,0xC2,0x90,0x00
 _91B2A:
 	SHL	CX,1	; 0xD1,0xE1
@@ -600,7 +330,7 @@ get_cell_pixel_offset_::
 	CMP	CX,0x0002	; 0x83,0xF9,0x02
 	JB	_91B51	; 0x72,0x08
 	ADD	BX,0x0090	; 0x81,0xC3,0x90,0x00
-	MOV	CX,[0x077E].W	; 0x8B,0x0E,0x7E,0x07
+	MOV	CX,[bitmap_nbg_].W	; 0x8B,0x0E,0x7E,0x07
 _91B51:
 	PUSH	AX	; 0x50
 	PUSH	BX	; 0x53

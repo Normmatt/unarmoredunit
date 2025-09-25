@@ -1,5 +1,6 @@
 
 #include <machine.h>
+#include <stdrom.h>
 #include "types.h"
 #include "SYSTEM.h"
 
@@ -29,10 +30,8 @@ u16 colpal[16][4] = {
 	{ 0x0007, 0x0005, 0x0003, 0x0000, },
 	{ 0x0000, 0x0004, 0x0007, 0x0000, },
 };
-u8 vram[4] = {
-    0x00, 0x00, 0x00, 0x00, 
-};
-
+u16 vram = 0;
+u16 unk1 = 0;
 
 struct TaskContext tsk1cont;
 s16 fade[2];
@@ -89,8 +88,7 @@ void nbg_scroll(u16 a, u16 b, u16 c)
 
 void cls(u16 a)
 {
-	/*u16 far *v = *(u16*)vram;
-	u16 far *m = v + map_tbl[a];
+	u16 far *m = MK_FP(vram, map_tbl[a]);
 	s16 i;
 
 	for(i = 0x400; i != 0; i--)
@@ -98,70 +96,11 @@ void cls(u16 a)
 		*m++ = 0x9FF;
 	}
 
-	v = *(u16*)vram;
-	m = v + cel_tbl[a] + 0x1ff0;
+	m = MK_FP(vram, cel_tbl[a] + 0x1ff0);
 	for(i = 8; i != 0; i--)
 	{
 		*m++ = 0;
-	}*/
-	ASM_INLINE("PUSH	BP");
-	ASM_INLINE("MOV	BP,SP");
-	ASM_INLINE("SUB	SP,0x0004");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	BX,[vram_].W");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	DX,[BX+map_tbl_].W");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("OR	CX,DX");
-	ASM_INLINE("OR	AX,BX");
-	ASM_INLINE("MOV	[BP-0x04].W,CX");
-	ASM_INLINE("MOV	[BP-0x02].W,AX");
-	ASM_INLINE("MOV	AX,0x0400");
-	ASM_INLINE("JMP	_80F98");
-ASM_INLINE("_80F88:");
-	ASM_INLINE("ADD	[BP-0x04].W,0x0002");
-	ASM_INLINE("LES	BX,[BP-0x04]");
-	ASM_INLINE("SUB	BX,0x0002");
-	ASM_INLINE("MOV	ES:[BX].W,0x09FF");
-	ASM_INLINE("DEC	AX");
-ASM_INLINE("_80F98:");
-	ASM_INLINE("TEST	AX,AX");
-	ASM_INLINE("JNZ	_80F88");
-	ASM_INLINE("MOV	BX,[vram_].W");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("SHL	SI,1");
-	ASM_INLINE("MOV	DX,[SI+cel_tbl_].W");
-	ASM_INLINE("ADD	DX,0x1FF0");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("OR	BX,DX");
-	ASM_INLINE("OR	AX,CX");
-	ASM_INLINE("MOV	[BP-0x04].W,BX");
-	ASM_INLINE("MOV	[BP-0x02].W,AX");
-	ASM_INLINE("MOV	AX,0x0008");
-	ASM_INLINE("JMP	_80FD1");
-ASM_INLINE("_80FC1:");
-	ASM_INLINE("ADD	[BP-0x04].W,0x0002");
-	ASM_INLINE("LES	BX,[BP-0x04]");
-	ASM_INLINE("SUB	BX,0x0002");
-	ASM_INLINE("MOV	ES:[BX].W,0x0000");
-	ASM_INLINE("DEC	AX");
-ASM_INLINE("_80FD1:");
-	ASM_INLINE("TEST	AX,AX");
-	ASM_INLINE("JNZ	_80FC1");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("MOV	SP,BP");
-	ASM_INLINE("POP	BP");
+	}
 }
 
 void spr_cls()

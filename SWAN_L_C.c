@@ -13,43 +13,18 @@
 /*100E*/ u16 int_frag;
 /*1010*/ vu8 int_enable;
 
-//extern u8 map_tbl[];
+/*0780*/ long state = 1;
 
-void rand()
+int rand()
 {
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("MOV	AX,[0x0780].W");
-	ASM_INLINE("MOV	BX,[0x0782].W");
-	ASM_INLINE("MOV	CX,0x4E6D");
-	ASM_INLINE("MOV	DX,0x41C6");
-	ASM_INLINE("CALLF	0x000E, 0x9211"); //_LMUL
-	ASM_INLINE("ADD	AX,0x3039");
-	ASM_INLINE("ADC	BX,0x0000");
-	ASM_INLINE("MOV	[0x0780].W,AX");
-	ASM_INLINE("MOV	[0x0782].W,BX");
-	ASM_INLINE("MOV	AX,[0x0780].W");
-	ASM_INLINE("MOV	BX,[0x0782].W");
-	ASM_INLINE("MOV	CX,0x0010");
-	ASM_INLINE("JCXZ	_91D5A");
-ASM_INLINE("_91D54:");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("RCR	AX,1");
-	ASM_INLINE("LOOP	_91D54");
-ASM_INLINE("_91D5A:");
-	ASM_INLINE("AND	AX,0x7FFF");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	state = state * 1103515245UL + 12345UL;
+	return (((int)(state >> 16)) & 0x7FFF);
 }
 
-
-void srand()
+void srand(unsigned int seed)
 {
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("MOV	[0x0780].W,AX");
-	ASM_INLINE("MOV	[0x0782].W,BX");
+	state = seed;
 }
-
 
 void font_put2XY()
 {
@@ -207,7 +182,7 @@ ASM_INLINE("_91EA2:");
 	ASM_INLINE("POP	BP");
 }
 
-void get_bmp_cell_no()
+u16 get_bmp_cell_no()
 {
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
