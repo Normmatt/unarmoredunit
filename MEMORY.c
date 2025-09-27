@@ -634,21 +634,21 @@ ASM_INLINE("_819FF:");
 
 static void unk_81A34()
 {
-	if((pad.unk0 & 0x0800) && (pad.unk0 & 0x0200) && (pad.unk4 & 0x0004))
+	if((pad[0].unk0 & 0x0800) && (pad[0].unk0 & 0x0200) && (pad[0].unk4 & 0x0004))
 	{
 		print(1, 0, 1, str11, DFONT_char_adr);
     	meminit();
 	}
-	if((pad.unk0 & 0x8000) && (pad.unk0 & 0x2000) && (pad.unk4 & 0x0004))
+	if((pad[0].unk0 & 0x8000) && (pad[0].unk0 & 0x2000) && (pad[0].unk4 & 0x0004))
 	{
 		task_delete();
 		task_append((task_pointer)memory_dump_init, 0);
 	}
-	if(pad.unk0 & 0x1000)
+	if(pad[0].unk0 & 0x1000)
 	{
 		unk0 = 0;
 	}
-	if(pad.unk0 & 0x4000)
+	if(pad[0].unk0 & 0x4000)
 	{
 		unk0 = 1;
 	}
@@ -658,27 +658,27 @@ static void unk_81A34()
 		{
 			case 0:
 			{
-				pad.unk4 |= 0x0100;
+				pad[0].unk4 |= 0x0100;
 				break;
 			}
 			case 1:
 			{
-				pad.unk4 |= 0x0200;
+				pad[0].unk4 |= 0x0200;
 				break;
 			}
 			case 2:
 			{
-				pad.unk4 |= 0x0400;
+				pad[0].unk4 |= 0x0400;
 				break;
 			}
 			case 3:
 			{
-				pad.unk4 |= 0x0800;
+				pad[0].unk4 |= 0x0800;
 				break;
 			}
 		}
 	}
-	if(pad.unk4 & 0x0100)
+	if(pad[0].unk4 & 0x0100)
 	{
 		if(unk1)
 		{
@@ -692,7 +692,7 @@ static void unk_81A34()
 		task_delete();
 		task_append((task_pointer)memory_test_init, 0);
 	}
-	if(pad.unk4 & 0x0200)
+	if(pad[0].unk4 & 0x0200)
 	{
 		if(unk2)
 		{
@@ -706,7 +706,7 @@ static void unk_81A34()
 		task_delete();
 		task_append((task_pointer)memory_test_init, 0);
 	}
-	if(pad.unk4 & 0x0400)
+	if(pad[0].unk4 & 0x0400)
 	{
 		if(unk3)
 		{
@@ -720,7 +720,7 @@ static void unk_81A34()
 		task_delete();
 		task_append((task_pointer)memory_test_init, 0);
 	}
-	if(pad.unk4 & 0x0800)
+	if(pad[0].unk4 & 0x0800)
 	{
 		if(unk4)
 		{
@@ -734,7 +734,7 @@ static void unk_81A34()
 		task_delete();
 		task_append((task_pointer)memory_test_init, 0);
 	}
-	if(pad.unk4 & 0x0002)
+	if(pad[0].unk4 & 0x0002)
 	{
 		task_delete();
 	}
@@ -1016,27 +1016,27 @@ void memory_dump_init()
 
 static void unk_82093()
 {
-	if(pad.unk8 & 0x0100)
+	if(pad[0].unk8 & 0x0100)
 	{
 		memory_test.unk6 -= 16;
 		unk_81D3F(memory_test.unk0, memory_test.unk4, memory_test.unk6, memory_test.unk2);
 	}
-	else if(pad.unk8 & 0x0400)
+	else if(pad[0].unk8 & 0x0400)
 	{
 		memory_test.unk6 += 16;
 		unk_81D3F(memory_test.unk0, memory_test.unk4, memory_test.unk6, memory_test.unk2);
 	}
-	if(pad.unk8 & 0x0200)
+	if(pad[0].unk8 & 0x0200)
 	{
 		memory_test.unk6 -= 1;
 		unk_81D3F(memory_test.unk0, memory_test.unk4, memory_test.unk6, memory_test.unk2);
 	}
-	else if(pad.unk8 & 0x0800)
+	else if(pad[0].unk8 & 0x0800)
 	{
 		memory_test.unk6 += 1;
 		unk_81D3F(memory_test.unk0, memory_test.unk4, memory_test.unk6, memory_test.unk2);
 	}
-	if(pad.unk4 & 0x02)
+	if(pad[0].unk4 & 0x02)
 	{
 		task_delete();
 	}

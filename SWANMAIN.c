@@ -46,9 +46,9 @@ void task_default_task(u16 unk)
 
 void task_default_task2(u16 unk)
 {
-	if(!(pad.unk0 & 4)) return;
-	if(!(pad.unk0 & 8)) return;
-	if(!(pad.unk4 & 2)) return;
+	if(!(pad[0].unk0 & 4)) return;
+	if(!(pad[0].unk0 & 8)) return;
+	if(!(pad[0].unk4 & 2)) return;
 	
 	meminit();
 	pad_init();
@@ -201,7 +201,7 @@ s16 task_delete2_all()
 
 static void unk0494()
 {
-	tsk1cont.unkC2 = ~v_blank_cnt_count;
+	tsk1cont.unkC2 = ‾v_blank_cnt_count;
 }
 
 static void unk049D()

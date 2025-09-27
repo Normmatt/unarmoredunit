@@ -1,6 +1,8 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
+#include "types.h"
+
 struct DebugWork
 {
     /* 00 */ u16 unk0;

@@ -161,7 +161,7 @@ static void unk_91836(u16 val)
 	len = ((s16)(0xe0 - hstrlen(str) * 8)) >> 1;
 	bmp_print(len, max+8, str, 1, 0);
 
-	if (pad.unk4 & 2)
+	if (pad[0].unk4 & 2)
 	{
 		sereq(10);
 		task_delete();

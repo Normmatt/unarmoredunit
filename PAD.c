@@ -6,24 +6,24 @@
 #include "SWANMAIN.h"
 #include "IP_MES.h"
 
-struct padState pad;
+struct padState pad[2];
 
 void pad_init()
 {
-	pad.unkC = 0;
-	pad.unkA = 0;
-	pad.unk8 = 0;
-	pad.unk6 = 0;
-	pad.unk4 = 0;
-	pad.unk2 = 0;
-	pad.unk0 = 0;
-	pad.unk1A = 0;
-	pad.unk18 = 0;
-	pad.unk16 = 0;
-	pad.unk14 = 0;
-	pad.unk12 = 0;
-	pad.unk10 = 0;
-	pad.unkE = 0;
+	pad[0].unkC = 0;
+	pad[0].unkA = 0;
+	pad[0].unk8 = 0;
+	pad[0].unk6 = 0;
+	pad[0].unk4 = 0;
+	pad[0].unk2 = 0;
+	pad[0].unk0 = 0;
+	pad[1].unkC = 0;
+	pad[1].unkA = 0;
+	pad[1].unk8 = 0;
+	pad[1].unk6 = 0;
+	pad[1].unk4 = 0;
+	pad[1].unk2 = 0;
+	pad[1].unk0 = 0;
 }
 
 void pad_task()
@@ -133,33 +133,14 @@ ASM_INLINE("_81492:");
 	ASM_INLINE("POP	BP");
 }
 
-void get_pad()
+u16 get_pad(u16 a, s16 b)
 {
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	CX,AX");
-	ASM_INLINE("MOV	SI,BX");
-ASM_INLINE("_814A5:");
-	ASM_INLINE("CALLF	pad_task_, SEG pad_task_");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("MOV	BX,0x000E");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("ADD	BX,pad_");
-	ASM_INLINE("CMP	[BX+0x08].W,0x0000");
-	ASM_INLINE("JNZ	_814C1");
-	ASM_INLINE("TEST	SI,SI");
-	ASM_INLINE("JNZ	_814A5");
-ASM_INLINE("_814C1:");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("MOV	BX,0x000E");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("ADD	BX,pad_");
-	ASM_INLINE("MOV	AX,[BX+0x08].W");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	do
+	{
+		pad_task();
+	} while (!pad[a].unk8 && b);
+	
+	return pad[a].unk8;
+
 }
 

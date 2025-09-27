@@ -5,12 +5,13 @@
 #include "SYSTEM.h"
 
 //SERIAL.c
-u8 com_user = 0;
-u16 com_unk = 1;
+u8 com_user = 0; /*020C*/
+u16 com_unk = 1; /*020E*/
+u16 com_unk2 = 0; /*0210*/
 
 sSerialInfo_t rcv_work;
-u8 receive_buf[630];
-u16 mother_child;
+u8 receive_buf[260]; /*0D8C*/
+static u8 unk0; /*0E90*/
 
 static s16 near unk_82F8B(u8 a);
 static s16 near unk_82FB2();
@@ -715,17 +716,17 @@ static void near unk_830B1()
 {
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("MOV	AX,[0x020E].W");
-	ASM_INLINE("MOV	BX,[0x0210].W");
+	ASM_INLINE("MOV	AX,[com_unk_].W");
+	ASM_INLINE("MOV	BX,[com_unk2_].W");
 	ASM_INLINE("MOV	CX,0x4E6D");
 	ASM_INLINE("MOV	DX,0x41C6");
 	ASM_INLINE("CALLF	0x000E, 0x9211"); //_LMUL
 	ASM_INLINE("ADD	AX,0x3039");
 	ASM_INLINE("ADC	BX,0x0000");
-	ASM_INLINE("MOV	[0x020E].W,AX");
-	ASM_INLINE("MOV	[0x0210].W,BX");
-	ASM_INLINE("MOV	AX,[0x020E].W");
-	ASM_INLINE("MOV	BX,[0x0210].W");
+	ASM_INLINE("MOV	[com_unk_].W,AX");
+	ASM_INLINE("MOV	[com_unk2_].W,BX");
+	ASM_INLINE("MOV	AX,[com_unk_].W");
+	ASM_INLINE("MOV	BX,[com_unk2_].W");
 	ASM_INLINE("MOV	CX,0x0010");
 	//ASM_INLINE("JCXZ	_830E4");
 	ASM_OP2(0xE3,0x06);

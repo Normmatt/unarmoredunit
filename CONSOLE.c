@@ -316,7 +316,7 @@ void console_init()
 		nbg_ddf(0, 0);
 		nbg_ddf(1, 0);
 		spr_ddf(0);
-		font_load(1,DFONT_char_adr);
+		font_load(1, DFONT_char_adr);
 		nbg_ddf(0, 0);
 		nbg_ddf(1, 1);
 		spr_ddf(0);

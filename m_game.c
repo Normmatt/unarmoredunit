@@ -190,6 +190,8 @@ static u8 m_game_data19[] = {
 	0x05, 0x00,
 };
 
+u16 mother_child; /*1002*/
+
 void m_game_reinit()
 {
 	ip_clear; //Force include

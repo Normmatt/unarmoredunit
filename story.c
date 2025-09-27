@@ -418,6 +418,8 @@ static const u8 far * far story[] = {
 	unk39,
 };
 
+static void unk_901D9(struct StoryWork* buf);
+
 static void near unk_8F9FF()
 {
 	font_put2XY; //Force include
@@ -1100,140 +1102,58 @@ ASM_INLINE("_8FF44:");
 	ASM_INLINE("POP	BP");
 }
 
-void story_init()
+void story_init(void *buf)
 {
-	task_delete; //Force include
-	memalloc; //Force include
-	task_append; //Force include
-	nbg_ddf; //Force include
-	nbg_scroll; //Force include
-	spr_ddf; //Force include
-	bitmap; //Force include
-	fade_tone; //Force include
-	fade_out; //Force include
-	fade_run; //Force include
-	fade_in; //Force include
-	bgmreq; //Force include	
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	DX,AX");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("MOV	AX,0x0022");
-	ASM_INLINE("CALLF	memalloc_, SEG memalloc_");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("TEST	SI,SI");
-	ASM_INLINE("JNZ	_8FFB9");
-	ASM_INLINE("JMP	_900EA");
-ASM_INLINE("_8FFB9:");
-	ASM_INLINE("MOV	AX,unk_901D9_");
-	ASM_INLINE("MOV	BX,SEG unk_901D9_");
-	ASM_INLINE("MOV	CX,SI");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("MOV	[SI].W,DX");
-	ASM_INLINE("MOV	AL,[0x1E09].B");
-	ASM_INLINE("XOR	AH,AH");
-	ASM_INLINE("MOV	BL,[0x1E08].B");
-	ASM_INLINE("XOR	BH,BH");
-	ASM_INLINE("MOV	[SI+0x02].B,AL");
-	ASM_INLINE("MOV	[SI+0x03].B,0x00");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	AX,BX");
-	ASM_INLINE("MOV	[SI+0x04].B,AL");
-	ASM_INLINE("MOV	[SI+0x05].B,0x00");
-	ASM_INLINE("MOV	[SI+0x06].B,0x00");
-	ASM_INLINE("MOV	[SI+0x07].B,0x00");
-	ASM_INLINE("MOV	[SI+0x08].B,0x00");
-	ASM_INLINE("MOV	[SI+0x09].B,0x00");
-	ASM_INLINE("MOV	[SI+0x18].W,0x0000");
-	ASM_INLINE("MOV	[SI+0x1A].W,0x0000");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	nbg_scroll_, SEG nbg_scroll_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	nbg_scroll_, SEG nbg_scroll_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	spr_ddf_, SEG spr_ddf_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	bitmap_, SEG bitmap_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("CALLF	bitmap_, SEG bitmap_");
-	ASM_INLINE("MOV	BX,0x0000");
-	ASM_INLINE("MOV	AX,0xBD72");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("MOV	CX,0x001C");
-	ASM_INLINE("MOV	DX,0x0012");
-	ASM_INLINE("CALLF	font_put2XY_, SEG font_put2XY_");
-	ASM_INLINE("ADD	SP,0x000A");
-	ASM_INLINE("MOV	AX,0xBCB2");
-	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	AL,[SI+0x02].B");
-	ASM_INLINE("CBW");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	//ASM_INLINE("PUSH	ES:[BX+0x0002].W");
-	ASM_OP5(0x26,0xFF,0xB7,0x02,0x00);
-	//ASM_INLINE("PUSH	ES:[BX+0x0000].W");
-	ASM_OP5(0x26,0xFF,0xB7,0x00,0x00);
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0002");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0006");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("MOV	CX,0x0010");
-	ASM_INLINE("MOV	DX,0x000C");
-	ASM_INLINE("CALLF	font_put2XY_, SEG font_put2XY_");
-	ASM_INLINE("ADD	SP,0x000A");
-	ASM_INLINE("CALL	unk_8FA8D_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	fade_tone_, SEG fade_tone_");
-	ASM_INLINE("MOV	AX,0x0064");
-	ASM_INLINE("CALLF	fade_out_, SEG fade_out_");
-	ASM_INLINE("CALLF	fade_run_, SEG fade_run_");
-	ASM_INLINE("MOV	AX,0x000A");
-	ASM_INLINE("CALLF	fade_in_, SEG fade_in_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	spr_ddf_, SEG spr_ddf_");
-	ASM_INLINE("CMP	[0x1E09].B,0x13");
-	ASM_INLINE("JNZ	_900E3");
-	ASM_INLINE("MOV	AL,0x04");
-	ASM_INLINE("CALLF	bgmreq_, SEG bgmreq_");
-	ASM_INLINE("JMP	_900EA");
-ASM_INLINE("_900E3:");
-	ASM_INLINE("MOV	AL,0x02");
-	ASM_INLINE("CALLF	bgmreq_, SEG bgmreq_");
-ASM_INLINE("_900EA:");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	u16 val1;
+	u16 val2;
+	struct StoryWork *work;
+
+	task_delete();
+	work = (struct StoryWork*)memalloc(sizeof (struct StoryWork));
+
+	if(work)
+	{
+		task_append((task_pointer)unk_901D9, (u16)work);
+		work->unk0 = buf;
+		val1 = SAVE_DATA_START[0x09];
+		val2 = SAVE_DATA_START[0x08];
+		work->unk2 = val1;
+		work->unk3 = 0;
+		work->unk4 = val1 * 2 + val2;
+		work->unk5 = 0;
+		work->unk6 = 0;
+		work->unk7 = 0;
+		work->unk8 = 0;
+		work->unk9 = 0;
+		work->unk18 = 0;
+		work->unk1A = 0;
+		nbg_ddf(0, 0);
+		nbg_ddf(1, 0);
+		nbg_scroll(0, 0, 0);
+		nbg_scroll(1, 0, 0);
+		spr_ddf(0);
+		bitmap(0);
+		bitmap(1);
+		font_put2XY(0, 0, 0x1c, 0x12, 0, 0, 0, G_STORY_char_adr);
+		font_put2XY(0, 0, 0x10, 0xc, 6, 2, 0, graphics[work->unk2]);
+		unk_8FA8D();
+		fade_tone(0);
+		fade_out(100);
+		fade_run();
+		fade_in(10);
+		nbg_ddf(0, 1);
+		nbg_ddf(1, 1);
+		spr_ddf(0);
+
+		if(SAVE_DATA_START[0x09] == 0x13)
+		{
+			bgmreq(4);
+		}
+		else
+		{
+			bgmreq(2);
+		}
+	}
 }
 
 static void unk_900EE()
@@ -1335,7 +1255,7 @@ ASM_INLINE("_901D7:");
 	ASM_INLINE("POP	CX");
 }
 
-static void unk_901D9()
+static void unk_901D9(struct StoryWork* buf)
 {
 	sereq; //Force include
 	put_char; //Force include

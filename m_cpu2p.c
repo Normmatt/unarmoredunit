@@ -15,6 +15,7 @@
 #include "IP_MES.h"
 #include "m_sub.h"
 #include "PUT_TEXT.h"
+#include "m_game.h"
 
 static u8 m_cpu2p_data[] = {
 	0x03, 0x02, 0xA8, 0xC0,
