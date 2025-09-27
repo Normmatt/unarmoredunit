@@ -2,6 +2,6 @@
 #define PUT_TEXT_H
 
 void put_message();
-void put_char();
+s16 put_char();
 
 #endif

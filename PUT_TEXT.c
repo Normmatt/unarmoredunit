@@ -856,7 +856,7 @@ ASM_INLINE("_908C0:");
 	ASM_INLINE("POP	BP");
 }
 
-void put_char()
+s16 put_char()
 {
 	ASM_INLINE("PUSH	DX");
 	ASM_INLINE("PUSH	SI");
