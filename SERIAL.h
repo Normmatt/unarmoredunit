@@ -4,16 +4,16 @@
 #include "types.h"
 
 typedef struct sSerialInfo {
-    u16 unk0;
-    u16 unk2;
-    u16 unk4;
-    u16 unk6;
-    u16 unk8;
-    u8* unkA;
-} sSerialInfo_t;
+    /* 00 */ u16 unk0;
+    /* 02 */ u16 unk2;
+    /* 04 */ u16 unk4;
+    /* 06 */ u16 unk6;
+    /* 08 */ u16 unk8;
+    /* 0A */ u8* unkA;
+} sSerialInfo_t; //Total 0xC bytes
 
-extern sSerialInfo_t rcv_work;
-extern u8 receive_buf[260];
+extern sSerialInfo_t rcv_work;  /*0D80*/
+extern u8 receive_buf[260];  /*0D8C*/
 
 void serial_init();
 void serial_receive();

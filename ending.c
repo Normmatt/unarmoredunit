@@ -11,42 +11,27 @@
 #include "PAD.h"
 #include "story.h"
 
-static void near unk_90FC7()
+extern const u8 far G_ENDING_char_adr[];
+
+static void unk_91673(struct EndingWork* work);
+
+static void near unk_90FC7(struct EndingWork* work)
 {
-	font_put2XY; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	BX,0x0000");
-	ASM_INLINE("MOV	AX,0xE06C");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0015");
-	ASM_INLINE("ADD	AX,[SI+0x08].W");
-	ASM_INLINE("MOV	BX,0x007F");
-	ASM_INLINE("MOV	CX,0x0001");
-	ASM_INLINE("MOV	DX,0x0001");
-	ASM_INLINE("CALLF	font_put2XY_, SEG font_put2XY_");
-	ASM_INLINE("ADD	SP,0x000A");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("MOV	AX,[SI+0x08].W");
-	ASM_INLINE("INC	AX");
-	ASM_INLINE("AND	AX,0x0003");
-	ASM_INLINE("MOV	[BX+0x08].W,AX");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	font_put2XY(0x15 + work->unk8, 0x7f, 1, 1, 0, 0, 0, G_ENDING_char_adr);
+	work->unk8 = work->unk8 + 1U & 3;
 }
 
+//static void near unk_91004(u16 a, u16 b, void far *data)
 static void near unk_91004()
 {
+/*	s16 i;
+	u16 val;
+	u16 far *ptr = ((u16 far*)data) + *((u16 far*)((u8 far *)data+0x0E));
+
+	for (i = 0; i < 0x1c; i++) {
+		put_cell_no(i << 3, a << 3, 1, ptr[(b * 0x1c + i)] | 0x800);
+	}*/
+
 	put_cell_no; //Force include
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
@@ -116,8 +101,147 @@ ASM_INLINE("_9107A:");
 	ASM_INLINE("POP	BP");
 }
 
-void ending_init()
+void ending_init(void *buf)
 {
+/*	s16 i;
+	s16 j;
+	s16 k;
+	u16 val;
+	u16 val2;
+	u16 val3;
+	struct EndingWork *work;
+
+	task_delete();
+	work = (struct EndingWork*)memalloc(sizeof (struct EndingWork));
+
+	if(work)
+	{
+		task_append((task_pointer)unk_91673, work);
+		work->unk0 = buf;
+		work->unk2 = 0;
+		work->unk4 = 0;
+		work->unk6 = 0;
+		work->unk8 = 0;
+		nbg_ddf(0, 0);
+		nbg_ddf(1, 0);
+		spr_ddf(0);
+		spr_cls();
+		font_load(1, G_ENDING_char_adr);
+		for (i = 0; i < 32; i++)
+		{
+			font_putXYT(0, 0, 0x1c, 1, 0, i, 0x800, 1, G_ENDING_char_adr);
+		}
+
+		val = get_bmp_cell_no(0x13, 0x80, G_ENDING_char_adr);
+		for (i = 0; i < 256; i += 8)
+		{
+			for (j = 0; j < 256; j += 8)
+			{
+				put_cell_no(j, i, 0, val);
+			}
+		}
+		
+		k = 8;
+		i = 8;
+		val2 = get_bmp_cell_no(0x12, 0x7f, G_ENDING_char_adr);
+		put_cell_no(i, k, 0, val2 | 0x200);
+		i += 8;
+
+		val2 = get_bmp_cell_no(0x13, 0x7f, G_ENDING_char_adr);
+		for (; i < 0xd0; i += 8)
+		{
+			put_cell_no(i, k, 0, val2 | 0x200);
+		}
+
+		val2 = get_bmp_cell_no(0x14, 0x7f, G_ENDING_char_adr);
+		put_cell_no(i, k, 0, val2 | 0x200);
+		k += 8;
+
+		for (; k < 0x80; k += 8)
+		{
+			i = 8;
+			val2 = get_bmp_cell_no(0x12, 0x80, G_ENDING_char_adr);
+			put_cell_no(i, k, 0, val2 | 0x200);
+			i += 8;
+
+			i = 0xd0;
+			val2 = get_bmp_cell_no(0x14, 0x80, G_ENDING_char_adr);
+			put_cell_no(i, k, 0, val2 | 0x200);
+		}
+
+		val2 = get_bmp_cell_no(0x12, 0x81, G_ENDING_char_adr);
+		put_cell_no(8, i, 0, val2 | 0x200);
+
+		val2 = get_bmp_cell_no(0x13, 0x81, G_ENDING_char_adr);
+		for (j = 0x10; j < 0xd0; j += 8)
+		{
+			put_cell_no(j, i, 0, val2 | 0x200);
+		}
+
+		//unformatted and most likely not correct
+		val2 = get_bmp_cell_no(0x14,0x81,G_ENDING_char_adr);
+		put_cell_no(j,i,0,val2 | 0x200);
+		val2 = get_bmp_cell_no(0x12,0x7f,G_ENDING_char_adr);
+		put_cell_no(0x10,0x10,0,val2 | 0x600);
+		val2 = get_bmp_cell_no(0x13,0x7f,G_ENDING_char_adr);
+		for (i = 0x18; i < 200; i += 8)
+		{
+			put_cell_no(i,0x10,0,val2 | 0x600);
+		}
+		val2 = get_bmp_cell_no(0x14,0x7f,G_ENDING_char_adr);
+		put_cell_no(i,0x10,0,val2 | 0x600);
+		for (i = 0x18; i < 0x78; i += 8)
+		{
+			val2 = get_bmp_cell_no(0x12,0x80,G_ENDING_char_adr);
+			put_cell_no(0x10,i,0,val2 | 0x600);
+			val2 = get_bmp_cell_no(0x14,0x80,G_ENDING_char_adr);
+			put_cell_no(200,i,0,val2 | 0x600);
+		}
+		val2 = get_bmp_cell_no(0x12,0x81,G_ENDING_char_adr);
+		put_cell_no(0x10,i,0,val2 | 0x600);
+		val2 = get_bmp_cell_no(0x13,0x81,G_ENDING_char_adr);
+		for (j = 0x18; j < 200; j += 8)
+		{
+			put_cell_no(j,i,0,val2 | 0x600);
+		}
+		val2 = get_bmp_cell_no(0x14,0x81,G_ENDING_char_adr);
+		put_cell_no(j,i,0,val2 | 0x600);
+		val2 = get_bmp_cell_no(0x15,0x7f,G_ENDING_char_adr);
+		i = 0;
+		put_sprite(0,0,0,val2 | 0x2000,0);
+		val3 = 1;
+		for (j = 8; j < 0xd8; j += 8)
+		{
+			put_sprite(val3,j,i,val2 | 0x2000,0);
+			val3 = val3 + 1;
+		}
+		put_sprite(val3,j,i,val2 | 0x2000,0);
+		val3 = val3 + 1;
+		while (i += 8, i < 0x88)
+		{
+			put_sprite(val3,0,i,val2 | 0x2000,0);
+			put_sprite(val3 + 1,0xd8,i,val2 | 0x2000,0);
+			val3 = val3 + 2;
+		}
+		put_sprite(val3, 0, i, val2 | 0x2000, 0);
+		for (j = 8; val3 += 1, j < 0xd8; j += 8)
+		{
+			put_sprite(val3, j, i, val2 | 0x2000, 0);
+		}
+		put_sprite(val3, j, i, val2 | 0x2000,0);
+		put_cell_no(0, 0, 0, val2);
+		nbg_scroll(0, 0, 0);
+		nbg_scroll(1, 0, 0);
+		fade_tone(0);
+		fade_out(100);
+		fade_run();
+		fade_in(10);
+		nbg_ddf(0, 1);
+		nbg_ddf(1, 1);
+		spr_ddf(1);
+		bgmreq(8);
+	}*/
+
 	task_delete; //Force include
 	memalloc; //Force include
 	task_append; //Force include
@@ -725,7 +849,7 @@ ASM_INLINE("_91670:");
 	ASM_INLINE("POP	CX");
 }
 
-static void unk_91673()
+static void unk_91673(struct EndingWork* work)
 {
 	memfree; //Force include
 	ASM_INLINE("PUSH	CX");

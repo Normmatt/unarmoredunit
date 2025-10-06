@@ -9,7 +9,7 @@ struct StoryWork
     /* 02 */ s8 unk2;
     /* 03 */ s8 unk3;
     /* 04 */ s8 unk4;
-    /* 05 */ u8 unk5;
+    /* 05 */ s8 unk5;
     /* 06 */ u8 unk6;
     /* 07 */ u8 unk7;
     /* 08 */ u8 unk8;

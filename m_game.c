@@ -192,7 +192,9 @@ static u8 m_game_data19[] = {
 
 u16 mother_child; /*1002*/
 
-void m_game_reinit()
+static void unk_84A18(struct MGameWork* work);
+
+void m_game_reinit(struct MGameWork* work)
 {
 	ip_clear; //Force include
 	rand; //Force include
@@ -845,8 +847,26 @@ ASM_INLINE("_848E6:");
 	ASM_INLINE("POP	BP");
 }
 
-void m_game_init()
+void m_game_init(void *buf)
 {
+/*	struct MGameWork *work;
+
+	task_delete();
+	work = (struct MGameWork*)memalloc(sizeof (struct MGameWork));
+
+	if(work)
+	{
+		task_append((task_pointer)unk_84A18, (u16)work);
+		work->unkB3 = 0;
+		work->unk4B = 0;
+		work->unk72 = 0;
+		fade_tone(0);
+		fade_out(100);
+		fade_run();
+		fade_in(10);
+		m_game_reinit(work);
+	}*/
+
 	task_delete; //Force include
 	memalloc; //Force include
 	task_append; //Force include
@@ -886,7 +906,7 @@ ASM_INLINE("_84A14:");
 	ASM_INLINE("POP	CX");
 }
 
-static void unk_84A18()
+static void unk_84A18(struct MGameWork* work)
 {
 	nbg_scroll; //Force include
 	wall_sprite; //Force include
@@ -2769,7 +2789,7 @@ ASM_INLINE("_85C8C:");
 	ASM_INLINE("POP	CX");
 }
 
-static void unk_85C91()
+static void unk_85C91(struct MGameWork *buf)
 {
 	put_search_cousor; //Force include
 	ASM_INLINE("PUSH	CX");
@@ -3689,8 +3709,54 @@ ASM_INLINE("_86551:");
 	ASM_INLINE("POP	BP");
 }
 
-static void unk_86559()
+static void unk_86559(struct MGameWork *buf)
 {
+/*	u16 *ptr;
+	u16 val;
+	u16 val2;
+
+	ptr = (buf->unkA9 << 2) + buf->unkA7 + buf->unk5C;
+
+	switch(*ptr)
+	{
+		
+		case 15:
+		{
+			m_game_main_weapon_i_type15(buf);
+			break;
+		}
+		case 16:
+		{
+			m_game_main_weapon_i_type16(buf);
+			break;
+		}
+		case 17:
+		{
+			m_game_main_weapon_i_type17(buf);
+			break;
+		}
+		case 18:
+		{
+			m_game_main_weapon_i_type18(buf);
+			break;
+		}
+		case 19:
+		{
+			m_game_main_weapon_i_type19(buf);
+			break;
+		}
+		case 20:
+		{
+			m_game_main_weapon_i_type20(buf);
+			break;
+		}
+		case 21:
+		{
+			m_game_main_weapon_i_type21(buf);
+			break;
+		}
+	}*/
+
 	m_game_main_weapon_i_type15; //Force include
 	m_game_main_weapon_i_type16; //Force include
 	m_game_main_weapon_i_type17; //Force include
@@ -3753,7 +3819,7 @@ ASM_INLINE("_865D3:");
 	ASM_INLINE("POP	SI");
 }
 
-static void unk_865D5()
+static void unk_865D5(struct MGameWork *buf)
 {
 	m_game_main_weapon_m_type15; //Force include
 	m_game_main_weapon_m_type16; //Force include
@@ -3817,11 +3883,10 @@ ASM_INLINE("_8664F:");
 	ASM_INLINE("POP	SI");
 }
 
-static void near unk_86651()
+static void near unk_86651(struct MGameWork *buf)
 {
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("MOV	[BX+0x7B].W,0x0000");
-	ASM_INLINE("MOV	[BX+0x4B].B,0x01");
+	buf->unk7B = 0;
+	buf->unk4B = 1;
 }
 
 void item_used_se()

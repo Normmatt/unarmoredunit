@@ -31,7 +31,6 @@ u16 colpal[16][4] = {
 	{ 0x0000, 0x0004, 0x0007, 0x0000, },
 };
 u16 vram = 0;
-static u16 unk1 = 0;
 
 struct TaskContext tsk1cont;
 s16 fade[2];

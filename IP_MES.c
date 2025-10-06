@@ -9,8 +9,8 @@
 #include "SWAN_L_C.h"
 #include "PAD.h"
 
-u16 unk0[16 * 11]; /*0E92*/
-s8 unk1[16]; /*0FF2*/
+static u16 unk0[16 * 11]; /*0E92*/
+static s8 unk1[16]; /*0FF2*/
 
 static char str0[] = "IP_MES test program";
 static char str1[] = "                 level1.00";

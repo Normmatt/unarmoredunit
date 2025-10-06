@@ -1,13 +1,13 @@
 #ifndef LOGO_H
 #define LOGO_H
 
-struct logo_struct {
-    s16 field0_0x0;
-    s16 field1_0x2;
-    s16 field2_0x4;
-};
+struct LogoWork {
+    s16 unk0;
+    s16 unk2;
+    s16 unk4;
+}; //Total 0x6 bytes
 
 void logo_init();
-static void unk_842E6(struct logo_struct *a);
+static void unk_842E6(struct LogoWork *a);
 
 #endif

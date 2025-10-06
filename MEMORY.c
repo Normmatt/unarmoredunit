@@ -12,15 +12,6 @@ extern u8 far KEYBOARD_char_adr[];
 memory_node_t memory_alloc_work[128]; /*096E*/
 static memory_test_t memory_test; /*0D6E*/
 
-/*00FC*/
-static u8 memory_data[] = {
-	0xA8, 0xC0, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x02, 0x00
-};
-
 static u16 unk0 = 0;  	/*0110*/
 static void *unk1 = 0; /*0112*/
 static u16 unk2 = 0; 	/*0114*/

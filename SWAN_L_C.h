@@ -23,9 +23,9 @@ void font_put2();
 //_GENETEXT.p86
 void font_load(u16 id, u8 far *data);
 void put_sprite();
-void pad_in();
-void get_cell_no();
-void put_cell_no();
+u16 pad_in();
+u16 get_cell_no(u16 a, u16 b, u16 c);
+void put_cell_no(u16 a, u16 b, u16 c, u16 d);
 void font_put(u16 id, u8 far *data);
 void bitmap();
 void put_cell_pixel();
