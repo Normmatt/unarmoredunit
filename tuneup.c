@@ -425,7 +425,7 @@ static void near unk_8DC88()
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_8DD97()
+static void near unk_8DD97(u16 a, u16 b, u16 c, u16 d, u16 e)
 {
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
@@ -3368,45 +3368,55 @@ ASM_INLINE("_8F6F0:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8F6F5()
+static void near unk_8F6F5(u16 val)
 {
-	memfree; //Force include
-	task_delete_fade; //Force include
-	stage_select_init; //Force include
-	m_game_init; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("CALLF	memfree_, SEG memfree_");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("MOV	AL,[0x1E07].B");
-	ASM_INLINE("CMP	AL,0x03");
-	ASM_INLINE("JZ	_8F741");
-	ASM_INLINE("CMP	AL,0x02");
-	ASM_INLINE("JZ	_8F741");
-	ASM_INLINE("CMP	AL,0x01");
-	ASM_INLINE("JZ	_8F72A");
-	ASM_INLINE("TEST	AL,AL");
-	ASM_INLINE("JNZ	_8F741");
-	ASM_INLINE("MOV	AX,stage_select_init_");
-	ASM_INLINE("MOV	BX,SEG stage_select_init_");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("MOV	AX,0x000A");
-	ASM_INLINE("CALLF	task_delete_fade_, SEG task_delete_fade_");
-	ASM_INLINE("JMP	_8F741");
-ASM_INLINE("_8F72A:");
-	ASM_INLINE("MOV	AX,m_game_init_");
-	ASM_INLINE("MOV	BX,SEG m_game_init_");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("MOV	AX,0x000A");
-	ASM_INLINE("CALLF	task_delete_fade_, SEG task_delete_fade_");
-	ASM_INLINE("JMP	_8F741");
-ASM_INLINE("_8F741:");
-	ASM_INLINE("POP	CX");
+	memfree();
+	task_delete();
+
+	switch(SAVE_DATA_START[0x07])
+	{
+		case 0:
+		{
+			task_append((task_pointer)stage_select_init, 0);
+			task_delete_fade(10);
+			break;
+		}
+		case 1:
+		{
+			task_append((task_pointer)m_game_init, 0);
+			task_delete_fade(10);
+			break;
+		}
+		case 2:
+		case 3:
+		{
+			break;
+		}
+	}
 }
 
-static void near unk_8F743()
+static void near unk_8F743(u16 *unk)
 {
+/*	switch(SAVE_DATA_START[0x07])
+	{
+		case 0:
+		{
+			break;
+		}
+		case 1:
+		{
+			memfree();
+			task_delete();
+			task_append((task_pointer)stage_select_init, 0);
+			task_delete_fade(10);
+			break;
+		}
+		case 2:
+		case 3:
+		{
+			break;
+		}
+	}*/
 	stage_select_init; //Force include
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("MOV	BL,[0x1E07].B");
@@ -3433,8 +3443,38 @@ ASM_INLINE("_8F77E:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8F780()
+static void near unk_8F780(u16 val, u16 val2)
 {
+	/*switch(val2)
+	{
+		case 0:
+		case 1:
+		{
+			break;
+		}
+		case 2:
+		{
+			sereq(10);
+			unk_8F6F5(val);
+		}
+		case 3:
+		{
+			break;
+		}
+		case 4:
+		{
+			unk_8DD97(34, 10, 0, 0, 1);
+			put_message(0x8225, 0);
+			break;
+		}
+		case 5:
+		{
+			unk_8DD97(32, 10, 0, 0, 1);
+			put_message(0x8200, 0);
+			break;
+		}
+	}*/
+	
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
 	ASM_INLINE("MOV	CX,AX");

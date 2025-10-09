@@ -160,61 +160,32 @@ ASM_INLINE("_8B67A:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8B67E()
+static s16 near unk_8B67E(u16 val)
 {
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	CX,AX");
-	ASM_INLINE("MOV	SI,0x0001");
-	ASM_INLINE("JMP	_8B6A0");
-ASM_INLINE("_8B688:");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	BX,0x001D");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("MOV	AL,[BX+0x1E3C].B");
-	ASM_INLINE("XOR	AH,AH");
-	ASM_INLINE("CMP	AX,CX");
-	ASM_INLINE("JNZ	_8B69F");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("JMP	_8B6A7");
-ASM_INLINE("_8B69F:");
-	ASM_INLINE("INC	SI");
-ASM_INLINE("_8B6A0:");
-	ASM_INLINE("CMP	SI,0x0009");
-	ASM_INLINE("JL	_8B688");
-	ASM_INLINE("XOR	AX,AX");
-ASM_INLINE("_8B6A7:");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	s16 i;
+
+	for(i = 1; i < 9; i++)
+	{
+		if(*(SAVE_DATA_START + 0x3C + (i * 0x1d)) == val)
+		{
+			return i;
+		}
+	}
+	return 0;
 }
 
-static void near unk_8B6AB()
+static s16 near unk_8B6AB()
 {
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("MOV	CX,0x0001");
-	ASM_INLINE("JMP	_8B6C7");
-ASM_INLINE("_8B6B2:");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("MOV	BX,0x001D");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("CMP	[BX+0x1E3C].B,0xFF");
-	ASM_INLINE("JNZ	_8B6C6");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("JMP	_8B6CE");
-ASM_INLINE("_8B6C6:");
-	ASM_INLINE("INC	CX");
-ASM_INLINE("_8B6C7:");
-	ASM_INLINE("CMP	CX,0x0009");
-	ASM_INLINE("JL	_8B6B2");
-	ASM_INLINE("XOR	AX,AX");
-ASM_INLINE("_8B6CE:");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	s16 i;
+
+	for(i = 1; i < 9; i++)
+	{
+		if(*(SAVE_DATA_START + 0x3C + (i * 0x1d)) == -1)
+		{
+			return i;
+		}
+	}
+	return 0;
 }
 
 static u16 near unk_8B6D1()
@@ -1218,7 +1189,7 @@ ASM_INLINE("_8BEC9:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8BECE()
+static void near unk_8BECE(u16 val)
 {
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
@@ -1407,7 +1378,7 @@ ASM_INLINE("_8C06C:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8C070()
+static void near unk_8C070(u16 val)
 {
 	stage_get; //Force include
 	ASM_INLINE("PUSH	BP");
@@ -2100,7 +2071,7 @@ ASM_INLINE("_8C69A:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8C69D()
+static void near unk_8C69D(u16 val)
 {
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
@@ -3012,7 +2983,7 @@ ASM_INLINE("_8CF38:");
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_8CF48()
+static void near unk_8CF48(u16 val)
 {
 	ip_r; //Force include
 	ASM_INLINE("PUSH	BP");
