@@ -1207,6 +1207,7 @@ void wall_space_make()
 	memalloc; //Force include
 	font_putN; //Force include
 	get_bmp_cell_no; //Force include
+	memfree; //Force include
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
 	ASM_INLINE("PUSH	SI");
@@ -1301,7 +1302,7 @@ ASM_INLINE("_871F3:");
 	ASM_INLINE("CMP	DI,0x0020");
 	ASM_INLINE("JL	_871AC");
 	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("CALLF	0x00F1, 0x814D");
+	ASM_INLINE("CALLF	memfree_, SEG memfree_");
 ASM_INLINE("_871FF:");
 	ASM_INLINE("POP	DI");
 	ASM_INLINE("POP	SI");

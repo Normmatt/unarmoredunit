@@ -230,7 +230,7 @@ u16 get_bmp_cell_no()
 	ASM_INLINE("POP	BP");
 }
 
-void font_putXY(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f, u16 g, u8 far *gfx)
+void font_putXY(s16 a, s16 b, u16 c, u16 d, u16 e, u16 f, u16 g, u8 far *gfx)
 {
 	get_bmp_cell_no; //Force include
 	put_cell_no; //Force include

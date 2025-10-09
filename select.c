@@ -31,11 +31,17 @@
 #include "SWAN_L_C.h"
 #include "SOUND_CODE.h"
 
-static char str0[] = ".";
-static char str1[] = "%1d.%02d";
-static char str2[] = "%03d";
+static char str0[] = "."; /*0178*/
+static char str1[] = "%1d.%02d"; /*017A*/
+static char str2[] = "%03d"; /*0184*/
 
 static u16 unk0 = 0x0000;
+
+static u16 unkD76; /* 0D76 */
+static u16 unkD78; /* 0D78 */
+static s16 unkD7A; /* 0D7A */
+static u16 unkD7C; /* 0D7C */
+static u16 unkD7E; /* 0D7E */
 
 static u8 select_stuff[] = {
 	0x01, 0x00, 0xA8, 0xC0,
@@ -46,26 +52,26 @@ static u8 select_stuff[] = {
 	0x02, 0x00
 };
 
-static char str3[] = "%04X";
-static char str4[] = "%04X";
-static char str5[] = "%04X";
-static char str6[] = "%04X";
-static char str7[] = "%04X";
-static char str8[] = "%04X";
-static char str9[] = "%04X";
-static char str10[] = "%04X";
-static char str11[] = "%04X";
-static char str12[] = "%04X";
-static char str13[] = "%04X";
-static char str14[] = "%03X";
-static char str15[] = "%04X";
-static char str16[] = "%04X";
-static char str17[] = " ";
-static char str18[] = ">";
-static char str19[] = " ";
-static char str20[] = "max=%2d";
-static char str21[] = "%2d";
-static char str22[] = "%2d";
+static char str3[] = "%04X"; /*01A2*/
+static char str4[] = "%04X"; /*01A8*/
+static char str5[] = "%04X"; /*01AE*/
+static char str6[] = "%04X"; /*01B4*/
+static char str7[] = "%04X"; /*01BA*/
+static char str8[] = "%04X"; /*01C0*/
+static char str9[] = "%04X"; /*01C6*/
+static char str10[] = "%04X"; /*01CC*/
+static char str11[] = "%04X"; /*01D2*/
+static char str12[] = "%04X"; /*01D8*/
+static char str13[] = "%04X"; /*01DE*/
+static char str14[] = "%03X"; /*01E4*/
+static char str15[] = "%04X"; /*01EA*/
+static char str16[] = "%04X"; /*01F0*/
+static char str17[] = " "; /*01F6*/
+static char str18[] = ">"; /*01F8*/
+static char str19[] = " "; /*01FA*/
+static char str20[] = "max=%2d"; /*01FC*/
+static char str21[] = "%2d"; /*0204*/
+static char str22[] = "%2d"; /*0208*/
 
 const char far select_debug_text00[] = "   Sammy Special Version    ";
 const char far select_debug_text01[] = "     Swan OS level2.13 9/18 ";
@@ -169,6 +175,9 @@ static const struct DebugHandler far DebugHandlers[] =
 
     /**/
 };
+
+static void unk_829B9();
+static void unk_82AB8();
 
 void select_init()
 {
@@ -316,6 +325,7 @@ ASM_INLINE("_821E7:");
 static void unk_8226E()
 {
 	sereq; //Force include
+	ip_r; //Force include
 	ip_w; //Force include
 	task_delete2; //Force include
 	ASM_INLINE("PUSH	BP");
@@ -587,8 +597,8 @@ ASM_INLINE("_82447:");
 	ASM_INLINE("LEA	DX,[BP-0x0100].B");
 	ASM_INLINE("CALLF	print_, SEG print_");
 	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("INC	[0x0D76].W");
-	ASM_INLINE("MOV	AX,[0x0D76].W");
+	ASM_INLINE("INC	[unkD76_].W");
+	ASM_INLINE("MOV	AX,[unkD76_].W");
 	ASM_INLINE("DEC	AX");
 	ASM_INLINE("PUSH	AX");
 	ASM_INLINE("MOV	AX,str14_");
@@ -684,7 +694,7 @@ ASM_INLINE("_8263E:");
 	ASM_INLINE("CALLF	print_, SEG print_");
 	ASM_INLINE("ADD	SP,0x0004");
 	ASM_INLINE("LEA	AX,[BP-0x0116].B");
-	ASM_INLINE("CALLF	0x0336, 0x830F");
+	ASM_INLINE("CALLF	ip_r_, SEG ip_r_");
 	ASM_INLINE("TEST	AX,AX");
 	ASM_INLINE("JNZ	_826BA");
 	ASM_INLINE("MOV	AL,[BP-0x0112].B");
@@ -719,8 +729,8 @@ ASM_INLINE("_826BA:");
 	ASM_INLINE("MOV	BX,SEG unk_828B5_");
 	ASM_INLINE("XOR	CX,CX");
 	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("MOV	[0x0D76].W,0x0000");
-	ASM_INLINE("MOV	[0x0D78].W,0x0000");
+	ASM_INLINE("MOV	[unkD76_].W,0x0000");
+	ASM_INLINE("MOV	[unkD78_].W,0x0000");
 ASM_INLINE("_826EB:");
 	ASM_INLINE("POP	DI");
 	ASM_INLINE("POP	SI");
@@ -732,48 +742,25 @@ ASM_INLINE("_826EB:");
 
 static void unk_826F3()
 {
-	nbg_scroll; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("CMP	[0x0D7A].W,0x0020");
-	ASM_INLINE("JLE	_8271A");
-	ASM_INLINE("MOV	[0x0D7A].W,0x0000");
-	ASM_INLINE("MOV	AX,[0x0D7C].W");
-	ASM_INLINE("INC	AX");
-	ASM_INLINE("AND	AX,0x0007");
-	ASM_INLINE("MOV	[0x0D7C].W,AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	BX,[0x0D7C].W");
-	ASM_INLINE("MOV	CX,[0x0D7C].W");
-	ASM_INLINE("CALLF	nbg_scroll_, SEG nbg_scroll_");
-ASM_INLINE("_8271A:");
-	ASM_INLINE("INC	[0x0D7A].W");
-	ASM_INLINE("POP	CX");
+	if (unkD7A > 0x20)
+	{
+		unkD7A = 0;
+		unkD7C = (unkD7C + 1) & 7;
+		nbg_scroll(0, unkD7C, unkD7C);
+	}
+	unkD7A++;
 }
 
-static void unk_82720()
+static u16 unk_82720()
 {
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("JMP	_82727");
-ASM_INLINE("_82726:");
-	ASM_INLINE("INC	CX");
-ASM_INLINE("_82727:");
-	ASM_INLINE("MOV	AX,0xA0BA");
-	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("MOV	BX,0x000A");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,AX");
-	//ASM_INLINE("CMP	ES:[BX+0x0000].W,-1");
-	ASM_OP6(0x26,0x83,0xBF,0x00,0x00,0xFF);
-	ASM_INLINE("JNZ	_82726");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	s16 i;
+	for (i = 0; DebugHandlers[i].unk != -1; i++)
+	{
+	}
+	return i;
 }
 
-static void unk_82742()
+static void unk_82742(u16 a)
 {
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
@@ -877,124 +864,57 @@ ASM_INLINE("_82808:");
 	ASM_INLINE("POP	BP");
 }
 
-static void unk_82810()
+static void unk_82810(u16 a, u16 b)
 {
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("TEST	AX,AX");
-	ASM_INLINE("JZ	_82831");
-	ASM_INLINE("MOV	CX,0x0000");
-	ASM_INLINE("MOV	AX,0xA000");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("INC	BX");
-	ASM_INLINE("MOV	CX,0x0001");
-	ASM_INLINE("MOV	DX,str18_");
-	ASM_INLINE("CALLF	print_, SEG print_");
-	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("JMP	_8284A");
-ASM_INLINE("_82831:");
-	ASM_INLINE("MOV	CX,0x0000");
-	ASM_INLINE("MOV	AX,0xA000");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("INC	BX");
-	ASM_INLINE("MOV	CX,0x0001");
-	ASM_INLINE("MOV	DX,str19_");
-	ASM_INLINE("CALLF	print_, SEG print_");
-	ASM_INLINE("ADD	SP,0x0004");
-ASM_INLINE("_8284A:");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	if (a)
+	{
+		print(0, b + 1, 1, str18, DFONT_char_adr);
+	}
+	else
+	{
+		print(0, b + 1, 1, str19, DFONT_char_adr);
+	}
 }
 
-static void unk_8284D()
+static void unk_8284D(u16 idx)
 {
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("MOV	CX,AX");
-	ASM_INLINE("MOV	AX,0xA0BA");
-	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("MOV	BX,0x000A");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,AX");
-	//ASM_INLINE("MOV	AX,ES:[BX+0x0000].W");
-	ASM_OP5(0x26,0x8B,0x87,0x00,0x00);
-	ASM_INLINE("CMP	AX,0x0001");
-	ASM_INLINE("JZ	_8288F");
-	ASM_INLINE("TEST	AX,AX");
-	ASM_INLINE("JNZ	_828A3");
-	ASM_INLINE("MOV	AX,0xA0BA");
-	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	BX,0x0000");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("MOV	CX,0x000A");
-	ASM_INLINE("MUL	CX");
-	ASM_INLINE("ADD	BX,AX");
-	//ASM_INLINE("MOV	AX,ES:[BX+0x06].W");
-	ASM_OP4(0x26,0x8B,0x47,0x06);
-	//ASM_INLINE("MOV	BX,ES:[BX+0x08].W");
-	ASM_OP4(0x26,0x8B,0x5F,0x08);
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("JMP	_828B2");
-ASM_INLINE("_8288F:");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("MOV	AX,select_init_");
-	ASM_INLINE("MOV	BX,SEG select_init_");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("JMP	_828B2");
-ASM_INLINE("_828A3:");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("JMP	_828AD");
-ASM_INLINE("_828A7:");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("INC	CX");
-ASM_INLINE("_828AD:");
-	ASM_INLINE("CMP	CX,0x0009");
-	ASM_INLINE("JL	_828A7");
-ASM_INLINE("_828B2:");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	s16 i;
+	
+	switch(DebugHandlers[idx].unk)
+	{
+		case 0:
+		{
+			task_append(DebugHandlers[idx].func, 0);
+			break;
+		}
+		case 1:
+		{
+			task_delete();
+			task_append((task_pointer)select_init, 0);
+			break;
+		}
+		default:
+		{
+			for (i = 0; i < 9; i++)
+			{
+				task_delete();
+			}
+			break;
+		}
+	}
 }
 
 static void unk_828B5()
 {
-	cls; //Force include
-	font_load; //Force include
-	nbg_ddf; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("MOV	AX,unk_829B9_");
-	ASM_INLINE("MOV	BX,SEG unk_829B9_");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	cls_, SEG cls_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("CALLF	cls_, SEG cls_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	CX,0x0000");
-	ASM_INLINE("MOV	DX,0xA000");
-	ASM_INLINE("CALLF	font_load_, SEG font_load_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("MOV	AX,[0x0D78].W");
-	ASM_INLINE("CALLF	unk_82742_, SEG unk_82742_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	BX,[0x0D76].W");
-	ASM_INLINE("CALLF	unk_82810_, SEG unk_82810_");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	task_delete();
+	task_append((task_pointer)unk_829B9, 0);
+	cls(0);
+	cls(1);
+	font_load(1, DFONT_char_adr);
+	nbg_ddf(0, 0);
+	nbg_ddf(1, 1);
+	unk_82742(unkD78);
+	unk_82810(1, unkD76);
 }
 
 static void unk_82911()
@@ -1025,7 +945,7 @@ static void unk_82911()
 	ASM_INLINE("LEA	DX,[BP-0x0100].B");
 	ASM_INLINE("CALLF	print_, SEG print_");
 	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("PUSH	[0x0D76].W");
+	ASM_INLINE("PUSH	[unkD76_].W");
 	ASM_INLINE("MOV	AX,str21_");
 	ASM_INLINE("PUSH	AX");
 	ASM_INLINE("LEA	AX,[BP-0x0100].B");
@@ -1042,7 +962,7 @@ static void unk_82911()
 	ASM_INLINE("LEA	DX,[BP-0x0100].B");
 	ASM_INLINE("CALLF	print_, SEG print_");
 	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("PUSH	[0x0D78].W");
+	ASM_INLINE("PUSH	[unkD78_].W");
 	ASM_INLINE("MOV	AX,str22_");
 	ASM_INLINE("PUSH	AX");
 	ASM_INLINE("LEA	AX,[BP-0x0100].B");
@@ -1073,49 +993,49 @@ static void unk_829B9()
 	ASM_INLINE("TEST	[0x095A].W,0x0100");
 	ASM_INLINE("JZ	_82A17");
 	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	BX,[0x0D76].W");
+	ASM_INLINE("MOV	BX,[unkD76_].W");
 	ASM_INLINE("CALLF	unk_82810_, SEG unk_82810_");
-	ASM_INLINE("DEC	[0x0D76].W");
-	ASM_INLINE("CMP	[0x0D76].W,0x0000");
+	ASM_INLINE("DEC	[unkD76_].W");
+	ASM_INLINE("CMP	[unkD76_].W,0x0000");
 	ASM_INLINE("JGE	_82A06");
-	ASM_INLINE("MOV	[0x0D76].W,0x0000");
-	ASM_INLINE("DEC	[0x0D78].W");
-	ASM_INLINE("CMP	[0x0D78].W,0x0000");
+	ASM_INLINE("MOV	[unkD76_].W,0x0000");
+	ASM_INLINE("DEC	[unkD78_].W");
+	ASM_INLINE("CMP	[unkD78_].W,0x0000");
 	ASM_INLINE("JGE	_829FE");
-	ASM_INLINE("MOV	[0x0D76].W,0x000F");
+	ASM_INLINE("MOV	[unkD76_].W,0x000F");
 	ASM_INLINE("MOV	AX,CX");
 	ASM_INLINE("SUB	AX,0x0010");
-	ASM_INLINE("MOV	[0x0D78].W,AX");
+	ASM_INLINE("MOV	[unkD78_].W,AX");
 ASM_INLINE("_829FE:");
-	ASM_INLINE("MOV	AX,[0x0D78].W");
+	ASM_INLINE("MOV	AX,[unkD78_].W");
 	ASM_INLINE("CALLF	unk_82742_, SEG unk_82742_");
 ASM_INLINE("_82A06:");
 	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	BX,[0x0D76].W");
+	ASM_INLINE("MOV	BX,[unkD76_].W");
 	ASM_INLINE("CALLF	unk_82810_, SEG unk_82810_");
 	ASM_INLINE("CALLF	unk_82911_, SEG unk_82911_");
 ASM_INLINE("_82A17:");
 	ASM_INLINE("TEST	[0x095A].W,0x0400");
 	ASM_INLINE("JZ	_82A6D");
 	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	BX,[0x0D76].W");
+	ASM_INLINE("MOV	BX,[unkD76_].W");
 	ASM_INLINE("CALLF	unk_82810_, SEG unk_82810_");
-	ASM_INLINE("INC	[0x0D76].W");
-	ASM_INLINE("CMP	[0x0D76].W,0x000F");
+	ASM_INLINE("INC	[unkD76_].W");
+	ASM_INLINE("CMP	[unkD76_].W,0x000F");
 	ASM_INLINE("JLE	_82A5C");
-	ASM_INLINE("MOV	[0x0D76].W,0x000F");
+	ASM_INLINE("MOV	[unkD76_].W,0x000F");
 	ASM_INLINE("SUB	CX,0x0010");
-	ASM_INLINE("INC	[0x0D78].W");
-	ASM_INLINE("CMP	CX,[0x0D78].W");
+	ASM_INLINE("INC	[unkD78_].W");
+	ASM_INLINE("CMP	CX,[unkD78_].W");
 	ASM_INLINE("JGE	_82A54");
-	ASM_INLINE("MOV	[0x0D76].W,0x0000");
-	ASM_INLINE("MOV	[0x0D78].W,0x0000");
+	ASM_INLINE("MOV	[unkD76_].W,0x0000");
+	ASM_INLINE("MOV	[unkD78_].W,0x0000");
 ASM_INLINE("_82A54:");
-	ASM_INLINE("MOV	AX,[0x0D78].W");
+	ASM_INLINE("MOV	AX,[unkD78_].W");
 	ASM_INLINE("CALLF	unk_82742_, SEG unk_82742_");
 ASM_INLINE("_82A5C:");
 	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	BX,[0x0D76].W");
+	ASM_INLINE("MOV	BX,[unkD76_].W");
 	ASM_INLINE("CALLF	unk_82810_, SEG unk_82810_");
 	ASM_INLINE("CALLF	unk_82911_, SEG unk_82911_");
 ASM_INLINE("_82A6D:");
@@ -1129,8 +1049,8 @@ ASM_INLINE("_82A7D:");
 	ASM_INLINE("MOV	BX,SEG unk_828B5_");
 	ASM_INLINE("XOR	CX,CX");
 	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("MOV	AX,[0x0D76].W");
-	ASM_INLINE("ADD	AX,[0x0D78].W");
+	ASM_INLINE("MOV	AX,[unkD76_].W");
+	ASM_INLINE("ADD	AX,[unkD78_].W");
 	ASM_INLINE("CALLF	unk_8284D_, SEG unk_8284D_");
 ASM_INLINE("_82A9B:");
 	ASM_INLINE("POP	CX");
@@ -1138,61 +1058,49 @@ ASM_INLINE("_82A9B:");
 
 void alpha_init(u16 a)
 {
-    /*task_delete_();
-    task_append_();
-    *(undefined2 *)0xd7e = 2;*/
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("MOV	AX,unk_82AB8_");
-	ASM_INLINE("MOV	BX,SEG unk_82AB8_");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("MOV	[0x0D7E].W,0x0002");
-	ASM_INLINE("POP	CX");
+    task_delete();
+    task_append((task_pointer)unk_82AB8, 0);
+    unkD7E = 2;
 }
 
 static void unk_82AB8()
 {
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("MOV	AX,[0x0D7E].W");
-	ASM_INLINE("TEST	AX,AX");
-	ASM_INLINE("JZ	_82AE8");
-	ASM_INLINE("CMP	AX,0x0001");
-	ASM_INLINE("JZ	_82AD9");
-	ASM_INLINE("CMP	AX,0x0002");
-	ASM_INLINE("JNZ	_82AF5");
-	ASM_INLINE("MOV	AX,logo_init_");
-	ASM_INLINE("MOV	BX,SEG logo_init_");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("JMP	_82AF5");
-ASM_INLINE("_82AD9:");
-	ASM_INLINE("MOV	AX,title_init_");
-	ASM_INLINE("MOV	BX,SEG title_init_");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("JMP	_82AF5");
-ASM_INLINE("_82AE8:");
-	ASM_INLINE("MOV	AX,menu_init_");
-	ASM_INLINE("MOV	BX,SEG menu_init_");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-ASM_INLINE("_82AF5:");
-	ASM_INLINE("MOV	AX,[0x0D7E].W");
-	ASM_INLINE("TEST	AX,AX");
-	ASM_INLINE("JZ	_82B16");
-	ASM_INLINE("CMP	AX,0x0001");
-	ASM_INLINE("JZ	_82B0E");
-	ASM_INLINE("CMP	AX,0x0002");
-	ASM_INLINE("JNZ	_82B1C");
-	ASM_INLINE("MOV	[0x0D7E].W,0x0001");
-	ASM_INLINE("JMP	_82B1C");
-ASM_INLINE("_82B0E:");
-	ASM_INLINE("MOV	[0x0D7E].W,0x0000");
-	ASM_INLINE("JMP	_82B1C");
-ASM_INLINE("_82B16:");
-	ASM_INLINE("MOV	[0x0D7E].W,0x0000");
-ASM_INLINE("_82B1C:");
-	ASM_INLINE("POP	CX");
+	switch(unkD7E)
+	{
+		case 2:
+		{
+			task_append((task_pointer)logo_init, 0);
+			break;
+		}
+		case 1:
+		{
+			task_append((task_pointer)title_init, 0);
+			break;
+		}
+		case 0:
+		{
+			task_append((task_pointer)menu_init, 0);
+			break;
+		}
+	}
+
+	switch(unkD7E)
+	{
+		case 2:
+		{
+			unkD7E = 1;
+			break;
+		}
+		case 1:
+		{
+			unkD7E = 0;
+			break;
+		}
+		case 0:
+		{
+			unkD7E = 0;
+			break;
+		}
+	}
 }
 

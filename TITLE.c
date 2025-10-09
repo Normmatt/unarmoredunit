@@ -7,6 +7,7 @@
 #include "SPRINTF.h"
 #include "MEMORY.h"
 #include "SOUND_CODE.h"
+#include "PAD.h"
 
 static char str0[] = "               ";
 static char str1[] = "VERSION 000105D";
@@ -20,7 +21,7 @@ static char str8[] = "--CLEAR--      ";
 
 static const u8 far title_unk[] = {0,1,2,3,2,1};
 
-extern u8 far G_TITLE_char_adr[];
+static void unk_84041(struct TitleWork *work);
 
 static void unk_83CEA(u16 a)
 {
@@ -28,81 +29,17 @@ static void unk_83CEA(u16 a)
 	font_putXY(0, 18 + a, 12, 1, 8, 14, 1, G_TITLE_char_adr);
 }
 
-static void unk_83D28(u16 a, u16 b, u8 *c)
+static void unk_83D28(s16 a, s16 b, u8 *c)
 {
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	DI,BX");
-	ASM_INLINE("JMP	_83DA6");
-ASM_INLINE("_83D32:");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("MOV	BX,0x0000");
-	ASM_INLINE("MOV	AX,0xB7E4");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	BX,CX");
-	ASM_INLINE("MOV	AL,[BX].B");
-	ASM_INLINE("AND	AL,0x0F");
-	ASM_INLINE("XOR	AH,AH");
-	ASM_INLINE("ADD	AX,0x000C");
-	ASM_INLINE("MOV	BX,CX");
-	ASM_INLINE("MOV	BL,[BX].B");
-	ASM_INLINE("XOR	BH,BH");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("ADD	BX,0x0010");
-	ASM_INLINE("MOV	CX,0x0001");
-	ASM_INLINE("MOV	DX,0x0001");
-	ASM_INLINE("CALLF	font_putXY_, SEG font_putXY_");
-	ASM_INLINE("ADD	SP,0x000A");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("MOV	BX,CX");
-	ASM_INLINE("CMP	[BX].B,0x20");
-	ASM_INLINE("JNZ	_83DA3");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	BX,DI");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("MOV	CX,0x0001");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	BX,DI");
-	ASM_INLINE("MOV	CX,0x0000");
-	ASM_INLINE("MOV	DX,0xB7E4");
-	ASM_INLINE("CALLF	get_bmp_cell_no_, SEG get_bmp_cell_no_");
-	ASM_INLINE("MOV	DX,AX");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("POP	BX");
-	ASM_INLINE("POP	AX");
-	ASM_INLINE("CALLF	put_cell_no_, SEG put_cell_no_");
-ASM_INLINE("_83DA3:");
-	ASM_INLINE("INC	SI");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("INC	CX");
-ASM_INLINE("_83DA6:");
-	ASM_INLINE("MOV	BX,CX");
-	ASM_INLINE("CMP	[BX].B,0x00");
-	ASM_INLINE("JNZ	_83D32");
-	ASM_INLINE("POP	DI");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	for (; *c != 0; c++)
+	{
+		font_putXY((*c & 0xf) + 0xc, (*c >> 4) + 0x10, 1, 1, a, b, 1, G_TITLE_char_adr);
+		if (*c == ' ')
+		{
+			put_cell_no(a << 3, b << 3, 1, get_bmp_cell_no(a, b, G_TITLE_char_adr));
+		}
+		a += 1;
+	}
 }
 
 static void unk_83DB2()
@@ -155,239 +92,261 @@ static void unk_83E3E()
 {
 }
 
-void title_init()
+void title_init(void *buf)
 {
-	task_delete; //Force include
-	memalloc; //Force include
-	task_append; //Force include
-	nbg_ddf; //Force include
-	spr_ddf; //Force include
-	font_load; //Force include
-	get_bmp_cell_no; //Force include
-	put_cell_no; //Force include
-	font_putXYT; //Force include
-	put_sprite; //Force include
-	fade_tone; //Force include
-	fade_out; //Force include
-	fade_run; //Force include
-	fade_in; //Force include
-	bgmreq; //Force include
-	ASM_INLINE("PUSH	BP");
-	ASM_INLINE("MOV	BP,SP");
-	ASM_INLINE("SUB	SP,0x0002");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("MOV	DX,AX");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("MOV	AX,0x001D");
-	ASM_INLINE("CALLF	memalloc_, SEG memalloc_");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("TEST	SI,SI");
-	ASM_INLINE("JNZ	_83E61");
-	ASM_INLINE("JMP	_84039");
-ASM_INLINE("_83E61:");
-	ASM_INLINE("MOV	AX,unk_84041_");
-	ASM_INLINE("MOV	BX,SEG unk_84041_");
-	ASM_INLINE("MOV	CX,SI");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("MOV	[SI].W,DX");
-	ASM_INLINE("MOV	[SI+0x02].W,0x0000");
-	ASM_INLINE("MOV	[SI+0x04].W,0x0000");
-	ASM_INLINE("MOV	[SI+0x06].B,0x00");
-	ASM_INLINE("MOV	[SI+0x07].W,0x0000");
-	ASM_INLINE("MOV	[SI+0x09].W,0x0000");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("JMP	_83E9C");
-ASM_INLINE("_83E8C:");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("ADD	BX,0x000B");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	BX,AX");
-	ASM_INLINE("MOV	[BX].W,0x0000");
-	ASM_INLINE("INC	CX");
-ASM_INLINE("_83E9C:");
-	ASM_INLINE("CMP	CX,0x0008");
-	ASM_INLINE("JL	_83E8C");
-	ASM_INLINE("MOV	[SI+0x1B].W,0x0000");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	spr_ddf_, SEG spr_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	CX,0x0000");
-	ASM_INLINE("MOV	DX,0xB7E4");
-	ASM_INLINE("CALLF	font_load_, SEG font_load_");
-	ASM_INLINE("MOV	AX,0x001B");
-	ASM_INLINE("MOV	BX,0x0021");
-	ASM_INLINE("MOV	CX,0x0000");
-	ASM_INLINE("MOV	DX,0xB7E4");
-	ASM_INLINE("CALLF	get_bmp_cell_no_, SEG get_bmp_cell_no_");
-	ASM_INLINE("MOV	DX,AX");
-	ASM_INLINE("OR	DX,0x0800");
-	ASM_INLINE("XOR	SI,SI");
-	ASM_INLINE("JMP	_83F10");
-ASM_INLINE("_83EE9:");
-	ASM_INLINE("XOR	DI,DI");
-	ASM_INLINE("JMP	_83F07");
-ASM_INLINE("_83EED:");
-	ASM_INLINE("MOV	AX,DI");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	put_cell_no_, SEG put_cell_no_");
-	ASM_INLINE("MOV	AX,DI");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("MOV	CX,0x0001");
-	ASM_INLINE("CALLF	put_cell_no_, SEG put_cell_no_");
-	ASM_INLINE("ADD	DI,0x0008");
-ASM_INLINE("_83F07:");
-	ASM_INLINE("CMP	DI,0x0100");
-	ASM_INLINE("JL	_83EED");
-	ASM_INLINE("ADD	SI,0x0008");
-ASM_INLINE("_83F10:");
-	ASM_INLINE("CMP	SI,0x0100");
-	ASM_INLINE("JL	_83EE9");
-	ASM_INLINE("XOR	SI,SI");
-	ASM_INLINE("JMP	_83F40");
-ASM_INLINE("_83F1A:");
-	ASM_INLINE("MOV	BX,0x0000");
-	ASM_INLINE("MOV	AX,0xB7E4");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("MOV	CX,0x0005");
-	ASM_INLINE("MOV	DX,0x0002");
-	ASM_INLINE("CALLF	font_putXY_, SEG font_putXY_");
-	ASM_INLINE("ADD	SP,0x000A");
-	ASM_INLINE("INC	SI");
-ASM_INLINE("_83F40:");
-	ASM_INLINE("CMP	SI,0x0010");
-	ASM_INLINE("JL	_83F1A");
-	ASM_INLINE("MOV	BX,0x0000");
-	ASM_INLINE("MOV	AX,0xB7E4");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0005");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0005");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("MOV	CX,0x0017");
-	ASM_INLINE("MOV	DX,0x0012");
-	ASM_INLINE("CALLF	font_putXY_, SEG font_putXY_");
-	ASM_INLINE("ADD	SP,0x000A");
-	ASM_INLINE("MOV	BX,0x0000");
-	ASM_INLINE("MOV	AX,0xB7E4");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0E00");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0002");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	BX,0x0016");
-	ASM_INLINE("MOV	CX,0x0005");
-	ASM_INLINE("MOV	DX,0x0009");
-	ASM_INLINE("CALLF	font_putXYT_, SEG font_putXYT_");
-	ASM_INLINE("ADD	SP,0x000C");
-	ASM_INLINE("MOV	[BP-0x02].W,0x0000");
-	ASM_INLINE("XOR	SI,SI");
-	ASM_INLINE("JMP	_83FED");
-ASM_INLINE("_83F9E:");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("JMP	_83FE7");
-ASM_INLINE("_83FA2:");
-	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("MOV	AX,0x0005");
-	ASM_INLINE("ADD	AX,BX");
-	ASM_INLINE("MOV	BX,0x0016");
-	ASM_INLINE("ADD	BX,SI");
-	ASM_INLINE("MOV	CX,0x0000");
-	ASM_INLINE("MOV	DX,0xB7E4");
-	ASM_INLINE("CALLF	get_bmp_cell_no_, SEG get_bmp_cell_no_");
-	ASM_INLINE("MOV	DI,AX");
-	ASM_INLINE("MOV	AX,0x0004");
-	ASM_INLINE("POP	BX");
-	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("INC	[BP-0x02].W");
-	ASM_INLINE("MOV	AX,[BP-0x02].W");
-	ASM_INLINE("DEC	AX");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	CX,SI");
-	ASM_INLINE("SHL	CX,1");
-	ASM_INLINE("SHL	CX,1");
-	ASM_INLINE("SHL	CX,1");
-	ASM_INLINE("ADD	CX,0x0010");
-	ASM_INLINE("MOV	DX,0x2000");
-	ASM_INLINE("OR	DX,DI");
-	ASM_INLINE("CALLF	put_sprite_, SEG put_sprite_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("POP	BX");
-	ASM_INLINE("INC	BX");
-ASM_INLINE("_83FE7:");
-	ASM_INLINE("CMP	BX,0x0005");
-	ASM_INLINE("JL	_83FA2");
-	ASM_INLINE("INC	SI");
-ASM_INLINE("_83FED:");
-	ASM_INLINE("CMP	SI,0x0009");
-	ASM_INLINE("JL	_83F9E");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	unk_83CEA_, SEG unk_83CEA_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	fade_tone_, SEG fade_tone_");
-	ASM_INLINE("MOV	AX,0x0064");
-	ASM_INLINE("CALLF	fade_out_, SEG fade_out_");
-	ASM_INLINE("CALLF	fade_run_, SEG fade_run_");
-	ASM_INLINE("MOV	AX,0x000A");
-	ASM_INLINE("CALLF	fade_in_, SEG fade_in_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("CALLF	spr_ddf_, SEG spr_ddf_");
-	ASM_INLINE("MOV	AL,0x01");
-	ASM_INLINE("CALLF	bgmreq_, SEG bgmreq_");
-ASM_INLINE("_84039:");
-	ASM_INLINE("POP	DI");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("MOV	SP,BP");
-	ASM_INLINE("POP	BP");
+	s16 i;
+	s16 j;
+	u16 val;
+	u16 val2;
+	struct TitleWork *work;
+
+	task_delete();
+	work = (struct TitleWork *)memalloc(sizeof (struct TitleWork));
+	if (work != NULL)
+	{
+		task_append((task_pointer)unk_84041, (u16)work);
+		work->unk0 = buf;
+		work->unk2 = 0;
+		work->unk4 = 0;
+		work->unk6 = 0;
+		work->unk7 = 0;
+		work->unk9 = 0;
+		for (i = 0; i < 8; i++)
+		{
+			work->unkB[i] = 0;
+		}
+		work->unk1B = 0;
+		nbg_ddf(0, 0);
+		nbg_ddf(1, 0);
+		spr_ddf(0);
+		font_load(1, G_TITLE_char_adr);
+		val = get_bmp_cell_no(0x1b, 0x21, G_TITLE_char_adr);
+		val |= 0x800;
+		for (i = 0; i < 256; i += 8)
+		{
+			for (j = 0; j < 256; j += 8)
+			{
+				put_cell_no(j, i, 0, val);
+				put_cell_no(j, i, 1, val);
+			}
+		}
+
+		for (i = 0; i < 0x10; i += 1)
+		{
+			font_putXY(0, 0, 5, 2, 0, i << 1, 0, G_TITLE_char_adr);
+		}
+
+		font_putXY(5, 0, 0x17, 0x12, 5, 0, 1, G_TITLE_char_adr);
+		font_putXYT(0, 0x16, 5, 9, 0, 2, 0xe00, 1, G_TITLE_char_adr);
+
+		val2 = 0;
+		for (i = 0; i < 9; i += 1)
+		{
+			for (j = 0; j < 5; j += 1)
+			{
+				val = get_bmp_cell_no(5 + j, 0x16 + i, G_TITLE_char_adr);
+				put_sprite(val2++, j << 3, (i << 3) + 0x10, 0x2000 | val, 4);
+			}
+		}
+		unk_83CEA(0);
+		fade_tone(0);
+		fade_out(100);
+		fade_run();
+		fade_in(10);
+		nbg_ddf(0, 1);
+		nbg_ddf(1, 1);
+		spr_ddf(1);
+		bgmreq(1);
+	}
 }
 
-static void unk_84041()
+static void unk_84041(struct TitleWork *work)
 {
+/*	if((pad[0].unk4 & 0x800) && (work->unk7))
+	{
+		sereq(0x12);
+		//Might be fake match
+		work->unk1B = (work->unk1B - -4) % 5;
+
+		switch(work->unk1B)
+		{
+			case 0:
+			{
+				unk_83DB2();
+				break;
+			}
+			case 1:
+			{
+				unk_83DC1();
+				break;
+			}
+			case 2:
+			{
+				unk_83DD0();
+				break;
+			}
+			case 3:
+			{
+				unk_83DDF();
+				break;
+			}
+			case 4:
+			{
+				unk_83DEE();
+				break;
+			}
+		}
+	}
+	if((pad[0].unk4 & 0x200) && (work->unk7))
+	{
+		sereq(0x12);
+		work->unk1B = (work->unk1B + 6) % 5;
+
+		switch(work->unk1B)
+		{
+			case 0:
+			{
+				unk_83DB2();
+				break;
+			}
+			case 1:
+			{
+				unk_83DC1();
+				break;
+			}
+			case 2:
+			{
+				unk_83DD0();
+				break;
+			}
+			case 3:
+			{
+				unk_83DDF();
+				break;
+			}
+			case 4:
+			{
+				unk_83DEE();
+				break;
+			}
+		}
+	}
+	if((pad[0].unk4 & 4) && (work->unk7))
+	{
+		sereq(0x10);
+
+		switch(work->unk1B)
+		{
+			case 0:
+			{
+				unk_83DFD();
+				break;
+			}
+			case 1:
+			{
+				unk_83E0C();
+				break;
+			}
+			case 2:
+			{
+				unk_83E1B();
+				break;
+			}
+			case 3:
+			{
+				unk_83E2A();
+				break;
+			}
+			case 4:
+			{
+				unk_83E3E();
+				break;
+			}
+		}
+	}
+	if((pad[0].unk4))
+	{
+		work->unkB[work->unk9] = pad[0].unk4;
+
+		//Should be just this but causes reg alloc diff
+		work->unk9 = (work->unk9 + 1) % 8;
+
+		//work->unk9 = (work->unk9 + 1) % 8;
+		//work->unk9 = ((work->unk9 % 8) + 1) % 8;
+
+		//work->unk9 = (work->unk9 + 1) & 0x7;
+		//work->unk9 = ((work->unk9) + 1) & 7;
+		//work->unk9 = (work->unk9 + 1) & (7);
+		//work->unk9 = ((work->unk9) + (1)) & (0x7);
+
+		//work->unk9 = (work->unk9 + 1U) & 0x7U;
+		//work->unk9 = ((work->unk9) + 1U) & 7U;
+		//work->unk9 = (work->unk9 + 1U) & (7U);
+		//work->unk9 = ((work->unk9) + (1U)) & (0x7U);
+
+		//work->unk9 = work->unk9 + 1;
+		//work->unk9 &= 7;
+
+		//++work->unk9;
+		//work->unk9 &= 7;
+
+		//work->unk9++;
+		//work->unk9 &= 7;
+
+		//work->unk9 = ++work->unk9 & 7;
+		//work->unk9 = work->unk9++ & 7;
+
+		//work->unk9 = work->unk9 + 1 - ((work->unk9 + 1) & ‾7);
+
+		//work->unk9 = ((s16)work->unk9 + 1) & 7u;
+
+		//work->unk9 = ((int16_t)(work->unk9 + 1)) & 7;
+		//work->unk9 = (int16_t)((work->unk9 + 1) & 7);
+
+		//work->unk9 = (work->unk9 + 1 >= 8) ? 0 : (work->unk9 + 1);
+
+		if((work->unkB[work->unk9 - 1 & 7] & 0x200))
+		{
+			if((work->unkB[work->unk9 - 2 & 7] & 0x800))
+			{
+				if((work->unkB[work->unk9 - 3 & 7] & 0x400))
+				{
+					if((work->unkB[work->unk9 - 4 & 7] & 0x400))
+					{
+						if((work->unkB[work->unk9 - 5 & 7] & 0x400))
+						{
+							if((work->unkB[work->unk9 - 6 & 7] & 0x100))
+							{
+								work->unk7 = 1;
+								sereq(0x10);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if((pad[0].unk4 & 2))
+	{
+		sereq(10);
+		memfree(work);
+		task_delete();
+		task_delete_fade(10);
+	}
+	work->unk4++;
+
+	if (3 < work->unk4)
+	{
+		work->unk4 = 0;
+		work->unk2 = (work->unk2 + 1) % 6;
+		unk_83CEA(work->unk2);
+	} 
+	nbg_scroll(0, 0, ++work->unk6);*/
+
 	sereq; //Force include
 	memfree; //Force include
 	task_delete_fade; //Force include
+	nbg_scroll; //Force include
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
 	ASM_INLINE("PUSH	SI");
@@ -601,7 +560,7 @@ ASM_INLINE("_84261:");
 	ASM_INLINE("INC	[SI+0x06].B");
 	ASM_INLINE("MOV	CL,[SI+0x06].B");
 	ASM_INLINE("XOR	CH,CH");
-	ASM_INLINE("CALLF	0x0072, 0x80EB");
+	ASM_INLINE("CALLF	nbg_scroll_, SEG nbg_scroll_");
 	ASM_INLINE("POP	SI");
 	ASM_INLINE("POP	DX");
 	ASM_INLINE("POP	CX");

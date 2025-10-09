@@ -16,11 +16,6 @@ typedef struct memory_test {
     u16 unk2; /* 0D70 */
     u16 unk4; /* 0D72 */
     u16 unk6; /* 0D74 */
-    u16 unk8; /* 0D76 */
-    u16 unkA; /* 0D78 */
-    u16 unkC; /* 0D7A */
-    u16 unkE; /* 0D7C */
-    u16 unk10; /* 0D7E */
 } memory_test_t;
 
 #define MEMORY_FLAG_FF41 0xFF41
