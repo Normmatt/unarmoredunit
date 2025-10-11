@@ -13,6 +13,7 @@
 #include "m_cpu2p.h"
 #include "m_game.h"
 #include "stagesel.h"
+#include "func_tbl.h"
 
 /*
 tune_func
@@ -20,8 +21,29 @@ location_table
 position_table
 */ 
 
-const u8 far tune_func[] = {
-    0x88, 0x11, 0x37, 0x0E, 0xF2, 0x13, 0x63, 0x16, 0x34, 0x18, 0xB7, 0x1A, 0x20, 0x1D 
+typedef void (near * tune_func_ptr)(u16, u16);
+
+static void near unk_8DC88(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f);
+static void near unk_8DE28(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f);
+static void near unk_8E2E1(u16 a, u16 b, u16 c, u16 d);
+
+
+static void near unk_8E897(u16 a, u16 b);
+static void near unk_8EBE8(u16 a, u16 b);
+static void near unk_8EE52(u16 a, u16 b);
+static void near unk_8F0C3(u16 a, u16 b);
+static void near unk_8F294(u16 a, u16 b);
+static void near unk_8F517(u16 a, u16 b);
+static void near unk_8F780(u16 a, u16 b);
+
+const tune_func_ptr far tune_func[] = {
+    unk_8EBE8, 
+	unk_8E897,
+	unk_8EE52,
+	unk_8F0C3,
+	unk_8F294,
+	unk_8F517,
+	unk_8F780 
 };
 
 const u8 far location_table[] = {
@@ -56,7 +78,9 @@ const u8 far position_table[] = {
     0x08, 0x00, 0x38, 0x00, 0x08, 0x00, 0x28, 0x00, 0x60, 0x00, 0x28, 0x00, 0xB8, 0x00, 0x20, 0x00,
 };
 
-static void near unk_8DA68()
+static void unk_8F7F2();
+
+static void near unk_8DA68(u16 a, u16 b, u16 c, u16 d, u16 e, char far *f)
 {
 	font_put2XY; //Force include
 	ASM_INLINE("PUSH	BP");
@@ -304,7 +328,7 @@ ASM_INLINE("_8DC80:");
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_8DC88()
+static void near unk_8DC88(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f)
 {
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
@@ -492,7 +516,7 @@ static void near unk_8DD97(u16 a, u16 b, u16 c, u16 d, u16 e)
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_8DE28()
+static void near unk_8DE28(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f)
 {
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
@@ -592,7 +616,7 @@ ASM_INLINE("_8DE96:");
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_8DEF9()
+static void near unk_8DEF9(struct TuneupWork *work)
 {
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
@@ -686,8 +710,22 @@ ASM_INLINE("_8DF7B:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8DFA1()
+static s16 near unk_8DFA1(struct TuneupWork *work, u16 b)
 {
+/*	s16 i;
+	u16 val;
+
+	
+	for(i = 0; i < 8; )
+	{
+		val = *(aulist + *work->unk12 * 0xf + 5 + i);
+		if(((b != val)))
+		{
+			i++;
+		}
+	}
+
+	return (i >= 8) ? 0 : 1;*/
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
 	ASM_INLINE("PUSH	SI");
@@ -734,324 +772,67 @@ ASM_INLINE("_8DFE4:");
 
 void tuneup_init()
 {
-	task_delete; //Force include
-	memalloc; //Force include
-	task_append; //Force include
-	nbg_ddf; //Force include
-	spr_ddf; //Force include
-	bitmap; //Force include
-	bgmreq; //Force include
-	fade_tone; //Force include
-	fade_out; //Force include
-	fade_run; //Force include
-	fade_in; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("MOV	AL,[0x1E0A].B");
-	ASM_INLINE("XOR	AH,AH");
-	ASM_INLINE("MOV	BX,0x001D");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("ADD	SI,0x1E3C");
-	ASM_INLINE("CALLF	task_delete_, SEG task_delete_");
-	ASM_INLINE("MOV	AX,0x0014");
-	ASM_INLINE("CALLF	memalloc_, SEG memalloc_");
-	ASM_INLINE("MOV	DI,AX");
-	ASM_INLINE("TEST	DI,DI");
-	ASM_INLINE("JNZ	_8E013");
-	ASM_INLINE("JMP	_8E2DC");
-ASM_INLINE("_8E013:");
-	ASM_INLINE("MOV	AX,unk_8F7F2_");
-	ASM_INLINE("MOV	BX,SEG unk_8F7F2_");
-	ASM_INLINE("MOV	CX,DI");
-	ASM_INLINE("CALLF	task_append_, SEG task_append_");
-	ASM_INLINE("MOV	[DI+0x08].W,0x0000");
-	ASM_INLINE("MOV	[DI+0x06].W,0x0000");
-	ASM_INLINE("MOV	[DI+0x04].W,0x0000");
-	ASM_INLINE("MOV	[DI+0x02].W,0x0000");
-	ASM_INLINE("MOV	[DI].W,0x0000");
-	ASM_INLINE("MOV	[DI+0x12].W,SI");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("JMP	_8E04A");
-ASM_INLINE("_8E03F:");
-	ASM_INLINE("MOV	BX,DI");
-	ASM_INLINE("ADD	BX,0x000A");
-	ASM_INLINE("ADD	BX,AX");
-	ASM_INLINE("MOV	[BX].B,0xFF");
-	ASM_INLINE("INC	AX");
-ASM_INLINE("_8E04A:");
-	ASM_INLINE("CMP	AX,0x0008");
-	ASM_INLINE("JL	_8E03F");
-	ASM_INLINE("MOV	AX,DI");
-	ASM_INLINE("CALL	unk_8DEF9_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	spr_ddf_, SEG spr_ddf_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("CALLF	bitmap_, SEG bitmap_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DD97_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AX,0xA78E");
-	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	BL,[SI].B");
-	ASM_INLINE("XOR	BH,BH");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	//ASM_INLINE("PUSH	ES:[BX+0x000C].W");
-	ASM_OP5(0x26,0xFF,0xB7,0x0C,0x00);
-	//ASM_INLINE("PUSH	ES:[BX+0x000A].W");
-	ASM_OP5(0x26,0xFF,0xB7,0x0A,0x00);
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0008");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DA68_");
-	ASM_INLINE("ADD	SP,0x0006");
-	ASM_INLINE("MOV	AX,0xA751");
-	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	AL,[SI].B");
-	ASM_INLINE("XOR	AH,AH");
-	ASM_INLINE("MOV	BX,0x000F");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,AX");
-	//ASM_INLINE("MOV	AL,ES:[BX+0x0004].B");
-	ASM_OP5(0x26,0x8A,0x87,0x04,0x00);
-	ASM_INLINE("CBW");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA79C");
-	ASM_INLINE("MOV	ES,AX");
-	//ASM_INLINE("PUSH	ES:[BX+0x0004].W");
-	ASM_OP5(0x26,0xFF,0xB7,0x04,0x00);
-	//ASM_INLINE("PUSH	ES:[BX+0x0002].W");
-	ASM_OP5(0x26,0xFF,0xB7,0x02,0x00);
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0008");
-	ASM_INLINE("MOV	BX,0x0002");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DA68_");
-	ASM_INLINE("ADD	SP,0x0006");
-	ASM_INLINE("MOV	AL,[SI+0x04].B");
-	ASM_INLINE("XOR	AH,AH");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0004");
-	ASM_INLINE("MOV	BX,0x0003");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DC88_");
-	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0025");
-	ASM_INLINE("MOV	BX,0x000D");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DD97_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0023");
-	ASM_INLINE("MOV	BX,0x000E");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DD97_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0027");
-	ASM_INLINE("MOV	BX,0x000F");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DD97_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0012");
-	ASM_INLINE("MOV	BX,0x0004");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DD97_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0015");
-	ASM_INLINE("MOV	BX,0x0005");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DD97_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0016");
-	ASM_INLINE("MOV	BX,0x0006");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DD97_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AL,[SI+0x02].B");
-	ASM_INLINE("XOR	AH,AH");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0005");
-	ASM_INLINE("MOV	BX,0x0005");
-	ASM_INLINE("MOV	CX,0x0010");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DC88_");
-	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("MOV	AX,0xA751");
-	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	AL,[SI].B");
-	ASM_INLINE("XOR	AH,AH");
-	ASM_INLINE("MOV	BX,0x000F");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,AX");
-	//ASM_INLINE("MOV	AL,ES:[BX+0x0004].B");
-	ASM_OP5(0x26,0x8A,0x87,0x04,0x00);
-	ASM_INLINE("CBW");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
-	ASM_INLINE("MOV	ES,AX");
-	//ASM_INLINE("MOV	AX,ES:[BX+0x0000].W");
-	ASM_OP5(0x26,0x8B,0x87,0x00,0x00);
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0029");
-	ASM_INLINE("MOV	BX,0x0006");
-	ASM_INLINE("MOV	CX,0x0008");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DE28_");
-	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0019");
-	ASM_INLINE("MOV	BX,0x0007");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DD97_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x001C");
-	ASM_INLINE("MOV	BX,0x0008");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DD97_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x001D");
-	ASM_INLINE("MOV	BX,0x0009");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DD97_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AL,[SI+0x03].B");
-	ASM_INLINE("XOR	AH,AH");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0005");
-	ASM_INLINE("MOV	BX,0x0008");
-	ASM_INLINE("MOV	CX,0x0010");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DC88_");
-	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("MOV	AX,0xA751");
-	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	AL,[SI].B");
-	ASM_INLINE("XOR	AH,AH");
-	ASM_INLINE("MOV	BX,0x000F");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,AX");
-	//ASM_INLINE("MOV	AL,ES:[BX+0x0004].B");
-	ASM_OP5(0x26,0x8A,0x87,0x04,0x00);
-	ASM_INLINE("CBW");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
-	ASM_INLINE("MOV	ES,AX");
-	//ASM_INLINE("MOV	AX,ES:[BX+0x000C].W");
-	ASM_OP5(0x26,0x8B,0x87,0x0C,0x00);
-	ASM_INLINE("MOV	BX,0x0005");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0029");
-	ASM_INLINE("MOV	BX,0x0009");
-	ASM_INLINE("MOV	CX,0x0008");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DE28_");
-	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,0x0020");
-	ASM_INLINE("MOV	BX,0x000A");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8DD97_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AX,DI");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("MOV	CX,0x0001");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8E2E1_");
-	ASM_INLINE("MOV	AX,DI");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("CALL	unk_8E2E1_");
-	ASM_INLINE("MOV	AX,DI");
-	ASM_INLINE("MOV	BX,0x0004");
-	ASM_INLINE("MOV	CX,0xBAE8");
-	ASM_INLINE("MOV	ES,CX");
-	ASM_INLINE("MOV	SI,[DI].W");
-	ASM_INLINE("SHL	SI,1");
-	//ASM_INLINE("CALL	ES:[SI+0x0000].W");
-	ASM_OP5(0x26,0xFF,0x94,0x00,0x00);
-	ASM_INLINE("MOV	AL,0x05");
-	ASM_INLINE("CALLF	bgmreq_, SEG bgmreq_");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("CALLF	fade_tone_, SEG fade_tone_");
-	ASM_INLINE("MOV	AX,0x0064");
-	ASM_INLINE("CALLF	fade_out_, SEG fade_out_");
-	ASM_INLINE("CALLF	fade_run_, SEG fade_run_");
-	ASM_INLINE("MOV	AX,0x000A");
-	ASM_INLINE("CALLF	fade_in_, SEG fade_in_");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("CALLF	nbg_ddf_, SEG nbg_ddf_");
-ASM_INLINE("_8E2DC:");
-	ASM_INLINE("POP	DI");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	s16 i;
+	u16 val;
+	s8 *ptr;
+	struct TuneupWork *work;
+
+  	ptr = (SAVE_DATA_START[0x0A] * 0x1d + (SAVE_DATA_START + 0x3C));
+
+	task_delete();
+	work = (struct TuneupWork *)memalloc(sizeof (struct TuneupWork));
+	if (work != NULL)
+	{
+		task_append((task_pointer)unk_8F7F2, (u16)work);
+		work->unk8 = 0;
+		work->unk6 = 0;
+		work->unk4 = 0;
+		work->unk2 = 0;
+		work->unk0 = 0;
+		work->unk12 = ptr;
+
+		for(i = 0; i < 8; i++)
+		{
+			work->unkA[i] = -1;
+		}
+		unk_8DEF9(work);
+		nbg_ddf(0,0);
+		nbg_ddf(1,0);
+		spr_ddf(0);
+		bitmap(1);
+		unk_8DD97(0,0,0,0,1);
+		unk_8DA68(8,1,0,0,1,chara_name[(u8)ptr[0]]);
+		unk_8DA68(8,2,0,0,1,type_name[aulist[(u8)ptr[0] * 0x0F]]);
+		unk_8DC88(4,3,0,0,1,(u8)ptr[4]);
+		unk_8DD97(0x25,0xd,0,0,1);
+		unk_8DD97(0x23,0xe,0,0,1);
+		unk_8DD97(0x27,0xf,0,0,1);
+		unk_8DD97(0x12,4,0,0,1);
+		unk_8DD97(0x15,5,0,0,1);
+		unk_8DD97(0x16,6,0,0,1);
+		unk_8DC88(5,5,0x10,0,1,(u8)ptr[2]);
+		val = tuneup_table[aulist[(u8)ptr[0] * 0x0F]];
+		unk_8DE28(0x29,6,8,0,1,val);
+		unk_8DD97(0x19,7,0,0,1);
+		unk_8DD97(0x1c,8,0,0,1);
+		unk_8DD97(0x1d,9,0,0,1);
+		unk_8DC88(5,8,0x10,0,1,(u8)ptr[3]);
+		val = *(tuneup_table + 6 + aulist[(u8)ptr[0] * 0x0F]);
+		unk_8DE28(0x29,9,8,0,1,val*5);
+		unk_8DD97(0x20,10,0,0,1);
+		unk_8E2E1(work,1,1,0);
+		unk_8E2E1(work,0,0,0);
+		tune_func[work->unk0](work, 4);
+		bgmreq(5);
+		fade_tone(0);
+		fade_out(100);
+		fade_run();
+		fade_in(10);
+		nbg_ddf(1,1);
+	}
 }
 
-static void near unk_8E2E1()
+static void near unk_8E2E1(u16 a, u16 b, u16 c, u16 d)
 {
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
@@ -1376,8 +1157,51 @@ ASM_INLINE("_8E54C:");
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_8E557()
+static u16 near unk_8E557(struct TuneupWork *work, u16 b, u16 c, u16 d, s16 e)
 {
+/*	u16 val;
+	s8 *ptr;
+
+	if((e < 8) && (0 > e))
+	{
+		if(c)
+		{
+			if (0 <= *(work->unk12 + 5 + e))
+			{
+				if (3 <= *(work->unk12 + 5 + e))
+				{
+					val = *(tuneup_table + 4 + aulist[(u8)*work->unk12 * 0x0F]);
+					val = aulist[*(work->unk12 + 5 + e) * 0xc];
+				}
+				else
+				{
+					val = 0;
+				}
+
+				unk_8DC88(b + 5,c + 0xb,0x40,e << 3,1,val);
+				unk_8DA68(b + 8,c + 0xb,8,e << 3,1,aulist[work->unk12[e + 5]]);
+				val = unk_8DFA1(work, work->unk12[e + 5]);
+
+				if (val == 0)
+				{
+					unk_8DD97(b + 1,c + 0xb,0,e << 3,1);
+				}
+				else
+				{
+					unk_8DC88(b + 5,c + 0xb,0x40,e << 3,1,0);
+				}
+
+				return 1;
+			}
+		}
+		else if (0 < work->unkA[e])
+		{
+			unk_8DC88(b + 5, 0xb, 0x40, e << 3, 1, aulist[work->unkA[e] * 0xc]);
+			unk_8DA68(b + 8, c + 0xb, 8, e << 3, 1, aulist[work->unkA[e] * 4]);
+			unk_8DD97(b + 1, c + 0xb, 0, e << 3, 1);
+			return 1;
+		}
+	}*/
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
 	ASM_INLINE("PUSH	CX");
@@ -1786,7 +1610,7 @@ ASM_INLINE("_8E892:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8E897()
+static void near unk_8E897(u16 a, u16 b)
 {
 	put_message; //Force include
 	sereq; //Force include
@@ -2166,7 +1990,7 @@ ASM_INLINE("_8EBE3:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8EBE8()
+static void near unk_8EBE8(u16 a, u16 b)
 {
 ASM_INLINE("_8EBE8:");
 	ASM_INLINE("PUSH	CX");
@@ -2418,7 +2242,7 @@ ASM_INLINE("_8EE4E:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8EE52()
+static void near unk_8EE52(u16 a, u16 b)
 {
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
@@ -2685,7 +2509,7 @@ ASM_INLINE("_8F0BF:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8F0C3()
+static void near unk_8F0C3(u16 a, u16 b)
 {
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
@@ -2887,7 +2711,7 @@ ASM_INLINE("_8F28F:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8F294()
+static void near unk_8F294(u16 a, u16 b)
 {
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
@@ -3161,7 +2985,7 @@ ASM_INLINE("_8F513:");
 	ASM_INLINE("POP	CX");
 }
 
-static void near unk_8F517()
+static void near unk_8F517(u16 a, u16 b)
 {
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
