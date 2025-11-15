@@ -449,71 +449,12 @@ static void near unk_8DC88(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f)
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_8DD97(u16 a, u16 b, u16 c, u16 d, u16 e)
+static void near unk_8DD97(u16 a, u16 b, s16 c, s16 d, u16 e)
 {
-	ASM_INLINE("PUSH	BP");
-	ASM_INLINE("MOV	BP,SP");
-	ASM_INLINE("SUB	SP,0x0008");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("MOV	DI,0x000E");
-	ASM_INLINE("MOV	SI,0xBAE8");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	DI,AX");
-	ASM_INLINE("MOV	[BP-0x04].W,DI");
-	ASM_INLINE("MOV	[BP-0x02].W,SI");
-	ASM_INLINE("MOV	SI,0x000E");
-	ASM_INLINE("MOV	AX,0xBAFE");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("ADD	SI,BX");
-	ASM_INLINE("MOV	[BP-0x08].W,SI");
-	ASM_INLINE("MOV	[BP-0x06].W,AX");
-	ASM_INLINE("MOV	BX,0x0000");
-	ASM_INLINE("MOV	AX,0xBB03");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("PUSH	[BP+0x04].W");
-	ASM_INLINE("LES	BX,[BP-0x08]");
-	ASM_INLINE("MOV	AX,ES:[BX+0x02].W");
-	ASM_INLINE("ADD	AX,DX");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("LES	BX,[BP-0x08]");
-	ASM_INLINE("MOV	AX,ES:[BX].W");
-	ASM_INLINE("ADD	AX,CX");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("LES	BX,[BP-0x04]");
-	ASM_INLINE("MOV	AX,ES:[BX].W");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("LES	BX,[BP-0x04]");
-	ASM_INLINE("MOV	BX,ES:[BX+0x02].W");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("LES	SI,[BP-0x04]");
-	ASM_INLINE("MOV	CX,ES:[SI+0x04].W");
-	ASM_INLINE("LES	SI,[BP-0x04]");
-	ASM_INLINE("MOV	DX,ES:[SI+0x06].W");
-	ASM_INLINE("CALLF	font_put2XY_, SEG font_put2XY_");
-	ASM_INLINE("ADD	SP,0x000A");
-	ASM_INLINE("POP	DI");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("MOV	SP,BP");
-	ASM_INLINE("POP	BP");
+	s16 far *lPtr = location_table + (a << 3);
+	s16 far *pPtr = position_table + (b << 2);
+	
+	font_put2XY(lPtr[0] >> 3, lPtr[1] >> 3, lPtr[2], lPtr[3], pPtr[0] + c >> 3, pPtr[1] + d >> 3, e, G_TUNEUP_char_adr);
 }
 
 static void near unk_8DE28(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f)
@@ -3351,8 +3292,95 @@ ASM_INLINE("_8F7EF:");
 	ASM_INLINE("POP	CX");
 }
 
-static void unk_8F7F2()
+static void unk_8F7F2(struct TuneupWork *work)
 {
+/*	if(work->unk0 < 2)
+	{
+		if ((pad[0].unk8 & 0x800))
+		{
+			tune_func[work->unk0](work, 5);
+			work->unk0--;
+			if (work->unk0 < 0)
+			{
+				work->unk0 = 6;
+			}
+			tune_func[work->unk0](work, 4);
+			sereq(0xc);
+		}
+		if ((pad[0].unk8 & 0x200))
+		{
+			tune_func[work->unk0](work, 5);
+			work->unk0++;
+			if (work->unk0 >= 7)
+			{
+				work->unk0 = 0;
+			}
+			tune_func[work->unk0](work, 4);
+			sereq(0xc);
+		}
+		if ((pad[0].unk8 & 0x100))
+		{
+			tune_func[work->unk0](work, 0);
+		}
+		//Some weirdness with codegen here not sure how to resolve
+		if ((pad[0].unk8 & 0x400))
+		{
+			tune_func[work->unk0](work, 1);
+		}
+	}
+	else
+	{
+		if ((pad[0].unk8 & 0x800))
+		{
+			tune_func[work->unk0](work, 5);
+			work->unk0 = 1;
+			tune_func[work->unk0](work, 4);
+			sereq(0xc);
+		}
+		if ((pad[0].unk8 & 0x200))
+		{
+			tune_func[work->unk0](work, 5);
+			work->unk0 = 0;
+			tune_func[work->unk0](work, 4);
+			sereq(0xc);
+		}
+		if ((pad[0].unk8 & 0x100))
+		{
+			tune_func[work->unk0](work, 5);
+			work->unk0--;
+			if (work->unk0 < 0)
+			{
+				work->unk0 = 6;
+			}
+			tune_func[work->unk0](work, 4);
+			sereq(0xc);
+		}
+		if ((pad[0].unk8 & 0x400))
+		{
+			tune_func[work->unk0](work, 5);
+			work->unk0++;
+			if (work->unk0 >= 7)
+			{
+				work->unk0 = 0;
+			}
+			tune_func[work->unk0](work, 4);
+			sereq(0xc);
+		}
+	}
+	if ((pad[0].unk6 & 4))
+	{
+		tune_func[work->unk0](work, 2);
+	}
+	if ((pad[0].unk6 & 8))
+	{
+		tune_func[work->unk0](work, 3);
+		unk_8F743(work);
+	}
+	if ((pad[0].unk6 & 2))
+	{
+		sereq(0xc);
+		unk_8F6F5(work);
+	}*/
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	SI");
 	ASM_INLINE("PUSH	DI");
