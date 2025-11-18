@@ -19,7 +19,7 @@
 #include "m_weapon.h"
 #include "tuneup.h"
 
-static u8 m_game_data[] = {
+u8 m_game_data[] = {
 	0x01, 0x02, 0xA8, 0xC0,
     0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -28,7 +28,7 @@ static u8 m_game_data[] = {
     0x05, 0x00,
 };
 
-static u8 m_game_data2[] = {
+u8 m_game_data2[] = {
 	0x00, 0x02, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -37,7 +37,7 @@ static u8 m_game_data2[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data3[] = {
+u8 m_game_data3[] = {
 	0x02, 0x02, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00,
@@ -46,7 +46,7 @@ static u8 m_game_data3[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data4[] = {
+u8 m_game_data4[] = {
 	0x03, 0x02, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -55,7 +55,7 @@ static u8 m_game_data4[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data5[] = {
+u8 m_game_data5[] = {
 	0x04, 0x02, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -64,7 +64,7 @@ static u8 m_game_data5[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data6[] = {
+u8 m_game_data6[] = {
 	0x05, 0x02, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -73,7 +73,7 @@ static u8 m_game_data6[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data7[] = {
+u8 m_game_data7[] = {
     0x06, 0x02, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -82,7 +82,7 @@ static u8 m_game_data7[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data8[] = {
+u8 m_game_data8[] = {
 	0x07, 0x02, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -91,7 +91,7 @@ static u8 m_game_data8[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data9[] = {
+u8 m_game_data9[] = {
 	0x08, 0x02, 0xA8, 0xC0,
     0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -100,7 +100,7 @@ static u8 m_game_data9[] = {
     0x05, 0x00,
 };
 
-static u8 m_game_data10[] = {
+u8 m_game_data10[] = {
 	0x01, 0x02, 0xA8, 0xC0,
 	0x03, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -109,7 +109,7 @@ static u8 m_game_data10[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data11[] = {
+u8 m_game_data11[] = {
 	0x01, 0x02, 0xA8, 0xC0,
 	0x04, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00,
@@ -118,7 +118,7 @@ static u8 m_game_data11[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data12[] = {
+u8 m_game_data12[] = {
 	0x01, 0x02, 0xA8, 0xC0,
 	0x04, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -127,7 +127,7 @@ static u8 m_game_data12[] = {
 	0x05, 0x00, 
 };
 
-static u8 m_game_data13[] = {
+u8 m_game_data13[] = {
 	0x01, 0x02, 0xA8, 0xC0,
 	0x04, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -136,7 +136,7 @@ static u8 m_game_data13[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data14[] = {
+u8 m_game_data14[] = {
 	0x01, 0x02, 0xA8, 0xC0,
 	0x04, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -145,7 +145,7 @@ static u8 m_game_data14[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data15[] = {
+u8 m_game_data15[] = {
     0x06, 0x02, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -154,7 +154,7 @@ static u8 m_game_data15[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data16[] = {
+u8 m_game_data16[] = {
 	0x07, 0x02, 0xA8, 0xC0,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
@@ -163,31 +163,13 @@ static u8 m_game_data16[] = {
 	0x05, 0x00,
 };
 
-static u8 m_game_data17[] = {
+u8 m_game_data17[] = {
 	0x05, 0x02, 0xA8, 0xC0,
     0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
     0x05, 0x00,
-};
-
-static u8 m_game_data18[] = {
-	0x02, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00,
-};
-
-static u8 m_game_data19[] = {
-	0x04, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00,
 };
 
 u16 mother_child; /*1002*/
@@ -858,7 +840,7 @@ void m_game_init(void *buf)
 	{
 		task_append((task_pointer)unk_84A18, (u16)work);
 		work->unkB3 = 0;
-		work->unk4B = 0;
+		work->unk06 = 0;
 		work->unk72 = 0;
 		fade_tone(0);
 		fade_out(100);
@@ -2196,18 +2178,9 @@ ASM_INLINE("_856F9:");
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_85701()
+static void near unk_85701(struct MGameWork *work)
 {
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("MOV	AX,[BX+0x00A9].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	AX,[BX+0x00A7].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	BX,0x005C");
-	ASM_INLINE("ADD	BX,AX");
-	ASM_INLINE("MOV	AX,[BX].W");
-	ASM_INLINE("CALLF	put_function_name_, SEG put_function_name_");
+	put_function_name(work->unk4C[0].unk17[(work->unkA9 * 4) + work->unkA7]);
 }
 
 static void unk_8571E()
@@ -2573,24 +2546,9 @@ ASM_INLINE("_85A93:");
 	ASM_INLINE("POP	CX");
 }
 
-static void unk_85A98()
+static void unk_85A98(struct MGameWork * work)
 {
-	put_move_cousor; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	BX,[SI+0x50].W");
-	ASM_INLINE("MOV	CX,[SI+0x52].W");
-	ASM_INLINE("MOV	DX,0x0001");
-	ASM_INLINE("CALLF	put_move_cousor_, SEG put_move_cousor_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	put_move_cousor(work, work->unk4C[0].unk0B, work->unk4C[0].unk0D, 1, 1);
 }
 
 static void unk_85AB8()
@@ -2789,7 +2747,7 @@ ASM_INLINE("_85C8C:");
 	ASM_INLINE("POP	CX");
 }
 
-static void unk_85C91(struct MGameWork *buf)
+static void unk_85C91(struct MGameWork *work)
 {
 	put_search_cousor; //Force include
 	ASM_INLINE("PUSH	CX");
@@ -3709,213 +3667,195 @@ ASM_INLINE("_86551:");
 	ASM_INLINE("POP	BP");
 }
 
-static void unk_86559(struct MGameWork *buf)
+static void unk_86559(struct MGameWork *work)
 {
-/*	u16 *ptr;
-	u16 val;
-	u16 val2;
-
-	ptr = (buf->unkA9 << 2) + buf->unkA7 + buf->unk5C;
-
-	switch(*ptr)
+	switch(work->unk4C->unk17[(work->unkA9 * 4) + work->unkA7])
 	{
-		
 		case 15:
 		{
-			m_game_main_weapon_i_type15(buf);
+			m_game_main_weapon_i_type15(work);
 			break;
 		}
 		case 16:
 		{
-			m_game_main_weapon_i_type16(buf);
+			m_game_main_weapon_i_type16(work);
 			break;
 		}
 		case 17:
 		{
-			m_game_main_weapon_i_type17(buf);
+			m_game_main_weapon_i_type17(work);
 			break;
 		}
 		case 18:
 		{
-			m_game_main_weapon_i_type18(buf);
+			m_game_main_weapon_i_type18(work);
 			break;
 		}
 		case 19:
 		{
-			m_game_main_weapon_i_type19(buf);
+			m_game_main_weapon_i_type19(work);
 			break;
 		}
 		case 20:
 		{
-			m_game_main_weapon_i_type20(buf);
+			m_game_main_weapon_i_type20(work);
 			break;
 		}
 		case 21:
 		{
-			m_game_main_weapon_i_type21(buf);
+			m_game_main_weapon_i_type21(work);
 			break;
 		}
-	}*/
-
-	m_game_main_weapon_i_type15; //Force include
-	m_game_main_weapon_i_type16; //Force include
-	m_game_main_weapon_i_type17; //Force include
-	m_game_main_weapon_i_type18; //Force include
-	m_game_main_weapon_i_type19; //Force include
-	m_game_main_weapon_i_type20; //Force include
-	m_game_main_weapon_i_type21; //Force include
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("MOV	AX,[BX+0x00A9].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	AX,[BX+0x00A7].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("MOV	SI,BX");
-	ASM_INLINE("ADD	SI,0x005C");
-	ASM_INLINE("ADD	SI,AX");
-	ASM_INLINE("MOV	AX,[SI].W");
-	ASM_INLINE("CMP	AX,0x0015");
-	ASM_INLINE("JZ	_865CC");
-	ASM_INLINE("CMP	AX,0x0014");
-	ASM_INLINE("JZ	_865C3");
-	ASM_INLINE("CMP	AX,0x0013");
-	ASM_INLINE("JZ	_865BA");
-	ASM_INLINE("CMP	AX,0x0012");
-	ASM_INLINE("JZ	_865B1");
-	ASM_INLINE("CMP	AX,0x0011");
-	ASM_INLINE("JZ	_865A8");
-	ASM_INLINE("CMP	AX,0x0010");
-	ASM_INLINE("JZ	_8659F");
-	ASM_INLINE("CMP	AX,0x000F");
-	ASM_INLINE("JNZ	_865D3");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_i_type15_, SEG m_game_main_weapon_i_type15_");
-	ASM_INLINE("JMP	_865D3");
-ASM_INLINE("_8659F:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_i_type16_, SEG m_game_main_weapon_i_type16_");
-	ASM_INLINE("JMP	_865D3");
-ASM_INLINE("_865A8:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_i_type17_, SEG m_game_main_weapon_i_type17_");
-	ASM_INLINE("JMP	_865D3");
-ASM_INLINE("_865B1:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_i_type18_, SEG m_game_main_weapon_i_type18_");
-	ASM_INLINE("JMP	_865D3");
-ASM_INLINE("_865BA:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_i_type19_, SEG m_game_main_weapon_i_type19_");
-	ASM_INLINE("JMP	_865D3");
-ASM_INLINE("_865C3:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_i_type20_, SEG m_game_main_weapon_i_type20_");
-	ASM_INLINE("JMP	_865D3");
-ASM_INLINE("_865CC:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_i_type21_, SEG m_game_main_weapon_i_type21_");
-ASM_INLINE("_865D3:");
-	ASM_INLINE("POP	SI");
+	}
 }
 
-static void unk_865D5(struct MGameWork *buf)
+static void unk_865D5(struct MGameWork *work)
 {
-	m_game_main_weapon_m_type15; //Force include
-	m_game_main_weapon_m_type16; //Force include
-	m_game_main_weapon_m_type17; //Force include
-	m_game_main_weapon_m_type18; //Force include
-	m_game_main_weapon_m_type19; //Force include
-	m_game_main_weapon_m_type20; //Force include
-	m_game_main_weapon_m_type21; //Force include
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("MOV	AX,[BX+0x00A9].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	AX,[BX+0x00A7].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("MOV	SI,BX");
-	ASM_INLINE("ADD	SI,0x005C");
-	ASM_INLINE("ADD	SI,AX");
-	ASM_INLINE("MOV	AX,[SI].W");
-	ASM_INLINE("CMP	AX,0x0015");
-	ASM_INLINE("JZ	_86648");
-	ASM_INLINE("CMP	AX,0x0014");
-	ASM_INLINE("JZ	_8663F");
-	ASM_INLINE("CMP	AX,0x0013");
-	ASM_INLINE("JZ	_86636");
-	ASM_INLINE("CMP	AX,0x0012");
-	ASM_INLINE("JZ	_8662D");
-	ASM_INLINE("CMP	AX,0x0011");
-	ASM_INLINE("JZ	_86624");
-	ASM_INLINE("CMP	AX,0x0010");
-	ASM_INLINE("JZ	_8661B");
-	ASM_INLINE("CMP	AX,0x000F");
-	ASM_INLINE("JNZ	_8664F");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_m_type15_, SEG m_game_main_weapon_m_type15_");
-	ASM_INLINE("JMP	_8664F");
-ASM_INLINE("_8661B:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_m_type16_, SEG m_game_main_weapon_m_type16_");
-	ASM_INLINE("JMP	_8664F");
-ASM_INLINE("_86624:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_m_type17_, SEG m_game_main_weapon_m_type17_");
-	ASM_INLINE("JMP	_8664F");
-ASM_INLINE("_8662D:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_m_type18_, SEG m_game_main_weapon_m_type18_");
-	ASM_INLINE("JMP	_8664F");
-ASM_INLINE("_86636:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_m_type19_, SEG m_game_main_weapon_m_type19_");
-	ASM_INLINE("JMP	_8664F");
-ASM_INLINE("_8663F:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_m_type20_, SEG m_game_main_weapon_m_type20_");
-	ASM_INLINE("JMP	_8664F");
-ASM_INLINE("_86648:");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("CALLF	m_game_main_weapon_m_type21_, SEG m_game_main_weapon_m_type21_");
-ASM_INLINE("_8664F:");
-	ASM_INLINE("POP	SI");
+	switch(work->unk4C->unk17[(work->unkA9 * 4) + work->unkA7])
+	{
+		case 15:
+		{
+			m_game_main_weapon_m_type15(work);
+			break;
+		}
+		case 16:
+		{
+			m_game_main_weapon_m_type16(work);
+			break;
+		}
+		case 17:
+		{
+			m_game_main_weapon_m_type17(work);
+			break;
+		}
+		case 18:
+		{
+			m_game_main_weapon_m_type18(work);
+			break;
+		}
+		case 19:
+		{
+			m_game_main_weapon_m_type19(work);
+			break;
+		}
+		case 20:
+		{
+			m_game_main_weapon_m_type20(work);
+			break;
+		}
+		case 21:
+		{
+			m_game_main_weapon_m_type21(work);
+			break;
+		}
+	}
 }
 
-static void near unk_86651(struct MGameWork *buf)
+static void near unk_86651(struct MGameWork *work)
 {
-	buf->unk7B = 0;
-	buf->unk4B = 1;
+	work->unk4C[1].unk0F = 0;
+	work->unk4C[0].unk06 = 1;
 }
 
-void item_used_se()
+void item_used_se(struct MGameWork *work)
 {
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	AX,0xA711");
-	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	BX,0x0000");
-	ASM_INLINE("MOV	AX,[SI+0x00A9].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	AX,[SI+0x00A7].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	SI,0x005C");
-	ASM_INLINE("ADD	SI,AX");
-	ASM_INLINE("MOV	AX,[SI].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	BX,AX");
-	ASM_INLINE("MOV	AX,ES:[BX+0x0E].W");
-	ASM_INLINE("CALLF	sereq_, SEG sereq_");
-	ASM_INLINE("POP	SI");
+	sereq(functbl[(work->unk4C[0].unk17[(work->unkA9 * 4) + work->unkA7])][7]);
 }
 
-void item_used_create()
+u8 m_game_data18[] = {
+	0x02, 0x02, 0xA8, 0xC0,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x05, 0x00,
+};
+
+u8 m_game_data19[] = {
+	0x04, 0x02, 0xA8, 0xC0,
+	0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x05, 0x00,
+};
+
+void item_used_create(struct MGameWork *work)
 {
+	/*u16 val;
+
+	val = functbl[(work->unk4C[0].unk17[(work->unkA9 * 4) + work->unkA7])][1];
+	work->unk4C[0].unk04 = 0;
+	work->unk4C[0].unk13 -= val;
+
+	if (work->unk4C[0].unk15 <= work->unk4C[0].unk13)
+	{
+		work->unk4C[0].unk13 = work->unk4C[0].unk15;
+	}
+
+	put_turn_level(work->unk4C[0].unk04);
+	put_energy_value(work->unk4C[0].unk13, work->unk4C[0].unk15);
+	put_energy_level(work->unk4C[0].unk13, work->unk4C[0].unk15);
+
+	do
+	{
+		u8 m_game_data18[] = {
+			0x02, 0x02, 0xA8, 0xC0,
+			0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00,
+			0x05, 0x00,
+		};
+		u8 val = SAVE_DATA_START[0x07];
+
+		switch(SAVE_DATA_START[0x07])
+		{
+			case 0:
+			case 1:
+			{
+				break;
+			}
+			case 2:
+			{
+				m_game_data18[4] = (work->unk4C[0].unk0B << 4) | work->unk4C[0].unk0D;
+				ip_w(m_game_data18);
+				//break;
+			}
+			case 3:
+			{
+				break;
+			}
+		}
+	} while(0);
+
+	do
+	{
+		u8 m_game_data19[] = {
+			0x04, 0x02, 0xA8, 0xC0,
+			0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00,
+			0x05, 0x00,
+		};
+		switch(SAVE_DATA_START[0x07])
+		{
+			case 0:
+			case 1:
+			{
+				break;
+			}
+			case 2:
+			{
+				m_game_data19[4] = (work->unk4C[1].unk0F << 4) | work->unk4C[1].unk11;
+				ip_w(m_game_data19);
+				//break;
+			}
+			case 3: break;
+		}
+	} while(0);*/
+
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
 	ASM_INLINE("SUB	SP,0x002C");
@@ -4039,84 +3979,18 @@ ASM_INLINE("_86799:");
 	ASM_INLINE("POP	BP");
 }
 
-void m_game_main_lange_sub()
+void m_game_main_lange_sub(struct MGameWork *work, u16 unk)
 {
-	put_atack_cousor; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("MOV	BX,0xA711");
-	ASM_INLINE("MOV	ES,BX");
-	ASM_INLINE("MOV	DI,0x0000");
-	ASM_INLINE("MOV	CX,[SI+0x00A9].W");
-	ASM_INLINE("SHL	CX,1");
-	ASM_INLINE("SHL	CX,1");
-	ASM_INLINE("ADD	CX,[SI+0x00A7].W");
-	ASM_INLINE("SHL	CX,1");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("ADD	BX,0x005C");
-	ASM_INLINE("ADD	BX,CX");
-	ASM_INLINE("MOV	BX,[BX].W");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("ADD	DI,BX");
-	ASM_INLINE("MOV	DX,ES:[DI+0x06].W");
-	ASM_INLINE("AND	DX,0x00FF");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	BX,[SI+0x00AD].W");
-	ASM_INLINE("MOV	CX,[SI+0x00AF].W");
-	ASM_INLINE("CALLF	put_atack_cousor_, SEG put_atack_cousor_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("POP	DI");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	u16 val = functbl[(work->unk4C[0].unk17[(work->unkA9 * 4) + work->unkA7])][3] & 0xFF;
+	put_atack_cousor(work, work->unkAD, work->unkAF, val, unk);
 }
 
-static void near unk_867F2()
+static void near unk_867F2(struct MGameWork *work, u16 unk)
 {
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	CX,BX");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("MOV	BX,0x0003");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("ADD	BX,0x016F");
-	ASM_INLINE("ADD	BX,AX");
-	ASM_INLINE("MOV	[BX+0x02].B,0x48");
-	ASM_INLINE("MOV	AX,0x0008");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("MOV	BX,0x0027");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("ADD	BX,0x0045");
-	ASM_INLINE("ADD	BX,AX");
-	ASM_INLINE("MOV	BX,[BX+0x0B].W");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("MOV	CX,0x0027");
-	ASM_INLINE("MUL	CX");
-	ASM_INLINE("MOV	CX,AX");
-	ASM_INLINE("ADD	SI,0x0045");
-	ASM_INLINE("ADD	SI,CX");
-	ASM_INLINE("MOV	CX,[SI+0x0D].W");
-	ASM_INLINE("MOV	DX,0x000C");
-	ASM_INLINE("POP	AX");
-	ASM_INLINE("CALLF	set_effect_task_, SEG set_effect_task_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	work->unk16F[unk][2] = 0x48;
+
+	//TODO: Fix this once struct is defined correctly
+	//set_effect_task(work, *((u16*)(work->unk00 + unk * 0x27 + 11)), *((u16*)(work->unk00 + unk * 0x27 + 13)), 0xc, 8);
+	set_effect_task(work, work->unk4C[unk].unk0B, work->unk4C[unk].unk0D, 0xc, 8);
 }
 

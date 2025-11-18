@@ -1,7 +1,7 @@
 #ifndef func_tbl_H
 #define func_tbl_H
 
-extern const u8 far functbl[];
+extern const u16 far functbl[][8];
 extern const u16 far tuneup_table[];
 extern const char far * far weapon_name[];
 extern const s8 far aulist[];

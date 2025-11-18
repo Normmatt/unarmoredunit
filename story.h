@@ -3,6 +3,21 @@
 
 #include "types.h"
 
+struct StoryWorkSub
+{
+    /* 0A */ u16 unk0;
+    /* 0C */ u16 unk2;
+    /* 0E */ u16 unk4;
+    /* 10 */ u16 unk6;
+    /* 12 */ u16 unk8;
+    /* 14 */ u16 unkA;
+    /* 16 */ u16 unkC;
+    /* 18 */ u8 far *unkE;
+    /* 1C */ u16 unk12;
+    /* 1E */ s16 unk14;
+    /* 20 */ s16 unk16;
+}; //Total 0x18 bytes
+
 struct StoryWork
 {
     /* 00 */ void *unk0;
@@ -14,21 +29,7 @@ struct StoryWork
     /* 07 */ u8 unk7;
     /* 08 */ u8 unk8;
     /* 09 */ u8 unk9;
-    /* 0A */ u16 unkA;
-    /* 0C */ u16 unkC;
-    /* 0E */ u16 unkE;
-    /* 10 */ u8 unk10;
-    /* 11 */ u8 unk11;
-    /* 12 */ u8 unk12;
-    /* 13 */ u8 unk13;
-    /* 14 */ u8 unk14;
-    /* 15 */ u8 unk15;
-    /* 16 */ u8 unk16;
-    /* 17 */ u8 unk17;
-    /* 18 */ u8 far *unk18;
-    /* 1C */ u16 unk1C;
-    /* 1E */ s16 unk1E;
-    /* 20 */ s16 unk20;
+    /* 0A */ struct StoryWorkSub unkA;
 }; //Total 0x22 bytes
 
 extern u8 far G_STORY_char_adr[];

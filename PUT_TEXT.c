@@ -1,6 +1,7 @@
 
 #include <machine.h>
 #include "types.h"
+#include "STORY.h"
 #include "PUT_TEXT.h"
 #include "SWAN_L_C.h"
 #include "SPRINTF.h"
@@ -669,7 +670,7 @@ ASM_INLINE("_90756:");
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_9075E()
+static s8 near unk_9075E(struct StoryWorkSub *work, u16 unk)
 {
 	put_cell_pixel; //Force include
 	get_bmp_cell_pixel; //Force include
@@ -856,120 +857,112 @@ ASM_INLINE("_908C0:");
 	ASM_INLINE("POP	BP");
 }
 
-s16 put_char()
+s16 put_char(u16 mode, struct StoryWorkSub *work, u16 unk)
 {
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,BX");
-	ASM_INLINE("TEST	SI,SI");
-	ASM_INLINE("JNZ	_908D6");
-	ASM_INLINE("MOV	AX,0xFFFF");
-	ASM_INLINE("JMP	_909C5");
-ASM_INLINE("_908D6:");
-	ASM_INLINE("MOV	DX,[SI+0x0E].W");
-	ASM_INLINE("MOV	BX,[SI+0x10].W");
-	ASM_INLINE("CMP	BX,0x0000");
-	ASM_INLINE("JNZ	_908E4");
-	ASM_INLINE("CMP	DX,0x0000");
-ASM_INLINE("_908E4:");
-	ASM_INLINE("JNZ	_908EC");
-	ASM_INLINE("MOV	AX,0xFFFF");
-	ASM_INLINE("JMP	_909C5");
-ASM_INLINE("_908EC:");
-	ASM_INLINE("CMP	AX,0x0001");
-	ASM_INLINE("JNZ	_908F4");
-	ASM_INLINE("JMP	_9098F");
-ASM_INLINE("_908F4:");
-	ASM_INLINE("CMP	AX,0x0002");
-	ASM_INLINE("JZ	_90970");
-	ASM_INLINE("CMP	AX,0x0003");
-	ASM_INLINE("JZ	_90943");
-	ASM_INLINE("CMP	AX,0x0004");
-	ASM_INLINE("JZ	_9092E");
-	ASM_INLINE("TEST	AX,AX");
-	ASM_INLINE("JZ	_9090A");
-	ASM_INLINE("JMP	_9098F");
-ASM_INLINE("_9090A:");
-	ASM_INLINE("MOV	[SI+0x06].W,0x0000");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("MOV	AX,[SI+0x02].W");
-	ASM_INLINE("MOV	[BX+0x08].W,AX");
-	ASM_INLINE("MOV	[SI+0x0A].W,0x0000");
-	ASM_INLINE("MOV	[SI+0x0C].W,0x0000");
-	ASM_INLINE("MOV	[SI+0x14].W,0x000A");
-	ASM_INLINE("MOV	[SI+0x16].W,0x000A");
-	ASM_INLINE("JMP	_909C3");
-ASM_INLINE("_9092E:");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	BX,CX");
-	ASM_INLINE("CALL	unk_9075E_");
-	ASM_INLINE("TEST	AL,AL");
-	ASM_INLINE("JNZ	_9093C");
-	ASM_INLINE("JMP	_909C3");
-ASM_INLINE("_9093C:");
-	ASM_INLINE("CMP	AL,0x09");
-	ASM_INLINE("JNZ	_9092E");
-	ASM_INLINE("JMP	_909C3");
-ASM_INLINE("_90943:");
-	ASM_INLINE("MOV	[SI+0x06].W,0x0000");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("MOV	AX,[SI+0x02].W");
-	ASM_INLINE("MOV	[BX+0x08].W,AX");
-	ASM_INLINE("LES	BX,[SI+0x0E]");
-	ASM_INLINE("ADD	BX,[SI+0x0A].W");
-	ASM_INLINE("CMP	ES:[BX].B,0x09");
-	ASM_INLINE("JNZ	_9095F");
-	ASM_INLINE("INC	[SI+0x0A].W");
-ASM_INLINE("_9095F:");
-	ASM_INLINE("MOV	[SI+0x0C].W,0x0000");
-	ASM_INLINE("MOV	[SI+0x14].W,0x000A");
-	ASM_INLINE("MOV	[SI+0x16].W,0x000A");
-	ASM_INLINE("JMP	_909C3");
-ASM_INLINE("_90970:");
-	ASM_INLINE("LES	BX,[SI+0x0E]");
-	ASM_INLINE("ADD	BX,[SI+0x0A].W");
-	ASM_INLINE("MOV	AL,ES:[BX].B");
-	ASM_INLINE("CMP	AL,0x09");
-	ASM_INLINE("JZ	_90986");
-	ASM_INLINE("TEST	AL,AL");
-	ASM_INLINE("JNZ	_9098B");
-	ASM_INLINE("MOV	AX,0xFFFE");
-	ASM_INLINE("JMP	_909C5");
-ASM_INLINE("_90986:");
-	ASM_INLINE("MOV	AX,0x0009");
-	ASM_INLINE("JMP	_909C5");
-ASM_INLINE("_9098B:");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("JMP	_909C5");
-ASM_INLINE("_9098F:");
-	ASM_INLINE("MOV	AX,[SI+0x16].W");
-	ASM_INLINE("CMP	AX,[SI+0x14].W");
-	ASM_INLINE("JL	_9099E");
-	ASM_INLINE("MOV	[SI+0x16].W,0x0000");
-	ASM_INLINE("JMP	_909A1");
-ASM_INLINE("_9099E:");
-	ASM_INLINE("INC	[SI+0x16].W");
-ASM_INLINE("_909A1:");
-	ASM_INLINE("CMP	[SI+0x16].W,0x0000");
-	ASM_INLINE("JZ	_909AB");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("JMP	_909C5");
-ASM_INLINE("_909AB:");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	BX,CX");
-	ASM_INLINE("CALL	unk_9075E_");
-	ASM_INLINE("CMP	AL,0x0E");
-	ASM_INLINE("JZ	_909AB");
-	ASM_INLINE("CMP	AL,0x0F");
-	ASM_INLINE("JZ	_909AB");
-	ASM_INLINE("TEST	AL,AL");
-	ASM_INLINE("JNZ	_909C3");
-	ASM_INLINE("MOV	AX,0xFFFF");
-	ASM_INLINE("JMP	_909C5");
-ASM_INLINE("_909C3:");
-	ASM_INLINE("XOR	AX,AX");
-ASM_INLINE("_909C5:");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
+	s16 res;
+	char tmp;
+
+	if(work == NULL)
+	{
+		return -1;
+	}
+
+	if(work->unkE == NULL)
+	{
+		return -1;
+	}
+
+	switch(mode)
+	{
+		case 0:
+		{
+			work->unk6 = 0;
+			work->unk8 = work->unk2;
+			work->unkA = 0;
+			work->unkC = 0;
+			work->unk14 = 10;
+			work->unk16 = 10;
+			goto END;
+		}
+		case 4:
+		{
+			do
+			{
+				tmp = unk_9075E(work, unk);
+				if(tmp == 0)
+				{
+					goto END;
+				}
+				else if(tmp == 9)
+				{
+					goto END;
+				}
+			} while (1);
+			break;
+		}
+		case 3:
+		{
+			work->unk6 = 0;
+			work->unk8 = work->unk2;
+			if (work->unkE[work->unkA] == 9)
+			{
+				work->unkA++;
+			}
+			work->unkC = 0;
+			work->unk14 = 10;
+			work->unk16 = 10;
+			goto END;
+		}
+		case 2:
+		{
+			tmp = work->unkE[work->unkA];
+			if(tmp == 9)
+			{
+				goto CASE_09;
+			}
+			if(tmp != 0)
+			{
+				goto CASE_00;
+			}
+		CASE_NEG2:
+			return -2;
+		CASE_09:
+			return 9;
+		CASE_00:
+			return 0;
+		}
+		case 1:
+		{
+			break;
+		}
+	}
+	
+	if (work->unk16 >= work->unk14)
+	{
+		work->unk16 = 0;
+	}
+	else 
+	{
+		++work->unk16;
+	}
+
+	if (work->unk16)
+	{
+		return 0;
+	}
+
+	do
+	{
+		do
+		{
+			tmp = unk_9075E(work, unk);
+		} while (tmp == 0x0E);
+	} while (tmp == 0x0F);
+	if (tmp == 0)
+	{
+		return -1;
+	}
+END:
+	return 0;
 }
 

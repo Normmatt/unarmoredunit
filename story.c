@@ -879,7 +879,7 @@ void story_init(void *buf)
 		work->unk7 = 0;
 		work->unk8 = 0;
 		work->unk9 = 0;
-		work->unk18 = 0;
+		work->unkA.unkE = 0;
 		nbg_ddf(0, 0);
 		nbg_ddf(1, 0);
 		nbg_scroll(0, 0, 0);
@@ -1012,11 +1012,11 @@ static void unk_901D9(struct StoryWork* buf)
 		}
 		if(buf->unk6 == 0x6C)
 		{
-			buf->unkA = 0x68;
-			buf->unkC = 0x20;
-			buf->unkE = 0x60;
-			buf->unk18 = story[buf->unk4]+1;
-			buf->unk1C = 0x01;
+			buf->unkA.unk0 = 0x68;
+			buf->unkA.unk2 = 0x20;
+			buf->unkA.unk4 = 0x60;
+			buf->unkA.unkE = story[buf->unk4]+1;
+			buf->unkA.unk12 = 0x01;
 
 			unk_8FD69(0x60, 0x18, 0x70, 0x40);
 
@@ -1044,12 +1044,12 @@ static void unk_901D9(struct StoryWork* buf)
 		}
 		else
 		{
-			if(buf->unk20 == 0)
+			if(buf->unkA.unk16 == 0)
 			{
 				font_put2XY(buf->unk3 << 3, 0, 8, 8, 3, 4, 0, G_FACE_char_adr);
 				buf->unk7 = 0;
 			}
-			else if(buf->unk1E >> 1 == buf->unk20)
+			else if(buf->unkA.unk14 >> 1 == buf->unkA.unk16)
 			{
 				font_put2XY(buf->unk3 << 3, 8, 8, 8, 3, 4, 0, G_FACE_char_adr);
 				buf->unk7 = 1;
