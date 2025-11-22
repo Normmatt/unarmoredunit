@@ -12,11 +12,11 @@ struct MGameWorkSub
     /* 07 */ u8 unk07[4];
     /* 0B */ u16 unk0B;
     /* 0D */ u16 unk0D;
-    /* 0F */ u16 unk0F;
+    /* 0F */ s16 unk0F;
     /* 11 */ u16 unk11;
     /* 13 */ s16 unk13;
     /* 15 */ s16 unk15;
-    /* 17 */ u16 unk17[8];
+    /* 17 */ s16 unk17[8];
 };
 
 struct MGameWork
@@ -24,7 +24,7 @@ struct MGameWork
     /* 00 */ void *unk0;
     /* 02 */ u8 unk4[0x45 - 0x2];
 
-    /* 45 */ struct MGameWorkSub unk4C[2];
+    /* 45 */ struct MGameWorkSub unk45[2];
 
     /* Struct? */
     /* 93 */ u16 unk93;
@@ -37,11 +37,12 @@ struct MGameWork
     /* A7 */ u16 unkA7;
     /* A9 */ u16 unkA9;
     /* AB */ u16 unkAB;
-    /* AD */ u16 unkAD;
-    /* AF */ u16 unkAF;
+    /* AD */ u16 unkAD[2];
     /* B1 */ u16 unkB1;
     /* B3 */ u8 unkB3;
-    /* B4 */ u8 unkB4[0xC6 - 0xB4];
+    /* B4 */ u8 unkB4[8][2];
+    /* C4 */ u8 unkC4;
+    /* C5 */ u8 unkC5;
     /* C6 */ u8 unkC6;
     /* C7 */ u8 unkC7;
     /* C8 */ u16 unkC8;

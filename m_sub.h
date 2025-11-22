@@ -3,8 +3,8 @@
 
 void font_put3();
 void font_putN();
-void put_energy_value();
-void put_energy_level();
+void put_energy_value(s16 unk1, s16 unk2);
+void put_energy_level(s16 unk1, s16 unk2);
 void put_turn_value();
 void put_turn_level();
 void put_hp_level();
@@ -23,9 +23,9 @@ void put_atack_cousor();
 void put_atack_cousorON();
 void put_move_cousor();
 void put_search_cousor();
-void get_lange_test();
+s16 get_lange_test(u16 unk1, u16 unk2, u16 unk3, u16 unk4, u16 unk5);
 void put_search_hit_check();
-void put_atack_hit_check();
+u16 put_atack_hit_check();
 void set_effect_task();
 void run_effect_task();
 void wall_sprite();

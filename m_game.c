@@ -145,33 +145,6 @@ u8 m_game_data14[] = {
 	0x05, 0x00,
 };
 
-u8 m_game_data15[] = {
-    0x06, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00,
-};
-
-u8 m_game_data16[] = {
-	0x07, 0x02, 0xA8, 0xC0,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-	0x05, 0x00,
-};
-
-u8 m_game_data17[] = {
-	0x05, 0x02, 0xA8, 0xC0,
-    0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00, 
-	0x00, 0x00, 0x00, 0x00,
-	0x00, 0x00, 0x00, 0x00,
-    0x05, 0x00,
-};
-
 u16 mother_child; /*1002*/
 
 static void unk_84A18(struct MGameWork* work);
@@ -2180,7 +2153,7 @@ ASM_INLINE("_856F9:");
 
 static void near unk_85701(struct MGameWork *work)
 {
-	put_function_name(work->unk4C[0].unk17[(work->unkA9 * 4) + work->unkA7]);
+	put_function_name(work->unk45[0].unk17[(work->unkA9 * 4) + work->unkA7]);
 }
 
 static void unk_8571E()
@@ -2548,7 +2521,7 @@ ASM_INLINE("_85A93:");
 
 static void unk_85A98(struct MGameWork * work)
 {
-	put_move_cousor(work, work->unk4C[0].unk0B, work->unk4C[0].unk0D, 1, 1);
+	put_move_cousor(work, work->unk45[0].unk0B, work->unk45[0].unk0D, 1, 1);
 }
 
 static void unk_85AB8()
@@ -2749,54 +2722,16 @@ ASM_INLINE("_85C8C:");
 
 static void unk_85C91(struct MGameWork *work)
 {
-	put_search_cousor; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	AX,0xA711");
-	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	DI,0x0000");
-	ASM_INLINE("MOV	AX,[SI+0x00A9].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	AX,[SI+0x00A7].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("ADD	BX,0x005C");
-	ASM_INLINE("ADD	BX,AX");
-	ASM_INLINE("MOV	AX,[BX].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	DI,AX");
-	ASM_INLINE("MOV	DX,ES:[DI+0x04].W");
-	ASM_INLINE("AND	DX,0x00FF");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("MOV	AX,[BX+0x50].W");
-	ASM_INLINE("MOV	[SI+0x00AD].W,AX");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("MOV	AX,[BX+0x52].W");
-	ASM_INLINE("MOV	[SI+0x00AF].W,AX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	BX,[SI+0x00AD].W");
-	ASM_INLINE("MOV	CX,[SI+0x00AF].W");
-	ASM_INLINE("CALLF	put_search_cousor_, SEG put_search_cousor_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AX,0x8003");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	put_message_, SEG put_message_");
-	ASM_INLINE("POP	DI");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	u16 val;
+	
+	val = functbl[(work->unk45[0].unk17[(work->unkA9 * 4) + work->unkA7])][2] & 0xff;
+	work->unkAD[0] = work->unk45[0].unk0B;
+	work->unkAD[1] = work->unk45[0].unk0D;
+	put_search_cousor(work, work->unkAD[0], work->unkAD[1], val, 1);
+	put_message(0x8003, 0);
 }
 
-static void unk_85CFF()
+static void unk_85CFF(struct MGameWork *work)
 {
 	put_search_hit_check; //Force include
 	ASM_INLINE("PUSH	CX");
@@ -3068,61 +3003,284 @@ ASM_INLINE("_85FAE:");
 	ASM_INLINE("POP	CX");
 }
 
-static void unk_85FB3()
+static void unk_85FB3(struct MGameWork *work)
 {
-	put_lange_cousor; //Force include
-	m_game_main_lange_sub; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	AX,0xA711");
-	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	DI,0x0000");
-	ASM_INLINE("MOV	AX,[SI+0x00A9].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	AX,[SI+0x00A7].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("ADD	BX,0x005C");
-	ASM_INLINE("ADD	BX,AX");
-	ASM_INLINE("MOV	AX,[BX].W");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("ADD	DI,AX");
-	ASM_INLINE("MOV	DX,ES:[DI+0x04].W");
-	ASM_INLINE("AND	DX,0x00FF");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("MOV	AX,[BX+0x50].W");
-	ASM_INLINE("MOV	[SI+0x00AD].W,AX");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("MOV	AX,[SI+0x52].W");
-	ASM_INLINE("MOV	[BX+0x00AF].W,AX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	BX,[SI+0x50].W");
-	ASM_INLINE("MOV	CX,[SI+0x52].W");
-	ASM_INLINE("CALLF	put_lange_cousor_, SEG put_lange_cousor_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	BX,0x0001");
-	ASM_INLINE("CALLF	m_game_main_lange_sub_, SEG m_game_main_lange_sub_");
-	ASM_INLINE("MOV	AX,0x8007");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("CALLF	put_message_, SEG put_message_");
-	ASM_INLINE("POP	DI");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	u16 val;
+	
+	val = functbl[(work->unk45[0].unk17[(work->unkA9 * 4) + work->unkA7])][2] & 0xff;
+	work->unkAD[0] = work->unk45[0].unk0B;
+	work->unkAD[1] = work->unk45[0].unk0D;
+	put_lange_cousor(work, work->unk45[0].unk0B, work->unk45[0].unk0D, val, 1);
+	m_game_main_lange_sub(work, 1);
+	put_message(0x8007, 0);
 }
 
-static void unk_86029()
+u8 m_game_data15[] = {
+	0x06, 0x02, 0xA8, 0xC0,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x05, 0x00,
+};
+
+u8 m_game_data16[] = {
+	0x07, 0x02, 0xA8, 0xC0,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x05, 0x00,
+};
+
+u8 m_game_data17[] = {
+	0x05, 0x02, 0xA8, 0xC0,
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00,
+	0x05, 0x00,
+};
+
+static void unk_86029(struct MGameWork *work)
 {
+/*	struct MGameWorkSub *sub;
+	s16 *ptr;
+	u16 unk1;
+	u16 unk2;
+	s16 lange;
+
+	sub = work->unk45;
+	ptr = work->unkAD;
+	unk1 = functbl[(sub[0].unk17[(work->unkA9 * 4) + work->unkA7])][2] & 0xff;
+	unk2 = functbl[(sub[0].unk17[(work->unkA9 * 4) + work->unkA7])][3] & 0xff;
+
+	if (pad[0].unk4 & 0x100)
+	{
+		sereq(0xc);
+		if (ptr[1] <= 0)
+		{
+			//Empty but required to match
+		} 
+		else if(get_lange_test(sub[0].unk0B, sub[0].unk0D, ptr[0], ptr[1] - 1, unk1) == 0)
+		{
+			m_game_main_lange_sub(work,0);
+			ptr[1]--;
+			m_game_main_lange_sub(work,1);
+		}
+	}
+	else if (pad[0].unk4 & 0x400)
+	{
+		sereq(0xc);
+		if(ptr[1] < 7)
+		{
+			if(get_lange_test(sub[0].unk0B, sub[0].unk0D, ptr[0], ptr[1] + 1, unk1) == 0)
+			{
+				m_game_main_lange_sub(work, 0);
+				ptr[1]++;
+				m_game_main_lange_sub(work, 1);
+			}
+		}
+	}
+	else if (pad[0].unk4 & 0x800)
+	{
+		sereq(0xc);
+		if (ptr[0] <= 0)
+		{
+			//Empty but required to match
+		} 
+		else if(get_lange_test(sub[0].unk0B, sub[0].unk0D, ptr[0] - 1, ptr[1], unk1) == 0)
+		{
+			m_game_main_lange_sub(work,0);
+			ptr[0]--;
+			m_game_main_lange_sub(work,1);
+		}
+	}
+	else  if (pad[0].unk4 & 0x200)
+	{
+		sereq(12);
+		if(ptr[0] < 7)
+		{
+			lange = get_lange_test(sub[0].unk0B, sub[0].unk0D, ptr[0] + 1, ptr[1], unk1);
+			if(lange == 0)
+			{
+				m_game_main_lange_sub(work, 0);
+				ptr[0]++;
+				m_game_main_lange_sub(work, 1);
+			}
+		}
+	}
+	if (pad[0].unk4 & 0x4)
+	{
+		sereq(10);
+		m_game_main_lange_sub(work, 0);
+		unk2 = 0;
+		put_lange_cousor(work, sub[0].unk0B, sub[0].unk0D, unk1, unk2);
+		work->unkB1 = 0;
+		lange = put_atack_hit_check(work, ptr[0], ptr[1], work->unk45[0].unk17[work->unkA9 * 4 + work->unkA7], work->unk45[1].unk0B, work->unk45[1].unk0D);
+
+		if (lange == 0)
+		{
+			put_message(0x8009,0);
+		}
+
+		if (lange & 1)
+		{
+			work->unkB4[work->unk45[1].unk0D * 8 + work->unk45[1].unk0B][1] = 0x80;
+			put_rader_cousor(work, work->unk45[1].unk0B, work->unk45[1].unk0D, 0xffff, 0);
+			put_message(0x8004,0);
+		}
+
+		if (lange & 2)
+		{
+			put_message(0x8005,0);
+		}
+
+		if (lange & 4)
+		{
+			work->unk45[1].unk0F -= functbl[(work->unk45[0].unk17[(work->unkA9 * 4) + work->unkA7])][5];
+			if (0x16 < work->unk45[0].unk17[work->unkA9 * 4 + work->unkA7])
+			{
+				work->unk4[2] = 0x01;
+			}
+
+			if (work->unk45[1].unk0F <= 0)
+			{
+				work->unk45[1].unk0F = 0;
+			}
+
+			put_hp_level(0, sub[0].unk0F, sub[0].unk11);
+			put_hp_level(1, sub[1].unk0F, sub[1].unk11);
+			put_message(0x8008, functbl[(work->unk45[0].unk17[(work->unkA9 * 4) + work->unkA7])][5]);
+
+			do
+			{
+				u8 m_game_data15[] = {
+					0x06, 0x02, 0xA8, 0xC0,
+					0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x00,
+					0x05, 0x00,
+				};
+
+				u8 val = SAVE_DATA_START[0x07];
+
+				switch(val)
+				{
+					case 0:
+					case 1:
+					{
+						break;
+					}
+					case 2:
+					{
+						m_game_data15[5] = functbl[(work->unk45[0].unk17[(work->unkA9 * 4) + work->unkA7])][5];
+						m_game_data15[6] = work->unk45[0].unk17[(work->unkA9 * 4) + work->unkA7];
+						ip_w(m_game_data15);
+						//break;
+					}
+					case 3:
+					{
+						break;
+					}
+				}
+			} while(0);
+		}
+
+		if (unk1 & 8)
+		{
+			do
+			{
+				u8 m_game_data16[] = {
+					0x07, 0x02, 0xA8, 0xC0,
+					0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x00,
+					0x05, 0x00,
+				};
+
+				u8 val = SAVE_DATA_START[0x07];
+
+				switch(val)
+				{
+					case 0:
+					case 1:
+					{
+						break;
+					}
+					case 2:
+					{
+						m_game_data16[4] = 0;
+						m_game_data16[5] = (work->unk16F[1][0] << 4) | work->unk16F[1][1];
+						m_game_data16[6] = 0x48;
+						ip_w(m_game_data16);
+						//break;
+					}
+					case 3:
+					{
+						break;
+					}
+				}
+			} while(0);
+
+			work->unk16F[1][0] = 0x0F;
+			work->unk16F[1][1] = 0x0F;
+		}
+
+		set_effect_task(work, ptr[0], ptr[1], functbl[sub->unk17[work->unkA9 * 4 + work->unkA7]][6] & 0xff, unk2);
+
+		do
+		{
+			u8 m_game_data17[] = {
+				0x05, 0x02, 0xA8, 0xC0,
+				0x00, 0x00, 0x00, 0x00,
+				0x00, 0x00, 0x00, 0x00, 
+				0x00, 0x00, 0x00, 0x00,
+				0x00, 0x00, 0x00, 0x00,
+				0x05, 0x00,
+			};
+
+			u8 val = SAVE_DATA_START[0x07];
+
+			switch(val)
+			{
+				case 0:
+				case 1:
+				{
+					break;
+				}
+				case 2:
+				{
+					m_game_data17[4] = (ptr[0] << 4) | ptr[1];
+					m_game_data17[5] = functbl[(sub[0].unk17[(work->unkA9 * 4) + work->unkA7])][6] & 0xFF;
+					m_game_data17[6] = unk2;
+					ip_w(m_game_data17);
+					//break;
+				}
+				case 3:
+				{
+					break;
+				}
+			}
+		} while(0);
+
+		item_used_create(work);
+		item_used_se(work);
+	}
+	else
+	{
+		if (pad[0].unk4 & 8)
+		{
+			sereq(0xb);
+			m_game_main_lange_sub(work, 0);
+			unk2 = 0;
+			put_lange_cousor(work, sub[0].unk0B, sub[0].unk0D, unk1, unk2);
+			work->unkB1 = 0;
+		}
+	}*/
+
 	get_lange_test; //Force include
 	put_atack_hit_check; //Force include
 	ASM_INLINE("PUSH	BP");
@@ -3669,7 +3827,7 @@ ASM_INLINE("_86551:");
 
 static void unk_86559(struct MGameWork *work)
 {
-	switch(work->unk4C->unk17[(work->unkA9 * 4) + work->unkA7])
+	switch(work->unk45->unk17[(work->unkA9 * 4) + work->unkA7])
 	{
 		case 15:
 		{
@@ -3711,7 +3869,7 @@ static void unk_86559(struct MGameWork *work)
 
 static void unk_865D5(struct MGameWork *work)
 {
-	switch(work->unk4C->unk17[(work->unkA9 * 4) + work->unkA7])
+	switch(work->unk45->unk17[(work->unkA9 * 4) + work->unkA7])
 	{
 		case 15:
 		{
@@ -3753,13 +3911,13 @@ static void unk_865D5(struct MGameWork *work)
 
 static void near unk_86651(struct MGameWork *work)
 {
-	work->unk4C[1].unk0F = 0;
-	work->unk4C[0].unk06 = 1;
+	work->unk45[1].unk0F = 0;
+	work->unk45[0].unk06 = 1;
 }
 
 void item_used_se(struct MGameWork *work)
 {
-	sereq(functbl[(work->unk4C[0].unk17[(work->unkA9 * 4) + work->unkA7])][7]);
+	sereq(functbl[(work->unk45[0].unk17[(work->unkA9 * 4) + work->unkA7])][7]);
 }
 
 u8 m_game_data18[] = {
@@ -3784,18 +3942,18 @@ void item_used_create(struct MGameWork *work)
 {
 	/*u16 val;
 
-	val = functbl[(work->unk4C[0].unk17[(work->unkA9 * 4) + work->unkA7])][1];
-	work->unk4C[0].unk04 = 0;
-	work->unk4C[0].unk13 -= val;
+	val = functbl[(work->unk45[0].unk17[(work->unkA9 * 4) + work->unkA7])][1];
+	work->unk45[0].unk04 = 0;
+	work->unk45[0].unk13 -= val;
 
-	if (work->unk4C[0].unk15 <= work->unk4C[0].unk13)
+	if (work->unk45[0].unk15 <= work->unk45[0].unk13)
 	{
-		work->unk4C[0].unk13 = work->unk4C[0].unk15;
+		work->unk45[0].unk13 = work->unk45[0].unk15;
 	}
 
-	put_turn_level(work->unk4C[0].unk04);
-	put_energy_value(work->unk4C[0].unk13, work->unk4C[0].unk15);
-	put_energy_level(work->unk4C[0].unk13, work->unk4C[0].unk15);
+	put_turn_level(work->unk45[0].unk04);
+	put_energy_value(work->unk45[0].unk13, work->unk45[0].unk15);
+	put_energy_level(work->unk45[0].unk13, work->unk45[0].unk15);
 
 	do
 	{
@@ -3818,7 +3976,7 @@ void item_used_create(struct MGameWork *work)
 			}
 			case 2:
 			{
-				m_game_data18[4] = (work->unk4C[0].unk0B << 4) | work->unk4C[0].unk0D;
+				m_game_data18[4] = (work->unk45[0].unk0B << 4) | work->unk45[0].unk0D;
 				ip_w(m_game_data18);
 				//break;
 			}
@@ -3848,7 +4006,7 @@ void item_used_create(struct MGameWork *work)
 			}
 			case 2:
 			{
-				m_game_data19[4] = (work->unk4C[1].unk0F << 4) | work->unk4C[1].unk11;
+				m_game_data19[4] = (work->unk45[1].unk0F << 4) | work->unk45[1].unk11;
 				ip_w(m_game_data19);
 				//break;
 			}
@@ -3981,8 +4139,8 @@ ASM_INLINE("_86799:");
 
 void m_game_main_lange_sub(struct MGameWork *work, u16 unk)
 {
-	u16 val = functbl[(work->unk4C[0].unk17[(work->unkA9 * 4) + work->unkA7])][3] & 0xFF;
-	put_atack_cousor(work, work->unkAD, work->unkAF, val, unk);
+	u16 val = functbl[(work->unk45[0].unk17[(work->unkA9 * 4) + work->unkA7])][3] & 0xFF;
+	put_atack_cousor(work, work->unkAD[0], work->unkAD[1], val, unk);
 }
 
 static void near unk_867F2(struct MGameWork *work, u16 unk)
@@ -3991,6 +4149,6 @@ static void near unk_867F2(struct MGameWork *work, u16 unk)
 
 	//TODO: Fix this once struct is defined correctly
 	//set_effect_task(work, *((u16*)(work->unk00 + unk * 0x27 + 11)), *((u16*)(work->unk00 + unk * 0x27 + 13)), 0xc, 8);
-	set_effect_task(work, work->unk4C[unk].unk0B, work->unk4C[unk].unk0D, 0xc, 8);
+	set_effect_task(work, work->unk45[unk].unk0B, work->unk45[unk].unk0D, 0xc, 8);
 }
 
