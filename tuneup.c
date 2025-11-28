@@ -1,6 +1,7 @@
 #include <machine.h>
 #include "types.h"
 #include "tuneup.h"
+#include "func_tbl.h"
 #include "SWAN_L_C.h"
 #include "SWANMAIN.h"
 #include "SPRINTF.h"
@@ -775,6 +776,7 @@ void tuneup_init()
 
 static void near unk_8E2E1(u16 a, u16 b, u16 c, u16 d)
 {
+	weapon_name;
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
 	ASM_INLINE("SUB	SP,0x0002");
@@ -882,7 +884,7 @@ ASM_INLINE("_8E38B:");
 	ASM_INLINE("SHL	DX,1");
 	ASM_INLINE("CALL	unk_8DC88_");
 	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("MOV	AX,0xA74B");
+	ASM_INLINE("MOV	AX,SEG weapon_name_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	BX,[DI+0x12].W");
 	ASM_INLINE("ADD	BX,0x0005");
@@ -1034,7 +1036,7 @@ ASM_INLINE("_8E47B:");
 	ASM_INLINE("SHL	DX,1");
 	ASM_INLINE("CALL	unk_8DC88_");
 	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("MOV	AX,0xA74B");
+	ASM_INLINE("MOV	AX,SEG weapon_name_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	BX,DI");
 	ASM_INLINE("ADD	BX,0x000A");
@@ -1225,7 +1227,7 @@ ASM_INLINE("_8E5DC:");
 	ASM_INLINE("SHL	DX,1");
 	ASM_INLINE("CALL	unk_8DC88_");
 	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("MOV	AX,0xA74B");
+	ASM_INLINE("MOV	AX,SEG weapon_name_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	BX,[DI+0x12].W");
 	ASM_INLINE("ADD	BX,0x0005");
@@ -1354,7 +1356,7 @@ ASM_INLINE("_8E6B7:");
 	ASM_INLINE("SHL	DX,1");
 	ASM_INLINE("CALL	unk_8DC88_");
 	ASM_INLINE("ADD	SP,0x0004");
-	ASM_INLINE("MOV	AX,0xA74B");
+	ASM_INLINE("MOV	AX,SEG weapon_name_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("ADD	DI,0x000A");
 	ASM_INLINE("ADD	DI,[BP+0x04].W");

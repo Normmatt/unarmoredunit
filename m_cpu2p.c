@@ -93,52 +93,52 @@ u8 effect_tbl[] = {
     0x30, 0x00, 0x30, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0xDB, 0xD1,
 };
 
-static void near unk_890A8(u16 a);
-static void near unk_890A9(u16 a);
-static void near unk_8965C(u16 a);
-static void near unk_89689(u16 a);
+static void near unk_890A8(struct MGameWork *work);
+static void near unk_890A9(struct MGameWork *work);
+static void near unk_8965C(struct MGameWork *work);
+static void near unk_89689(struct MGameWork *work);
 
-void m_cpu2p_init(u16 a)
+void m_cpu2p_init(struct MGameWork *work)
 {
 	switch(mother_child)
 	{
 		case 1:
 		case 2:
 		{
-			unk_890A8(a);
+			unk_890A8(work);
 			return;
 		}
 		case 0: 
 		{
-			unk_8965C(a);
+			unk_8965C(work);
 			return;
 		}
 	}
 }
 
-void m_cpu2p_main(u16 a)
+void m_cpu2p_main(struct MGameWork *work)
 {
 	switch(mother_child)
 	{
 		case 1:
 		case 2:
 		{
-			unk_890A9(a);
+			unk_890A9(work);
 			return;
 		}
 		case 0: 
 		{
-			unk_89689(a);
+			unk_89689(work);
 			return;
 		}
 	}
 }
 
-static void near unk_890A8(u16 a)
+static void near unk_890A8(struct MGameWork *work)
 {
 }
 
-static void near unk_890A9(u16 a)
+static void near unk_890A9(struct MGameWork *work)
 {
 	ip_r; //Force include
 	put_hp_level; //Force include
@@ -401,10 +401,8 @@ ASM_INLINE("_892D3:");
 	ASM_INLINE("POP	BP");
 }
 
-extern u16 _8087;
-static void near unk_892DB()
+static void near unk_892DB(struct MGameWork *work, u16 unk)
 {
-	_8087; //Force include, this is likely wrong but required for matching
 	rand; //Force include
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
@@ -476,7 +474,7 @@ ASM_INLINE("_89337:");
 	ASM_INLINE("SHL	BX,1");
 	ASM_INLINE("SHL	BX,1");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("CMP	CX,ES:[BX+_8087_].W"); //Probably doesn't use _8087_ but required to match for now
+	ASM_INLINE("CMP	CX,ES:[BX+0x10000].W"); //Probably doesn't use _8087_ but required to match for now
 	ASM_INLINE("JZ	_8936E");
 ASM_INLINE("_89365:");
 	ASM_INLINE("INC	DI");
@@ -493,7 +491,7 @@ ASM_INLINE("_8936E:");
 	ASM_INLINE("POP	BP");
 }
 
-static void near unk_89376()
+static void near unk_89376(struct MGameWork *work)
 {
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
@@ -821,26 +819,21 @@ ASM_INLINE("_89658:");
 	ASM_INLINE("POP	DX");
 }
 
-static void near unk_8965C(u16 a)
+static void near unk_8965C(struct MGameWork *work)
 {
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	BX,SI");
-	ASM_INLINE("ADD	BX,0x0134");
-	ASM_INLINE("ADD	SI,0x006C");
-	ASM_INLINE("MOV	[BX].B,0x00");
-	ASM_INLINE("MOV	[BX+0x01].B,0xFF");
-	ASM_INLINE("MOV	[BX+0x02].B,0xFF");
-	ASM_INLINE("MOV	[BX+0x03].B,0xFF");
-	ASM_INLINE("MOV	[BX+0x04].B,0xFF");
-	ASM_INLINE("MOV	AX,[SI+0x0B].W");
-	ASM_INLINE("MOV	[BX+0x05].B,AL");
-	ASM_INLINE("MOV	AX,[SI+0x0D].W");
-	ASM_INLINE("MOV	[BX+0x06].B,AL");
-	ASM_INLINE("POP	SI");
+	struct MGameWork134 *ptr = &work->unk134;
+	struct MGameWorkSub *ptr2 = &work->unk45[1];
+
+	ptr->unk00 = 0x00;
+	ptr->unk01 = 0xff;
+	ptr->unk02 = 0xff;
+	ptr->unk03 = 0xff;
+	ptr->unk04 = 0xff;
+	ptr->unk05 = ptr2->unk0B;
+	ptr->unk06 = ptr2->unk0D;
 }
 
-static void near unk_89689(u16 a)
+static void near unk_89689(struct MGameWork *work)
 {
 	aulist; //Force include
 	get_lange_test; //Force include

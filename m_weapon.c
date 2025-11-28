@@ -348,24 +348,9 @@ ASM_INLINE("_88974:");
 	ASM_INLINE("POP	CX");
 }
 
-void m_game_main_weapon_i_type16()
+void m_game_main_weapon_i_type16(struct MGameWork *work)
 {
-	put_move_cousor; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("MOV	BX,[SI+0x50].W");
-	ASM_INLINE("MOV	CX,[SI+0x52].W");
-	ASM_INLINE("MOV	DX,0x0002");
-	ASM_INLINE("CALLF	put_move_cousor_, SEG put_move_cousor_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	put_move_cousor(work, work->unk45[0].unk0B, work->unk45[0].unk0D, 2, 1);
 }
 
 void m_game_main_weapon_m_type16()
@@ -612,23 +597,17 @@ ASM_INLINE("_88BAF:");
 	ASM_INLINE("POP	CX");
 }
 
-void m_game_main_weapon_i_type17()
+void m_game_main_weapon_i_type17(struct MGameWork *work)
 {
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("ADD	BX,0x0045");
-	ASM_INLINE("ADD	[BX+0x13].W,0x000F");
+	struct MGameWorkSub *ptr = &work->unk45[0];
+	ptr->unk13 += 0x0F;
 }
 
-void m_game_main_weapon_m_type17()
+void m_game_main_weapon_m_type17(struct MGameWork *work)
 {
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	[SI+0x00B1].W,0x0000");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("CALLF	item_used_create_, SEG item_used_create_");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("CALLF	item_used_se_, SEG item_used_se_");
-	ASM_INLINE("POP	SI");
+	work->unkB1 = 0;
+	item_used_create(work);
+	item_used_se(work);
 }
 
 void m_game_main_weapon_i_type18()
