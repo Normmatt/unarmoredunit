@@ -19,6 +19,8 @@
 #include "m_weapon.h"
 #include "tuneup.h"
 
+extern u8 G_GAME_char_adr[];
+
 u8 m_game_data[] = {
 	0x01, 0x02, 0xA8, 0xC0,
     0x00, 0x00, 0x00, 0x00,
@@ -172,6 +174,7 @@ void m_game_reinit(struct MGameWork* work)
 	put_au_big; //Force include
 	put_message; //Force include
 	bgmreq; //Force include
+	G_GAME_char_adr; //Force include
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
 	ASM_INLINE("SUB	SP,0x00DC");
@@ -711,8 +714,8 @@ ASM_INLINE("_84886:");
 	ASM_INLINE("MOV	AX,0x0001");
 	ASM_INLINE("CALLF	bitmap_, SEG bitmap_");
 	ASM_INLINE("MOV	AX,0x0001");
-	ASM_INLINE("MOV	CX,0x0000");
-	ASM_INLINE("MOV	DX,0xACE5");
+	ASM_INLINE("MOV	CX,G_GAME_char_adr_");
+	ASM_INLINE("MOV	DX,SEG G_GAME_char_adr_");
 	ASM_INLINE("CALLF	font_put2_, SEG font_put2_");
 	ASM_INLINE("CALLF	field_fix_, SEG field_fix_");
 	ASM_INLINE("CALLF	wall_space_make_, SEG wall_space_make_");
@@ -1622,7 +1625,7 @@ ASM_INLINE("_8516C:");
 	ASM_INLINE("MOV	AL,[0x1E09].B");
 	ASM_INLINE("XOR	AH,AH");
 	ASM_INLINE("MOV	[BP-0x68].W,AX");
-	ASM_INLINE("MOV	AX,0xA79F");
+	ASM_INLINE("MOV	AX,SEG stageadd_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	BX,0x000A");
 	ASM_INLINE("ADD	BX,[BP-0x68].W");
@@ -2432,7 +2435,7 @@ ASM_INLINE("_859C0:");
 	ASM_INLINE("JMP	_85A71");
 ASM_INLINE("_859C9:");
 	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	DI,0x0000");
 	ASM_INLINE("SHL	BX,1");
@@ -2448,7 +2451,7 @@ ASM_INLINE("_859C9:");
 	ASM_INLINE("POP	BX");
 	ASM_INLINE("JL	_85A5E");
 	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("SHL	BX,1");
 	ASM_INLINE("ADD	BX,CX");
@@ -2742,7 +2745,7 @@ static void unk_85CFF(struct MGameWork *work)
 	ASM_INLINE("MOV	SI,DI");
 	ASM_INLINE("ADD	SI,0x00AD");
 	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	AX,[DI+0x00A9].W");
@@ -2926,7 +2929,7 @@ ASM_INLINE("_85EE9:");
 	ASM_INLINE("POP	AX");
 	ASM_INLINE("TEST	AX,0x0004");
 	ASM_INLINE("JZ	_85F2A");
-	ASM_INLINE("MOV	BX,0xA711");
+	ASM_INLINE("MOV	BX,SEG functbl_");
 	ASM_INLINE("MOV	ES,BX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	CX,[DI+0x00A9].W");
@@ -3283,6 +3286,7 @@ static void unk_86029(struct MGameWork *work)
 
 	get_lange_test; //Force include
 	put_atack_hit_check; //Force include
+	stageadd; //Force include
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
 	ASM_INLINE("SUB	SP,0x0044");
@@ -3297,7 +3301,7 @@ static void unk_86029(struct MGameWork *work)
 	ASM_INLINE("MOV	SI,DI");
 	ASM_INLINE("ADD	SI,0x00AD");
 	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	AX,[DI+0x00A9].W");
@@ -3316,7 +3320,7 @@ static void unk_86029(struct MGameWork *work)
 	ASM_INLINE("ADD	SI,AX");
 	ASM_INLINE("MOV	DX,ES:[SI+0x04].W");
 	ASM_INLINE("AND	DX,0x00FF");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	AX,[DI+0x00A9].W");
@@ -3548,7 +3552,7 @@ ASM_INLINE("_862AD:");
 	ASM_INLINE("JNZ	_862B7");
 	ASM_INLINE("JMP	_863E7");
 ASM_INLINE("_862B7:");
-	ASM_INLINE("MOV	BX,0xA711");
+	ASM_INLINE("MOV	BX,SEG functbl_");
 	ASM_INLINE("MOV	ES,BX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	CX,[DI+0x00A9].W");
@@ -3596,7 +3600,7 @@ ASM_INLINE("_86310:");
 	ASM_INLINE("MOV	CX,[SI+0x38].W");
 	ASM_INLINE("CALLF	put_hp_level_, SEG put_hp_level_");
 	ASM_INLINE("MOV	AX,0x8008");
-	ASM_INLINE("MOV	BX,0xA711");
+	ASM_INLINE("MOV	BX,SEG functbl_");
 	ASM_INLINE("MOV	ES,BX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	CX,[DI+0x00A9].W");
@@ -3635,7 +3639,7 @@ ASM_INLINE("_86310:");
 	ASM_INLINE("JZ	_863E7");
 	ASM_INLINE("JMP	_863E7");
 ASM_INLINE("_86395:");
-	ASM_INLINE("MOV	BX,0xA711");
+	ASM_INLINE("MOV	BX,SEG functbl_");
 	ASM_INLINE("MOV	ES,BX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	CX,[DI+0x00A9].W");
@@ -3715,7 +3719,7 @@ ASM_INLINE("_86443:");
 	ASM_INLINE("PUSH	SI");
 	ASM_INLINE("MOV	CX,[SI+0x02].W");
 	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("MOV	DX,0xA711");
+	ASM_INLINE("MOV	DX,SEG functbl_");
 	ASM_INLINE("MOV	ES,DX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	CX,[DI+0x00A9].W");
@@ -3769,7 +3773,7 @@ ASM_INLINE("_864BA:");
 	ASM_INLINE("SHL	BX,1");
 	ASM_INLINE("OR	BX,[SI+0x02].W");
 	ASM_INLINE("MOV	[BP-0x40].B,BL");
-	ASM_INLINE("MOV	BX,0xA711");
+	ASM_INLINE("MOV	BX,SEG functbl_");
 	ASM_INLINE("MOV	ES,BX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	CX,[DI+0x00A9].W");
@@ -4022,7 +4026,7 @@ void item_used_create(struct MGameWork *work)
 	ASM_INLINE("PUSH	SI");
 	ASM_INLINE("PUSH	DI");
 	ASM_INLINE("MOV	DX,AX");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	BX,DX");

@@ -43,12 +43,13 @@ void m_game_main_weapon_i_sub()
 	put_lange_cousor; //Force include
 	m_game_main_lange_sub; //Force include
 	put_message; //Force include
+	functbl; //Force include
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
 	ASM_INLINE("PUSH	SI");
 	ASM_INLINE("PUSH	DI");
 	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	DI,0x0000");
 	ASM_INLINE("MOV	AX,[SI+0x00A9].W");
@@ -106,7 +107,7 @@ void m_game_main_weapon_m_sub()
 	ASM_INLINE("MOV	SI,DI");
 	ASM_INLINE("ADD	SI,0x00AD");
 	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	AX,[DI+0x00A9].W");
@@ -269,7 +270,7 @@ void m_game_main_weapon_m_type15()
 	ASM_INLINE("MOV	BX,DI");
 	ASM_INLINE("ADD	BX,0x00AD");
 	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	AX,[DI+0x00A9].W");
@@ -631,7 +632,7 @@ void m_game_main_weapon_m_type18()
 	ASM_INLINE("MOV	SI,DI");
 	ASM_INLINE("ADD	SI,0x00AD");
 	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	AX,[DI+0x00A9].W");
@@ -764,7 +765,7 @@ void m_game_main_weapon_m_type19()
 	ASM_INLINE("MOV	SI,DI");
 	ASM_INLINE("ADD	SI,0x00AD");
 	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	AX,[DI+0x00A9].W");
@@ -876,7 +877,7 @@ void m_game_main_weapon_m_type20()
 	ASM_INLINE("MOV	BX,DI");
 	ASM_INLINE("ADD	BX,0x00AD");
 	ASM_INLINE("PUSH	BX");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	BX,DI");
@@ -1016,7 +1017,7 @@ void m_game_main_weapon_m_type21()
 	ASM_INLINE("MOV	SI,DI");
 	ASM_INLINE("ADD	SI,0x00AD");
 	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("MOV	AX,0xA711");
+	ASM_INLINE("MOV	AX,SEG functbl_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	SI,0x0000");
 	ASM_INLINE("MOV	AX,[DI+0x00A9].W");

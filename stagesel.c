@@ -42,6 +42,9 @@ static void near unk_8CFD3(struct StageSelWork *work)
 static void near unk_8D03D(struct StageSelWork *work, u16 b)
 {
 	bmp_print; //Force include
+	stagelist; //Force include
+	type_name; //Force include
+	chara_name; //Force include
 	ASM_INLINE("PUSH	BP");
 	ASM_INLINE("MOV	BP,SP");
 	ASM_INLINE("SUB	SP,0x0014");
@@ -55,7 +58,7 @@ static void near unk_8D03D(struct StageSelWork *work, u16 b)
 	ASM_INLINE("JMP	_8D14B");
 ASM_INLINE("_8D050:");
 	ASM_INLINE("LEA	DI,[BP-0x10].B");
-	ASM_INLINE("MOV	AX,0xA79D");
+	ASM_INLINE("MOV	AX,SEG stagelist_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	AL,[0x1E0A].B");
 	ASM_INLINE("XOR	AH,AH");
@@ -78,7 +81,7 @@ ASM_INLINE("_8D075:");
 	ASM_INLINE("MUL	BX");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SUB	BX,0x000F");
-	ASM_INLINE("MOV	AX,0xA751");
+	ASM_INLINE("MOV	AX,SEG aulist_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	AL,ES:[BX+0x0004].B");
 	ASM_OP5(0x26,0x8A,0x87,0x04,0x00);
@@ -86,7 +89,7 @@ ASM_INLINE("_8D075:");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SHL	BX,1");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA79C");
+	ASM_INLINE("MOV	AX,SEG type_name_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	CX,ES:[BX+0x0002].W");
 	ASM_OP5(0x26,0x8B,0x8F,0x02,0x00);
@@ -112,7 +115,7 @@ ASM_INLINE("_8D0AE:");
 	ASM_INLINE("CALLF	bmp_print_, SEG bmp_print_");
 	ASM_INLINE("ADD	SP,0x0002");
 	ASM_INLINE("LEA	DI,[BP-0x10].B");
-	ASM_INLINE("MOV	AX,0xA79D");
+	ASM_INLINE("MOV	AX,SEG stagelist_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	AL,[0x1E0A].B");
 	ASM_INLINE("XOR	AH,AH");
@@ -134,7 +137,7 @@ ASM_INLINE("_8D0FB:");
 	ASM_INLINE("SHL	BX,1");
 	ASM_INLINE("SHL	BX,1");
 	ASM_INLINE("SUB	BX,0x0004");
-	ASM_INLINE("MOV	AX,0xA78E");
+	ASM_INLINE("MOV	AX,SEG chara_name_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	CX,ES:[BX+0x000A].W");
 	ASM_OP5(0x26,0x8B,0x8F,0x0A,0x00);
@@ -162,7 +165,7 @@ ASM_INLINE("_8D120:");
 	ASM_INLINE("JMP	_8D20B");
 ASM_INLINE("_8D14B:");
 	ASM_INLINE("LEA	BX,[BP-0x10].B");
-	ASM_INLINE("MOV	AX,0xA751");
+	ASM_INLINE("MOV	AX,SEG aulist_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	AL,[0x1E0A].B");
 	ASM_INLINE("XOR	AH,AH");
@@ -180,7 +183,7 @@ ASM_INLINE("_8D14B:");
 	ASM_INLINE("MOV	SI,AX");
 	ASM_INLINE("SHL	SI,1");
 	ASM_INLINE("SHL	SI,1");
-	ASM_INLINE("MOV	AX,0xA79C");
+	ASM_INLINE("MOV	AX,SEG type_name_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	CX,ES:[SI+0x0002].W");
 	ASM_OP5(0x26,0x8B,0x8C,0x02,0x00);
@@ -206,7 +209,7 @@ ASM_INLINE("_8D18D:");
 	ASM_INLINE("CALLF	bmp_print_, SEG bmp_print_");
 	ASM_INLINE("ADD	SP,0x0002");
 	ASM_INLINE("LEA	SI,[BP-0x10].B");
-	ASM_INLINE("MOV	AX,0xA78E");
+	ASM_INLINE("MOV	AX,SEG chara_name_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	AL,[0x1E0A].B");
 	ASM_INLINE("XOR	AH,AH");

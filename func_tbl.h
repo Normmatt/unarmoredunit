@@ -104,7 +104,7 @@ struct MAUData
 extern const u16 far functbl[][8];
 extern const u16 far tuneup_table[][6];
 extern const char far * far weapon_name[];
-extern const struct MAUData far aulist[43];
+extern const struct MAUData far aulist[];
 extern const char far * far chara_name[];
 extern const char far * far type_name[];
 extern const u8 far stagelist[];

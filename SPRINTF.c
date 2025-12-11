@@ -14,6 +14,7 @@ const u32 far dec_div_tbl[] = {100000,10000,1000,100,10,1};
 const u32 far hex_div_tbl[] = {0x10000,0x1000,0x100,0x10,1};
 const u32 far bin_div_tbl[] = {0x10000,0x8000,0x4000,0x2000,0x1000,0x800,0x400,0x100,0x80,0x40,0x20,0x10,0x8,0x4,0x2,0x1};
 
+extern u8 far SH_FONT_char_adr[];
 	
 void print(u16 unk, u16 unk2, u16 unk3, u8 *unk4, u8 far font[])
 {
@@ -163,6 +164,7 @@ ASM_INLINE("_80634:");
 void bmp_print_next()
 {
 	font_put2XY; //Force include
+	SH_FONT_char_adr; //Force include
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
 	ASM_INLINE("PUSH	SI");
@@ -262,7 +264,7 @@ ASM_INLINE("_8070A:");
 	ASM_INLINE("ADD	BX,AX");
 ASM_INLINE("_8070C:");
 	ASM_INLINE("MOV	CX,0x0000");
-	ASM_INLINE("MOV	AX,0xA378");
+	ASM_INLINE("MOV	AX,SEG SH_FONT_char_adr_");
 	ASM_INLINE("PUSH	AX");
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	[SI+0x0A].W");
