@@ -11,7 +11,7 @@ struct TuneupWork
     /* 06 */ u16 unk6;
     /* 08 */ u16 unk8;
     /* 0A */ s8 unkA[8];
-    /* 12 */ s8 *unk12;
+    /* 12 */ u8 *unk12;
 }; //Total 0x14 bytes
 
 extern u8 far G_TUNEUP_char_adr[];

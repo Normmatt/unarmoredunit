@@ -40,8 +40,9 @@ clean:
 	$(RM) *.exe
 	$(RM) armoredunit.hex
 	$(RM) armoredunit.bin
+	$(RM) armoredunit.ws
 
-all:  crt0.obj armoredunit.hex armoredunit.bin progress compare
+all:  crt0.obj armoredunit.hex armoredunit.bin armoredunit.ws progress compare
 
 crt0.obj:	crt0.p86
 	cpp -o crt0.a86 $<
@@ -152,6 +153,9 @@ armoredunit.hex:	crt0.obj $(OBJS)
 
 armoredunit.bin: armoredunit.hex
 	hex2bin -s 0000 -l 100000 -p FF armoredunit.hex
+
+armoredunit.ws: armoredunit.bin
+	cp armoredunit.bin armoredunit.ws
 
 compare:
 	sha1sum -c armoredunit.sha1

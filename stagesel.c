@@ -403,7 +403,7 @@ static void unk_8D82A(struct StageSelWork *work)
 {
 	s16 i;
 	u16 val;
-	u8 far *ptr;
+	struct MAUData far *ptr;
 	if ((pad[0].unk4 & 4))
 	{
 		SAVE_DATA_START[0x09] = work->unk0;
@@ -421,16 +421,15 @@ static void unk_8D82A(struct StageSelWork *work)
 			i = 0;
 		}
 		i += work->unk0;
-		val = stagelist[i] * 0xF - 15;
-		ptr = aulist + val;
+		ptr = &aulist[stagelist[i] - 1];
 		SAVE_DATA_START[0x3C] = stagelist[i] - 1;
-		SAVE_DATA_START[0x3E] = ptr[2];
-		SAVE_DATA_START[0x3F] = ptr[3];
+		SAVE_DATA_START[0x3E] = ptr->hp;
+		SAVE_DATA_START[0x3F] = ptr->en;
 		SAVE_DATA_START[0x40] = 0xFF;
 
 		for(i = 0; i < 8; i++)
 		{
-			SAVE_DATA_START[i+0x41] = *(ptr+5+i);
+			SAVE_DATA_START[i+0x41] = ptr->moves[i];
 		}
 
 		for(i = 0; i < 16; i++)

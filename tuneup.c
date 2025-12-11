@@ -632,9 +632,9 @@ ASM_INLINE("_8DF7A:");
 	ASM_INLINE("INC	CX");
 ASM_INLINE("_8DF7B:");
 	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	BX,0xA72B");
+	ASM_INLINE("MOV	BX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,BX");
-	ASM_INLINE("MOV	BX,0x0000");
+	ASM_INLINE("MOV	BX,tuneup_table_");
 	ASM_INLINE("MOV	AX,CX");
 	ASM_INLINE("MOV	DX,0x000C");
 	ASM_INLINE("MUL	DX");
@@ -657,17 +657,23 @@ static s16 near unk_8DFA1(struct TuneupWork *work, u16 b)
 /*	s16 i;
 	u16 val;
 
-	
-	for(i = 0; i < 8; )
+	for(i = 0; b != val && ++i < 8; )
 	{
-		val = *(aulist + *work->unk12 * 0xf + 5 + i);
-		if(((b != val)))
-		{
-			i++;
-		}
+		val = aulist[(u8)*work->unk12].moves[i];
 	}
 
-	return (i >= 8) ? 0 : 1;*/
+	if(i >= 8)
+	{
+		return 0;
+	}
+	//else
+	{
+		return 1;
+	}
+
+	//return (i >= 8) ? 0 : 1;
+*/
+
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
 	ASM_INLINE("PUSH	SI");
@@ -744,7 +750,7 @@ void tuneup_init()
 		bitmap(1);
 		unk_8DD97(0,0,0,0,1);
 		unk_8DA68(8,1,0,0,1,chara_name[(u8)ptr[0]]);
-		unk_8DA68(8,2,0,0,1,type_name[aulist[(u8)ptr[0] * 0x0F]]);
+		unk_8DA68(8,2,0,0,1,type_name[aulist[(u8)ptr[0]].type]);
 		unk_8DC88(4,3,0,0,1,(u8)ptr[4]);
 		unk_8DD97(0x25,0xd,0,0,1);
 		unk_8DD97(0x23,0xe,0,0,1);
@@ -753,13 +759,13 @@ void tuneup_init()
 		unk_8DD97(0x15,5,0,0,1);
 		unk_8DD97(0x16,6,0,0,1);
 		unk_8DC88(5,5,0x10,0,1,(u8)ptr[2]);
-		val = tuneup_table[aulist[(u8)ptr[0] * 0x0F]];
+		val = tuneup_table[0][aulist[(u8)ptr[0]].type];
 		unk_8DE28(0x29,6,8,0,1,val);
 		unk_8DD97(0x19,7,0,0,1);
 		unk_8DD97(0x1c,8,0,0,1);
 		unk_8DD97(0x1d,9,0,0,1);
 		unk_8DC88(5,8,0x10,0,1,(u8)ptr[3]);
-		val = *(tuneup_table + 6 + aulist[(u8)ptr[0] * 0x0F]);
+		val = tuneup_table[1][aulist[(u8)ptr[0]].type];
 		unk_8DE28(0x29,9,8,0,1,val*5);
 		unk_8DD97(0x20,10,0,0,1);
 		unk_8E2E1(work,1,1,0);
@@ -846,9 +852,9 @@ ASM_INLINE("_8E338:");
 	ASM_INLINE("POP	DX");
 	ASM_INLINE("PUSH	DX");
 	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	BX,0xA72B");
+	ASM_INLINE("MOV	BX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,BX");
-	ASM_INLINE("MOV	BX,0x0000");
+	ASM_INLINE("MOV	BX,tuneup_table_");
 	ASM_INLINE("MOV	SI,[DI+0x12].W");
 	ASM_INLINE("ADD	SI,0x0005");
 	ASM_INLINE("ADD	SI,DX");
@@ -1003,9 +1009,9 @@ ASM_INLINE("_8E47B:");
 	ASM_INLINE("SHL	AX,1");
 	ASM_INLINE("POP	DX");
 	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	BX,0xA72B");
+	ASM_INLINE("MOV	BX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,BX");
-	ASM_INLINE("MOV	BX,0x0000");
+	ASM_INLINE("MOV	BX,tuneup_table_");
 	ASM_INLINE("MOV	SI,DI");
 	ASM_INLINE("ADD	SI,0x000A");
 	ASM_INLINE("ADD	SI,DX");
@@ -1113,8 +1119,8 @@ static u16 near unk_8E557(struct TuneupWork *work, u16 b, u16 c, u16 d, s16 e)
 			{
 				if (3 <= *(work->unk12 + 5 + e))
 				{
-					val = *(tuneup_table + 4 + aulist[(u8)*work->unk12 * 0x0F]);
-					val = aulist[*(work->unk12 + 5 + e) * 0xc];
+					val = tuneup_table[0][aulist[(u8)*work->unk12].type];
+					val = aulist[(u8)work->unk12[5 + e]].type;
 				}
 				else
 				{
@@ -1122,8 +1128,8 @@ static u16 near unk_8E557(struct TuneupWork *work, u16 b, u16 c, u16 d, s16 e)
 				}
 
 				unk_8DC88(b + 5,c + 0xb,0x40,e << 3,1,val);
-				unk_8DA68(b + 8,c + 0xb,8,e << 3,1,aulist[work->unk12[e + 5]]);
-				val = unk_8DFA1(work, work->unk12[e + 5]);
+				unk_8DA68(b + 8,c + 0xb,8,e << 3,1,aulist[(u8)*(work->unk12 + e)].type);
+				val = unk_8DFA1(work, *(work->unk12 + 5 + e));
 
 				if (val == 0)
 				{
@@ -1139,8 +1145,8 @@ static u16 near unk_8E557(struct TuneupWork *work, u16 b, u16 c, u16 d, s16 e)
 		}
 		else if (0 < work->unkA[e])
 		{
-			unk_8DC88(b + 5, 0xb, 0x40, e << 3, 1, aulist[work->unkA[e] * 0xc]);
-			unk_8DA68(b + 8, c + 0xb, 8, e << 3, 1, aulist[work->unkA[e] * 4]);
+			unk_8DC88(b + 5, 0xb, 0x40, e << 3, 1, aulist[(u8)work->unkA[e]].type);
+			unk_8DA68(b + 8, c + 0xb, 8, e << 3, 1, aulist[(u8)work->unkA[e] * 4].type);
 			unk_8DD97(b + 1, c + 0xb, 0, e << 3, 1);
 			return 1;
 		}
@@ -1192,9 +1198,9 @@ ASM_INLINE("_8E58B:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("SHL	AX,1");
 	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	BX,0xA72B");
+	ASM_INLINE("MOV	BX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,BX");
-	ASM_INLINE("MOV	BX,0x0000");
+	ASM_INLINE("MOV	BX,tuneup_table_");
 	ASM_INLINE("MOV	SI,[DI+0x12].W");
 	ASM_INLINE("ADD	SI,0x0005");
 	ASM_INLINE("ADD	SI,[BP+0x04].W");
@@ -1325,9 +1331,9 @@ ASM_INLINE("_8E6B7:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("SHL	AX,1");
 	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	BX,0xA72B");
+	ASM_INLINE("MOV	BX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,BX");
-	ASM_INLINE("MOV	BX,0x0000");
+	ASM_INLINE("MOV	BX,tuneup_table_");
 	ASM_INLINE("MOV	SI,DI");
 	ASM_INLINE("ADD	SI,0x000A");
 	ASM_INLINE("ADD	SI,[BP+0x04].W");
@@ -1410,8 +1416,64 @@ ASM_INLINE("_8E780:");
 	ASM_INLINE("POP	BP");
 }
 
-static void unk_8E786()
+static s16 unk_8E786(struct TuneupWork *work)
 {
+/*	s16 i;
+	s16 j;
+	s16 ret;
+	u16 tmp;
+	s16 tmp2;
+	s16 tmp3;
+
+	
+	for(i = 0; (0 <= *(work->unk12 + 5 + i)) && i < 8; i++)
+	{
+	}
+
+	if(i < 8)
+	{	
+		return -1;
+	}
+
+	tmp =  work->unkA[work->unk2];
+	tmp2 = tuneup_table[tmp][aulist[(u8)*work->unk12].type];
+	tmp3 = work->unk12[4];
+	if (tmp3 >= tmp2)
+	{
+		work->unk12[4] -= tmp2;
+	}
+	else
+	{
+		return 0;
+	}
+
+	for(i = 0; i < 8; i++)
+	{
+		if(0 <= *(work->unk12 + 5 + i))
+		{
+			break;
+		}
+	}
+	if(i < 7)
+	{
+		for (j = 6; i <= j; j--)
+		{
+			work->unk12[j + 5 + 1] = work->unk12[j + 5];
+		}
+		work->unk12[i + 5] = tmp;
+	}
+	else
+	{
+		work->unk12[0xc] = tmp;
+	}
+
+	for (i = work->unk2; i < 7; i++)
+	{
+		work->unkA[i] = work->unkA[i + 1];
+	}
+	work->unkA[i] = 0;
+	return 1;*/
+
 	ASM_INLINE("PUSH	CX");
 	ASM_INLINE("PUSH	DX");
 	ASM_INLINE("PUSH	SI");
@@ -1441,7 +1503,7 @@ ASM_INLINE("_8E7AE:");
 	ASM_INLINE("MOV	AL,[BX].B");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	CX,AX");
-	ASM_INLINE("MOV	AX,0xA751");
+	ASM_INLINE("MOV	AX,SEG aulist_");
 	ASM_INLINE("MOV	ES,AX");
 	ASM_INLINE("MOV	BX,[DI+0x12].W");
 	ASM_INLINE("MOV	AL,[BX].B");
@@ -1454,9 +1516,9 @@ ASM_INLINE("_8E7AE:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	SI,AX");
 	ASM_INLINE("SHL	SI,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	BX,0x0000");
+	ASM_INLINE("MOV	BX,tuneup_table_");
 	ASM_INLINE("MOV	AX,CX");
 	ASM_INLINE("MOV	DX,0x000C");
 	ASM_INLINE("MUL	DX");
@@ -1833,9 +1895,9 @@ ASM_INLINE("_8EAFB:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	SI,AX");
 	ASM_INLINE("SHL	SI,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
-	ASM_INLINE("MOV	BX,0x0000");
+	ASM_INLINE("MOV	BX,tuneup_table_");
 	ASM_INLINE("MOV	AX,CX");
 	ASM_INLINE("MOV	DX,0x000C");
 	ASM_INLINE("MUL	DX");
@@ -2228,7 +2290,7 @@ ASM_INLINE("_8EE86:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	CX,ES:[BX+0x0000].W");
 	ASM_OP5(0x26,0x8B,0x8F,0x00,0x00);
@@ -2355,7 +2417,7 @@ ASM_INLINE("_8EF52:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	AX,ES:[BX+0x0000].W");
 	ASM_OP5(0x26,0x8B,0x87,0x00,0x00);
@@ -2430,7 +2492,7 @@ ASM_INLINE("_8F00A:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	AX,ES:[BX+0x0000].W");
 	ASM_OP5(0x26,0x8B,0x87,0x00,0x00);
@@ -2496,7 +2558,7 @@ ASM_INLINE("_8F0F8:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	CX,ES:[BX+0x0000].W");
 	ASM_OP5(0x26,0x8B,0x8F,0x00,0x00);
@@ -2624,7 +2686,7 @@ ASM_INLINE("_8F1C9:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	AX,ES:[BX+0x0000].W");
 	ASM_OP5(0x26,0x8B,0x87,0x00,0x00);
@@ -2697,7 +2759,7 @@ ASM_INLINE("_8F2C8:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	AX,ES:[BX+0x000C].W");
 	ASM_OP5(0x26,0x8B,0x87,0x0C,0x00);
@@ -2827,7 +2889,7 @@ ASM_INLINE("_8F39C:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	AX,ES:[BX+0x000C].W");
 	ASM_OP5(0x26,0x8B,0x87,0x0C,0x00);
@@ -2904,7 +2966,7 @@ ASM_INLINE("_8F459:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	AX,ES:[BX+0x000C].W");
 	ASM_OP5(0x26,0x8B,0x87,0x0C,0x00);
@@ -2972,7 +3034,7 @@ ASM_INLINE("_8F54C:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	AX,ES:[BX+0x000C].W");
 	ASM_OP5(0x26,0x8B,0x87,0x0C,0x00);
@@ -3103,7 +3165,7 @@ ASM_INLINE("_8F625:");
 	ASM_INLINE("CBW");
 	ASM_INLINE("MOV	BX,AX");
 	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("MOV	AX,0xA72B");
+	ASM_INLINE("MOV	AX,SEG tuneup_table_");
 	ASM_INLINE("MOV	ES,AX");
 	//ASM_INLINE("MOV	AX,ES:[BX+0x000C].W");
 	ASM_OP5(0x26,0x8B,0x87,0x0C,0x00);
