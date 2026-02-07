@@ -3,6 +3,21 @@
 
 #include "types.h"
 
+struct PrintInfo
+{
+    /* 00 */ u16 unk0;
+    /* 02 */ u16 unk2;
+    /* 04 */ u16 unk4;
+    /* 06 */ u16 unk6;
+    /* 08 */ u16 unk8;
+    /* 0A */ u16 unkA;
+    /* 0C */ u16 unkC;
+    /* 0E */ u16 unkE;
+    /* 10 */ u16 unk10;
+    /* 12 */ u16 unk12;
+    /* 14 */ u16 unk14;
+}; //Total 0x14 bytes
+
 extern void far *ssprintf;
 extern const char far hex_num_tbl[];
 extern const char far HEX_num_tbl[];

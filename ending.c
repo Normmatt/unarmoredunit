@@ -25,12 +25,15 @@ static void near unk_90FC7(struct EndingWork* work)
 //static void near unk_91004(u16 a, u16 b, void far *data)
 static void near unk_91004()
 {
-/*	s16 i;
+/*	s16 i;	
 	u16 val;
-	u16 far *ptr = ((u16 far*)data) + *((u16 far*)((u8 far *)data+0x0E));
+	u16 val2;
+	u16 far *ptr;
+
+	ptr = (u16 far *)((u8 far *)data + ((struct GEndingHeader far *)data)->unkE);
 
 	for (i = 0; i < 0x1c; i++) {
-		put_cell_no(i << 3, a << 3, 1, ptr[(b * 0x1c + i)] | 0x800);
+		put_cell_no(i * 8, a * 8, 1, ptr[(b * 0x1c + i)] | 0x800);
 	}*/
 
 	put_cell_no; //Force include

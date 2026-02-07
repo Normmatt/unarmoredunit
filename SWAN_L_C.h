@@ -3,6 +3,18 @@
 
 #include "types.h"
 
+struct GraphicsHeader
+{
+    /* 00 */ u16 unk0;
+    /* 02 */ u16 unk2;
+    /* 04 */ u16 unk4;
+    /* 06 */ u16 unk6;
+    /* 08 */ u16 unk8;
+    /* 0A */ u16 unkA;
+    /* 0C */ u16 unkC;
+    /* 0E */ u16 unkE;
+}; //Total 0x10 bytes
+
 extern u16 v_blank_cnt_count;
 extern u16 v_blank_int_count;
 extern u16 h_blank_cnt_count;

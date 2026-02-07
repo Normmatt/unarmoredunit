@@ -182,6 +182,7 @@ ASM_INLINE("_91EA2:");
 	ASM_INLINE("POP	BP");
 }
 
+//u16 get_bmp_cell_no(u16 a, u16 b, u8 far *data)
 u16 get_bmp_cell_no()
 {
 	ASM_INLINE("PUSH	BP");
@@ -232,6 +233,17 @@ u16 get_bmp_cell_no()
 
 void font_putXY(s16 a, s16 b, u16 c, u16 d, u16 e, u16 f, u16 g, u8 far *gfx)
 {
+/*	s16 i;
+	s16 j;
+	u16 val;
+
+	for (i = 0; i < d; i++)
+    {
+        for (j = 0; j < c; j++)
+        {
+            put_cell_no((e + j) * 8, (f + i) * 8, g, get_bmp_cell_no(a + j, b + i, gfx));
+        }
+    }*/
 	get_bmp_cell_no; //Force include
 	put_cell_no; //Force include
 	ASM_INLINE("PUSH	BP");

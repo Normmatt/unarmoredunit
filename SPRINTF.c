@@ -108,60 +108,42 @@ ASM_INLINE("_805B7:");
 	ASM_INLINE("POP	BP");
 }
 
-void bmp_print()
+void bmp_print(s16 a, s16 b, s16 c, s16 d, struct PrintInfo *pInfo2)
 {
-	ASM_INLINE("PUSH	BP");
-	ASM_INLINE("MOV	BP,SP");
-	ASM_INLINE("SUB	SP,0x0016");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("CMP	[BP+0x06].W,0x0000");
-	ASM_INLINE("JZ	_805D7");
-	ASM_INLINE("MOV	SI,[BP+0x06].W");
-	ASM_INLINE("JMP	_805DA");
-ASM_INLINE("_805D7:");
-	ASM_INLINE("LEA	SI,[BP-0x16].B");
-ASM_INLINE("_805DA:");
-	ASM_INLINE("MOV	[SI].W,CX");
-	ASM_INLINE("MOV	CX,AX");
-	ASM_INLINE("SAR	CX,1");
-	ASM_INLINE("SAR	CX,1");
-	ASM_INLINE("SAR	CX,1");
-	ASM_INLINE("MOV	[SI+0x02].W,CX");
-	ASM_INLINE("MOV	CX,BX");
-	ASM_INLINE("SAR	CX,1");
-	ASM_INLINE("SAR	CX,1");
-	ASM_INLINE("SAR	CX,1");
-	ASM_INLINE("MOV	[SI+0x04].W,CX");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("SAR	AX,1");
-	ASM_INLINE("MOV	[SI+0x06].W,AX");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("SAR	BX,1");
-	ASM_INLINE("MOV	[SI+0x08].W,BX");
-	ASM_INLINE("MOV	[SI+0x0A].W,DX");
-	ASM_INLINE("MOV	[SI+0x0C].W,0x0000");
-	ASM_INLINE("MOV	[SI+0x0E].W,0x0000");
-	ASM_INLINE("CMP	[BP+0x06].W,0x0000");
-	ASM_INLINE("JNZ	_8062F");
-	ASM_INLINE("MOV	[SI+0x10].W,0x0000");
-	ASM_INLINE("MOV	[SI+0x12].W,0x0000");
-	ASM_INLINE("MOV	[SI+0x14].W,0x0000");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("CALLF	bmp_print_next_, SEG bmp_print_next_");
-	ASM_INLINE("JMP	_80634");
-ASM_INLINE("_8062F:");
-	ASM_INLINE("MOV	[SI+0x10].W,0x0001");
-ASM_INLINE("_80634:");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("MOV	SP,BP");
-	ASM_INLINE("POP	BP");
+	struct PrintInfo info;
+	struct PrintInfo *pInfo;
+	if(pInfo2 != NULL)
+	{
+		pInfo = pInfo2;
+	}
+	else
+	{
+		pInfo = &info;
+	}
+
+	pInfo->unk0 = c;
+	pInfo->unk2 = a >> 3;
+	pInfo->unk4 = b >> 3;
+	pInfo->unk6 = a >> 3;
+	pInfo->unk8 = b >> 3;
+	pInfo->unkA = d;
+	pInfo->unkC = 0;
+	pInfo->unkE = 0;
+
+	if(pInfo2 == NULL)
+	{
+		pInfo->unk10 = 0;
+		pInfo->unk12 = 0;
+		pInfo->unk14 = 0;
+		bmp_print_next(pInfo);
+	}
+	else
+	{
+		pInfo->unk10 = 1;
+	}
 }
 
-void bmp_print_next()
+void bmp_print_next(struct PrintInfo *pInfo)
 {
 	font_put2XY; //Force include
 	SH_FONT_char_adr; //Force include
