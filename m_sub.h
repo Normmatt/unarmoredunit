@@ -1,8 +1,20 @@
 #ifndef M_SUB_H
 #define M_SUB_H
 
+struct Font
+{
+    /* 00 */ u16 unk0;
+    /* 02 */ u16 unk2;
+    /* 04 */ s16 unk4;
+    /* 06 */ u16 unk6;
+    /* 08 */ u16 unk8;
+    /* 0A */ u16 unkA;
+    /* 0C */ u16 bitmapOffset;
+    /* 0E */ u16 glyphTableOffset;
+}; //Total 0x10 bytes
+
 void font_put3();
-void font_putN();
+void font_putN(s16 a, s16 b, u8 far *ptr);
 void put_energy_value(s16 unk1, s16 unk2);
 void put_energy_level(s16 unk1, s16 unk2);
 void put_turn_value();

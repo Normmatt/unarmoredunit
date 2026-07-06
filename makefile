@@ -17,7 +17,7 @@ MODEL=p
 	obj2asm.exe $@ -c$*.cod
 
 .c.a86:
-	lcc86 -O -B -cv -m$(MODEL) -SC $(CFLAGS) $(DEFINES) -o $@ $<
+	lcc86 -O -B -cv -m$(MODEL) -S $(CFLAGS) $(DEFINES) -o $@ $<
 
 .a86.obj:
 	r86 $(AFLAGS) -o $@ $<
@@ -175,7 +175,7 @@ m_cpu2p.a86:  m_cpu2p.c
 flash.a86:  flash.c
 PAD.a86:  PAD.c
 IP_MES.a86:  IP_MES.c
-m_game.a86:  m_game.c
 m_sub.a86:  m_sub.c
 tuneup.a86:  tuneup.c
 unisel.a86:  unisel.c
+STRING.a86:  STRING.c

@@ -1,4 +1,5 @@
 #include <machine.h>
+#include <stdrom.h>
 #include "types.h"
 #include "m_sub.h"
 #include "m_game.h"
@@ -43,6 +44,7 @@ static const u8 far unk_1[] = {5,4};
 static const u8 far unk_2[] = {4,6,8,6};
 static const u8 far unk_3[] = {4,6,8};
 
+//void font_put3(s16 x, s16 index, s16 y, struct Font far *font)
 void font_put3()
 {
 	font_put2_sub; //Force include
@@ -133,70 +135,56 @@ void font_put3()
 	ASM_INLINE("POP	CX");
 	ASM_INLINE("MOV	SP,BP");
 	ASM_INLINE("POP	BP");
+
+	/*u8 far *glyphTable;
+    u8 far *bitmap;
+    u8 far *bitmap2;
+    u8 far *dst;
+    u8 far *fdst;
+    u16 far *entry;
+
+    // Build pointer to glyph table (+0x0E)
+    glyphTable = MK_FP(
+        FP_SEG(font),
+        FP_OFF(font) + *(u16 far *)(ptr + 0x0C));
+
+    // Build pointer to bitmap table (+0x0C)
+    bitmap = MK_FP(
+        FP_SEG(font),
+        FP_OFF(font) + font->bitmapOffset);
+
+    // Screen buffer
+    dst = MK_FP(vram, cel_tbl[1]);
+
+    entry = MK_FP(
+        FP_SEG(glyphTable),
+        FP_OFF(glyphTable) +
+            (((u16)x * (font->unk4 >> 3)) + index) * sizeof(u16));
+
+    bitmap2 = MK_FP(
+        FP_SEG(bitmap),
+        FP_OFF(bitmap) + ((*entry & 0x01FF) << 4));
+
+    fdst = MK_FP(
+        FP_SEG(dst),
+        FP_OFF(dst) + (y << 4));
+
+    font_put2_sub(bitmap2, fdst, entry);*/
 }
 
-void font_putN()
+void font_putN(s16 a, s16 b, u8 far *ptr)
 {
-	ASM_INLINE("PUSH	BP");
-	ASM_INLINE("MOV	BP,SP");
-	ASM_INLINE("SUB	SP,0x000C");
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("MOV	DI,BX");
-	ASM_INLINE("MOV	[BP-0x04].W,CX");
-	ASM_INLINE("MOV	[BP-0x02].W,DX");
-	ASM_INLINE("MOV	AX,[BP-0x04].W");
-	ASM_INLINE("MOV	AX,[BP-0x02].W");
-	ASM_INLINE("MOV	BX,AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("XOR	DX,DX");
-	ASM_INLINE("MOV	CX,[BP-0x04].W");
-	ASM_INLINE("LES	BX,[BP-0x04]");
-	ASM_INLINE("ADD	CX,ES:[BX+0x0C].W");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("OR	DX,CX");
-	ASM_INLINE("OR	AX,BX");
-	ASM_INLINE("MOV	[BP-0x08].W,DX");
-	ASM_INLINE("MOV	[BP-0x06].W,AX");
-	ASM_INLINE("MOV	BX,[0x00F8].W");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("MOV	AX,BX");
-	ASM_INLINE("XOR	BX,BX");
-	ASM_INLINE("MOV	DX,[0x005E].W");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("OR	BX,DX");
-	ASM_INLINE("OR	AX,CX");
-	ASM_INLINE("MOV	[BP-0x0C].W,BX");
-	ASM_INLINE("MOV	[BP-0x0A].W,AX");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	AX,[BP-0x08].W");
-	ASM_INLINE("MOV	BX,[BP-0x06].W");
-	ASM_INLINE("SHL	SI,1");
-	ASM_INLINE("SHL	SI,1");
-	ASM_INLINE("SHL	SI,1");
-	ASM_INLINE("SHL	SI,1");
-	ASM_INLINE("ADD	AX,SI");
-	ASM_INLINE("MOV	CX,[BP-0x0C].W");
-	ASM_INLINE("MOV	DX,[BP-0x0A].W");
-	ASM_INLINE("SHL	DI,1");
-	ASM_INLINE("SHL	DI,1");
-	ASM_INLINE("SHL	DI,1");
-	ASM_INLINE("SHL	DI,1");
-	ASM_INLINE("ADD	CX,DI");
-	ASM_INLINE("CALLF	font_put2_sub_, SEG font_put2_sub_");
-	ASM_INLINE("ADD	SP,0x0002");
-	ASM_INLINE("POP	DI");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
-	ASM_INLINE("MOV	SP,BP");
-	ASM_INLINE("POP	BP");
+	u8 far *src;
+    u8 far *dst;
+
+    src = MK_FP(FP_SEG(ptr), FP_OFF(ptr) + *(u16 far *)(ptr + 0x0C));
+    dst = MK_FP(vram, cel_tbl[1]);
+
+	font_put2_sub(
+        src + (a << 4),
+        dst + (b << 4),
+        0
+    );
 }
 
 void put_energy_value(s16 unk1, s16 unk2)
@@ -664,111 +652,35 @@ void field_test()
 
 void wall_space_make()
 {
-	memalloc; //Force include
-	font_putN; //Force include
-	get_bmp_cell_no; //Force include
-	memfree; //Force include
-	G_SPACE_char_adr; //Force include
-	ASM_INLINE("PUSH	CX");
-	ASM_INLINE("PUSH	DX");
-	ASM_INLINE("PUSH	SI");
-	ASM_INLINE("PUSH	DI");
-	ASM_INLINE("MOV	AX,0x0060");
-	ASM_INLINE("CALLF	memalloc_, SEG memalloc_");
-	ASM_INLINE("MOV	SI,AX");
-	ASM_INLINE("TEST	SI,SI");
-	ASM_INLINE("JNZ	_87157");
-	ASM_INLINE("JMP	_871FF");
-ASM_INLINE("_87157:");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("JMP	_87184");
-ASM_INLINE("_8715B:");
-	ASM_INLINE("XOR	DI,DI");
-	ASM_INLINE("JMP	_8717E");
-ASM_INLINE("_8715F:");
-	ASM_INLINE("MOV	AX,CX");
-	ASM_INLINE("MOV	BX,0x001C");
-	ASM_INLINE("MUL	BX");
-	ASM_INLINE("ADD	AX,0x016C");
-	ASM_INLINE("ADD	AX,DI");
-	ASM_INLINE("MOV	BX,CX");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("ADD	BX,DI");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("ADD	BX,SI");
-	ASM_INLINE("MOV	[BX].W,AX");
-	ASM_INLINE("INC	DI");
-ASM_INLINE("_8717E:");
-	ASM_INLINE("CMP	DI,0x0010");
-	ASM_INLINE("JL	_8715F");
-	ASM_INLINE("INC	CX");
-ASM_INLINE("_87184:");
-	ASM_INLINE("CMP	CX,0x0003");
-	ASM_INLINE("JL	_8715B");
-	ASM_INLINE("XOR	DI,DI");
-	ASM_INLINE("JMP	_871A3");
-ASM_INLINE("_8718D:");
-	ASM_INLINE("MOV	AX,DI");
-	ASM_INLINE("MOV	BX,DI");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("ADD	BX,SI");
-	ASM_INLINE("MOV	BX,[BX].W");
-	ASM_INLINE("MOV	CX,G_SPACE_char_adr_");
-	ASM_INLINE("MOV	DX,SEG G_SPACE_char_adr_");
-	ASM_INLINE("CALLF	font_putN_, SEG font_putN_");
-	ASM_INLINE("INC	DI");
-ASM_INLINE("_871A3:");
-	ASM_INLINE("CMP	DI,0x0030");
-	ASM_INLINE("JL	_8718D");
-	ASM_INLINE("XOR	DI,DI");
-	ASM_INLINE("JMP	_871F3");
-ASM_INLINE("_871AC:");
-	ASM_INLINE("XOR	AX,AX");
-	ASM_INLINE("JMP	_871ED");
-ASM_INLINE("_871B0:");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("MOV	BX,DI");
-	ASM_INLINE("MOV	CX,G_SPACE_char_adr_");
-	ASM_INLINE("MOV	DX,SEG G_SPACE_char_adr_");
-	ASM_INLINE("CALLF	get_bmp_cell_no_, SEG get_bmp_cell_no_");
-	ASM_INLINE("MOV	DX,AX");
-	ASM_INLINE("MOV	BX,DX");
-	ASM_INLINE("AND	BX,0x01FF");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("ADD	BX,SI");
-	ASM_INLINE("AND	DX,0xC000");
-	ASM_INLINE("OR	DX,0x0600");
-	ASM_INLINE("OR	DX,[BX].W");
-	ASM_INLINE("POP	AX");
-	ASM_INLINE("PUSH	AX");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("SHL	AX,1");
-	ASM_INLINE("MOV	BX,DI");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("SHL	BX,1");
-	ASM_INLINE("XOR	CX,CX");
-	ASM_INLINE("CALLF	put_cell_no_, SEG put_cell_no_");
-	ASM_INLINE("POP	AX");
-	ASM_INLINE("INC	AX");
-ASM_INLINE("_871ED:");
-	ASM_INLINE("CMP	AX,0x0020");
-	ASM_INLINE("JL	_871B0");
-	ASM_INLINE("INC	DI");
-ASM_INLINE("_871F3:");
-	ASM_INLINE("CMP	DI,0x0020");
-	ASM_INLINE("JL	_871AC");
-	ASM_INLINE("MOV	AX,SI");
-	ASM_INLINE("CALLF	memfree_, SEG memfree_");
-ASM_INLINE("_871FF:");
-	ASM_INLINE("POP	DI");
-	ASM_INLINE("POP	SI");
-	ASM_INLINE("POP	DX");
-	ASM_INLINE("POP	CX");
+	s16 i, j;
+	u16 cell;
+	u16 *buf;
+
+	buf = memalloc(0x60);
+	if(buf != NULL)
+	{
+		for (i = 0; i < 3; i++)
+		{
+			for (j = 0; j < 16; j++)
+			{
+				buf[(i * 16 + j)] = i * 28 + 0x16c + j;
+			}
+		}
+		for (i = 0; i < 48; i++)
+		{
+			font_putN(i,buf[i], G_SPACE_char_adr);
+		}
+		for (i = 0; i < 32; i++)
+		{
+			for (j = 0; j < 32; j++)
+			{
+				cell = get_bmp_cell_no(j, i, G_SPACE_char_adr);
+				cell = (cell & 0xc000) | 0x600 | buf[cell & 0x1ff];
+                put_cell_no(j << 3, i << 3, 0, cell);
+			}
+		}
+		memfree(buf);
+	}
 }
 
 void put_function(s16 *unk)
@@ -1248,6 +1160,37 @@ ASM_INLINE("_876A2:");
 	ASM_INLINE("POP	SI");
 	ASM_INLINE("POP	DX");
 	ASM_INLINE("POP	CX");
+
+	/*u8 val;
+
+	val = *(unk1*8 + unk2*2 + work->unkB4);
+
+	switch (val >> 5)
+	{
+		case 7:
+			unk_874DE(work, unk1, unk2, 7);
+			return;
+		case 6:
+			unk_874DE(work, unk1, unk2, 6);
+			return;
+		case 5:
+			unk_874DE(work, unk1, unk2, 5);
+			return;
+		case 4:
+			unk_874DE(work, unk1, unk2, 4);
+			return; 
+		case 3:
+			unk_874DE(work, unk1, unk2, 8);
+			return;
+		case 2:
+			unk_874DE(work, unk1, unk2, 9);
+			return;
+		case 1:
+			unk_874DE(work, unk1, unk2, 2);
+			return;
+		case 0:
+			break;
+	}*/
 }
 
 void put_rader_cousor(struct MGameWork *work, s16 unk1, s16 unk2, s16 unk3, s16 unk4)

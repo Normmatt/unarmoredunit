@@ -44,7 +44,7 @@ struct MGameWork
     /* 99 */ u8 unk99;
 
     /* 9A */ u8 unk9A;
-    /* 9B */ u8 unk9B[0xA7 - 0x9B];
+    /* 9B */ s16 unk9B[6];
     /* A7 */ u16 unkA7;
     /* A9 */ u16 unkA9;
     /* AB */ u16 unkAB;
