@@ -30,6 +30,12 @@ struct MGameWork134
     /* 06 */ u8 unk06;
 };
 
+struct MGameWorkB4
+{
+    /* 00 */ u8 unk00;
+    /* 01 */ u8 unk01;
+};
+
 struct MGameWork
 {
     /* 00 */ u16 unk0;
@@ -51,13 +57,8 @@ struct MGameWork
     /* AD */ u16 unkAD[2];
     /* B1 */ u16 unkB1;
     /* B3 */ u8 unkB3;
-    /* B4 */ u8 unkB4[8][2];
-    /* C4 */ u8 unkC4;
-    /* C5 */ u8 unkC5;
-    /* C6 */ u8 unkC6;
-    /* C7 */ u8 unkC7;
-    /* C8 */ u16 unkC8;
-    /* C9 */ u8 unkCA[0xD8 - 0xCA];
+    /* B4 */ struct MGameWorkB4 unkB4[16];
+    /* D4 */ u8 unkD4[0xD8 - 0xD4];
     /* D8 */ u8 unkD8;
     /* D9 */ u8 unkD9;
     /* DA */ u16 unkDA;

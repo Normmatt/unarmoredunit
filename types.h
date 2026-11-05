@@ -33,6 +33,9 @@ typedef void (*void_pointer)(void);
 typedef void (*task_pointer)(u16);
 typedef void (*task_pointer2)(u16, u16);
 
+// Specilised pointers
+typedef u8 far SearchRow[16];
+
 /* LSI-C Inline ASM */
 #define ASM_DB(c) _asm_c("\tDB\t" _q_(__eval__(c)))
 #define ASM_DW(c) _asm_c("\tDW\t" _q_(__eval__(c)))

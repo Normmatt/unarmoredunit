@@ -13,7 +13,7 @@ struct Font
     /* 0E */ u16 glyphTableOffset;
 }; //Total 0x10 bytes
 
-void font_put3();
+void font_put3(s16 x, s16 index, s16 y, struct Font far *font);
 void font_putN(s16 a, s16 b, u8 far *ptr);
 void put_energy_value(s16 unk1, s16 unk2);
 void put_energy_level(s16 unk1, s16 unk2);
@@ -22,7 +22,7 @@ void put_turn_level();
 void put_hp_level();
 void put_function_name();
 void put_au_big();
-void load_au_small();
+void load_au_small(s16 unk1, s16 unk2);
 void put_au_small();
 void field_fix();
 void field_test();
