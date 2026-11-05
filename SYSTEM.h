@@ -13,7 +13,7 @@ struct TaskContext
     /* 0948 */ u16 unkC2;
     /* 094A */ u16 unkC4;
     /* 094C */ u16 unkC6;
-};
+}; //Total 0xC8 bytes
 
 extern u16 cel_tbl[];
 extern u16 map_tbl[];
